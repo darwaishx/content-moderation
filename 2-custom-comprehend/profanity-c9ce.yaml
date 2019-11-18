@@ -1,0 +1,142 @@
+#	Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+#	Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in
+#	compliance with the License. A copy of the License is located at
+#		http://aws.amazon.com/apache2.0/
+#	or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS,
+#	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+#	specific language governing permissions and limitations under the License.
+#
+Description: >
+    AWS CloudFormation template used for the Amazon Comprehend Custom Entity workshop (for profanity detection).
+    This template creates an Amazon S3 bucket for training/evaluation data, the corresponding IAM Policies, and
+    Amazon SageMaker instance that participants can use to work on their notebooks.
+AWSTemplateFormatVersion: 2010-09-09
+Outputs:
+    DataBucket:
+        Description:  The Amazon S3 bucket created for this lab
+        Value: !Ref LabBucket
+Resources:
+    LabBucket:
+        # we don't specify a bucket name so one can be generated
+        Type: 'AWS::S3::Bucket'
+        Properties:
+            BucketEncryption:
+                ServerSideEncryptionConfiguration:
+                    - ServerSideEncryptionByDefault:
+                        SSEAlgorithm: AES256
+
+    # IAM role for Comprehend to be able to access the bucket (used in the lab)
+    ComprehendLabRole:
+        Type: "AWS::IAM::Role"
+        Properties:
+          AssumeRolePolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              -
+                Effect: "Allow"
+                Principal:
+                  Service:
+                    - "comprehend.amazonaws.com"
+                Action:
+                  - "sts:AssumeRole"
+          Path: "/"
+          Policies:
+            -
+              PolicyName: list-LabBucket
+              PolicyDocument:
+                Version: "2012-10-17"
+                Statement:
+                  -
+                    Effect: "Allow"
+                    Action:
+                      - "s3:ListBucket"
+                    Resource: !Join
+                        - ''
+                        - - 'arn:aws:s3:::'
+                          - !Ref LabBucket
+            -
+              PolicyName: read-write-LabBucket
+              PolicyDocument:
+                Version: "2012-10-17"
+                Statement:
+                  -
+                    Effect: "Allow"
+                    Action:
+                      - "s3:GetObject"
+                      - "s3:PutObject"
+                    Resource: !Join
+                      - ''
+                      - - "arn:aws:s3:::"
+                        - !Ref LabBucket
+                        - "/private/labs/*"
+            -
+              PolicyName: kms-read-write
+              PolicyDocument:
+                Version: "2012-10-17"
+                Statement:
+                  -
+                    Effect: "Allow"
+                    Action:
+                      - "kms:CreateGrant"
+                      - "kms:Decrypt"
+                      - "kms:GenerateDatakey"
+                    Resource:  "*"
+
+    # IAM role for SageMaker instance to be able to access the bucket
+    SageMakerRole:
+        Type: "AWS::IAM::Role"
+        Properties:
+          AssumeRolePolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              -
+                Effect: "Allow"
+                Principal:
+                  Service:
+                    - "sagemaker.amazonaws.com"
+                Action:
+                  - "sts:AssumeRole"
+          ManagedPolicyArns:
+            # allow full access to SageMaker and selected access to related services
+            - arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
+            # allow full access to Comprehend
+            - arn:aws:iam::aws:policy/ComprehendFullAccess
+            # allow writes to the new bucket
+          Path: "/"
+          Policies:
+            -
+              PolicyName: read-write-LabBucket
+              PolicyDocument:
+                Version: "2012-10-17"
+                Statement:
+                  -
+                    Effect: "Allow"
+                    Action:
+                      - "s3:PutObject"
+                      - "s3:GetObject"
+                      - "s3:HeadObject"
+                      - "s3:AbortMultipartUpload"
+                    Resource: !Join
+                      - ''
+                      - - "arn:aws:s3:::"
+                        - !Ref LabBucket
+                        - "/private/labs/*"
+            -
+              PolicyName: passrole
+              PolicyDocument:
+                Version: "2012-10-17"
+                Statement:
+                  -
+                    Effect: "Allow"
+                    Action:
+                      - "iam:PassRole"
+                    Resource:  !GetAtt ComprehendLabRole.Arn
+
+    # SageMaker instance where we can host our notebooks
+    LabNotebookInstance:
+        Type: AWS::SageMaker::NotebookInstance
+        Properties:
+            InstanceType: "ml.t2.medium"
+            RoleArn: !GetAtt SageMakerRole.Arn
+            VolumeSizeInGB: 5
