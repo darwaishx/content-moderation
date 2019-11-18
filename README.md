@@ -32,8 +32,8 @@ All of the resources you will launch as part of this workshop are eligible for t
 
 This workshop has following three modules.
 
-1. [Starting with AI Services for Content moderation](1-starting-with-ai-services)
-2. [Custom Comprehend model to detect unsafe text](2-custom-comprehend)
+1. [Starting with Amazon AI Services for content moderation](1-starting-with-ai-services)
+2. [Comprehend custom entities to detect unsafe text](2-custom-comprehend)
 3. [Comprehensive content moderation solution](3-moderation-solution)
 
 ## Cleanup
