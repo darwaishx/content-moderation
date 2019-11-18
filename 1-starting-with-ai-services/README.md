@@ -17,7 +17,9 @@ US East (N. Virginia) | [![Create SageMaker Instance](http://docs.aws.amazon.com
 
 2. Under Create stack, check the checkbox for "I acknowledge that AWS CloudFormation might create IAM resources with custom names" and click Create.
 
-3. You should now see the screen with status CREATE_IN_PROGRESS. Click on the Stacks link in the top navigation and then click Refresh icon to see current CloudFormation stacks.
+3. You should now see the screen with status CREATE_IN_PROGRESS.
+
+4. Refresh list of stacks to see current status of the stack.
 
 
 ## Open Jupyter Instance
