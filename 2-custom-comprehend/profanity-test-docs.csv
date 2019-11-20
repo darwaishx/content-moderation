@@ -1,270 +1,1001 @@
-<!DOCTYPE HTML>
-<html>
-
-<head>
-    <meta charset="utf-8">
-
-    <title>profanity-test-docs.csv (editing)</title>
-    <link id="favicon" rel="shortcut icon" type="image/x-icon" href="/static/base/images/favicon-file.ico?v=e2776a7f45692c839d6eea7d7ff6f3b2">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="/static/components/jquery-ui/themes/smoothness/jquery-ui.min.css?v=3c2a865c832a1322285c55c6ed99abb2" type="text/css" />
-    <link rel="stylesheet" href="/static/components/jquery-typeahead/dist/jquery.typeahead.min.css?v=7afb461de36accb1aa133a1710f5bc56" type="text/css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    
-<link rel="stylesheet" href="/static/components/codemirror/lib/codemirror.css?v=288352df06a67ee35003b0981da414ac">
-<link rel="stylesheet" href="/static/components/codemirror/addon/dialog/dialog.css?v=c89dce10b44d2882a024e7befc2b63f5">
-
-    <link rel="stylesheet" href="/static/style/style.min.css?v=56cad67b8b1ff3ed9b48850e9efcffb3" type="text/css"/>
-    
-
-    <link rel="stylesheet" href="/custom/custom.css" type="text/css" />
-    <script src="/static/components/es6-promise/promise.min.js?v=f004a16cb856e0ff11781d01ec5ca8fe" type="text/javascript" charset="utf-8"></script>
-    <script src="/static/components/preact/index.js?v=00a2fac73c670ce39ac53d26640eb542" type="text/javascript"></script>
-    <script src="/static/components/proptypes/index.js?v=c40890eb04df9811fcc4d47e53a29604" type="text/javascript"></script>
-    <script src="/static/components/preact-compat/index.js?v=aea8f6660e54b18ace8d84a9b9654c1c" type="text/javascript"></script>
-    <script src="/static/components/requirejs/require.js?v=951f856e81496aaeec2e71a1c2c0d51f" type="text/javascript" charset="utf-8"></script>
-    <script>
-      require.config({
-          
-          urlArgs: "v=20191023041617",
-          
-          baseUrl: '/static/',
-          paths: {
-            'auth/js/main': 'auth/js/main.min',
-            custom : '/custom',
-            nbextensions : '/nbextensions',
-            kernelspecs : '/kernelspecs',
-            underscore : 'components/underscore/underscore-min',
-            backbone : 'components/backbone/backbone-min',
-            jed: 'components/jed/jed',
-            jquery: 'components/jquery/jquery.min',
-            json: 'components/requirejs-plugins/src/json',
-            text: 'components/requirejs-text/text',
-            bootstrap: 'components/bootstrap/dist/js/bootstrap.min',
-            bootstraptour: 'components/bootstrap-tour/build/js/bootstrap-tour.min',
-            'jquery-ui': 'components/jquery-ui/jquery-ui.min',
-            moment: 'components/moment/min/moment-with-locales',
-            codemirror: 'components/codemirror',
-            termjs: 'components/xterm.js/xterm',
-            typeahead: 'components/jquery-typeahead/dist/jquery.typeahead.min',
-          },
-          map: { // for backward compatibility
-              "*": {
-                  "jqueryui": "jquery-ui",
-              }
-          },
-          shim: {
-            typeahead: {
-              deps: ["jquery"],
-              exports: "typeahead"
-            },
-            underscore: {
-              exports: '_'
-            },
-            backbone: {
-              deps: ["underscore", "jquery"],
-              exports: "Backbone"
-            },
-            bootstrap: {
-              deps: ["jquery"],
-              exports: "bootstrap"
-            },
-            bootstraptour: {
-              deps: ["bootstrap"],
-              exports: "Tour"
-            },
-            "jquery-ui": {
-              deps: ["jquery"],
-              exports: "$"
-            }
-          },
-          waitSeconds: 30,
-      });
-
-      require.config({
-          map: {
-              '*':{
-                'contents': 'services/contents',
-              }
-          }
-      });
-
-      // error-catching custom.js shim.
-      define("custom", function (require, exports, module) {
-          try {
-              var custom = require('custom/custom');
-              console.debug('loaded custom.js');
-              return custom;
-          } catch (e) {
-              console.error("error loading custom.js", e);
-              return {};
-          }
-      })
-
-    document.nbjs_translations = {"domain": "nbjs", "locale_data": {"nbjs": {"": {"domain": "nbjs"}}}};
-    document.documentElement.lang = navigator.language.toLowerCase();
-    </script>
-
-    
-    
-
-</head>
-
-<body class="edit_app "
- 
-data-base-url="/"
-data-file-path="profanity-test-docs.csv"
-
-  
- 
-
-dir="ltr">
-
-<noscript>
-    <div id='noscript'>
-      Jupyter Notebook requires JavaScript.<br>
-      Please enable it to proceed. 
-  </div>
-</noscript>
-
-<div id="header">
-  <div id="header-container" class="container">
-  <div id="ipython_notebook" class="nav navbar-brand"><a href="/tree" title='dashboard'>
-      <img src='/static/base/images/logo.png?v=641991992878ee24c6f3826e81054a0f' alt='Jupyter Notebook'/>
-  </a></div>
-
-  
-
-<span id="save_widget" class="pull-left save_widget">
-    <span class="filename"></span>
-    <span class="last_modified"></span>
-</span>
-
-
-  
-  
-  
-  
-
-    <span id="login_widget">
-      
-    </span>
-
-  
-
-  
-  
-  </div>
-  <div class="header-bar"></div>
-
-  
-
-<div id="menubar-container" class="container">
-  <div id="menubar">
-    <div id="menus" class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-          <p  class="navbar-text indicator_area">
-          <span id="current-mode" >current mode</span>
-          </p>
-        <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <i class="fa fa-bars"></i>
-          <span class="navbar-text">Menu</span>
-        </button>
-        <ul class="nav navbar-nav navbar-right">
-          <li id="notification_area"></li>
-        </ul>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">File</a>
-              <ul id="file-menu" class="dropdown-menu">
-                <li id="new-file"><a href="#">New</a></li>
-                <li id="save-file"><a href="#">Save</a></li>
-                <li id="rename-file"><a href="#">Rename</a></li>
-                <li id="download-file"><a href="#">Download</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Edit</a>
-              <ul id="edit-menu" class="dropdown-menu">
-                <li id="menu-find"><a href="#">Find</a></li>
-                <li id="menu-replace"><a href="#">Find &amp; Replace</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Key Map</li>
-                <li id="menu-keymap-default"><a href="#">Default<i class="fa"></i></a></li>
-                <li id="menu-keymap-sublime"><a href="#">Sublime Text<i class="fa"></i></a></li>
-                <li id="menu-keymap-vim"><a href="#">Vim<i class="fa"></i></a></li>
-                <li id="menu-keymap-emacs"><a href="#">emacs<i class="fa"></i></a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">View</a>
-              <ul id="view-menu" class="dropdown-menu">
-              <li id="toggle_header" title="Show/Hide the logo and notebook title (above menu bar)">
-              <a href="#">Toggle Header</a></li>
-              <li id="menu-line-numbers"><a href="#">Toggle Line Numbers</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Language</a>
-              <ul id="mode-menu" class="dropdown-menu">
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="lower-header-bar"></div>
-
-
-</div>
-
-<div id="site">
-
-
-<div id="texteditor-backdrop">
-<div id="texteditor-container" class="container"></div>
-</div>
-
-
-</div>
-
-
-
-
-
-
-    
-
-
-<script src="/static/edit/js/main.min.js?v=d52f7cc935e2b6bf0a01c88ae4487399" type="text/javascript" charset="utf-8"></script>
-
-
-<script type='text/javascript'>
-  function _remove_token_from_url() {
-    if (window.location.search.length <= 1) {
-      return;
-    }
-    var search_parameters = window.location.search.slice(1).split('&');
-    for (var i = 0; i < search_parameters.length; i++) {
-      if (search_parameters[i].split('=')[0] === 'token') {
-        // remote token from search parameters
-        search_parameters.splice(i, 1);
-        var new_search = '';
-        if (search_parameters.length) {
-          new_search = '?' + search_parameters.join('&');
-        }
-        var new_url = window.location.origin + 
-                      window.location.pathname + 
-                      new_search + 
-                      window.location.hash;
-        window.history.replaceState({}, "", new_url);
-        return;
-      }
-    }
-  }
-  _remove_token_from_url();
-</script>
-</body>
-
-</html>
+id,count,hate_speech,offensive_language,neither,class,tweet
+5000,3,0,3,0,1,@Tcrawford20 he's trash
+5001,3,1,2,0,1,@TeamMarlo dumb nigger
+5002,3,0,0,3,2,"@TeamSky yellow in paris! Fantastic effort from #AllezWiggo and #VroomFroome..now just the last stage up for grabs #GoCav #TDF12"""
+5003,3,0,3,0,1,@Teampowerstroke hoes will be hoes nothing but something guys just dispose #TruthBeTold
+5004,3,0,1,2,2,"@TechN9ne why did they add your name all ghetto like that? Looks like they used label maker, lol!"
+5005,3,0,3,0,1,@TedNugent Why werent you so gung ho when you got drafted instead of shitting yourself? You seem like another Repcon Chicken hawk..
+5006,3,0,3,0,1,@Tee_Bizzle and im beautiful bitch
+5007,6,0,4,2,1,@Tee_Bizzle hoes* are more fun
+5008,9,0,9,0,1,"@Tee_Bizzle i aint shit, you aint shit...bitch we meant for eachother"
+5009,3,0,3,0,1,@Tee_Bizzle nah bitch you like Pookie from new jack city
+5010,9,0,9,0,1,@Tee_Bizzle shut up bitch
+5011,3,0,3,0,1,@Teets6 shit trash
+5012,3,0,3,0,1,@TeflonDon4200 why lil ricky stole MJ Chain and tried to flex with the bitch in his avi
+5013,3,0,3,0,1,"@TerrorFranchise Nope, definitely retarded."
+5014,3,0,0,3,2,@TerryTGood @1DancingCrane The Moors used to give kids free lunch in the Bronx when I was a kid. Glad to see they are still doing good.
+5015,3,0,3,0,1,@TexasHumor drinking a bitch beer outta a badass kuzie
+5016,3,0,3,0,1,@TexasKid1980 @Eric_Mariners @elchavaloko lol naw that bitch was just a sociopath
+5017,3,1,2,0,1,"@Texgalleslie 
+You can bet Valerie Jarret has her hands all over this ""humanitarian Crisis"". I Didn't vote for that commie bitch."
+5018,3,0,1,2,2,@ThaReal_GaPeach got it! thanks Hun! ima text u
+5019,3,0,3,0,1,@ThadIsReal we in dis hoe. Imma get her too lmfaoooo
+5020,3,0,3,0,1,@ThankYouAriana no one asked bitch
+5021,3,0,3,0,1,"@That1guyJeff Low blow, cuntface. How many times the Yanks beat us in the playoffs these last 8 or so years?"
+5022,3,0,3,0,1,@That1guyJeff bitch please. Not gonna happen. Nope.
+5023,3,0,3,0,1,@That1guyJeff fuck them bitches I hope Navy beat em THIS week. @thejournalist44 @__Trail__
+5024,3,0,3,0,1,@That1guyJeff fuck you bitches.
+5025,3,0,2,1,1,@That1guyJeff thank you. I hate you. Eat poison. Fall down. Run face first into a wall. Yankees missed the playoffs.
+5026,3,0,3,0,1,@That1guyJeff that just happened to be the year WE lost a one game playoff to them bitches from the bitch ass twin bitches. Lucky for you.
+5027,3,0,2,1,1,"@ThatAngryNigga he probably took off a point because Gibbs isn't from the East Coast and says ""hoes."""
+5028,3,0,3,0,1,@ThatAngryNigga in that I get more bitches than you? If so YOU RIGHT
+5030,3,0,3,0,1,"@ThatAssholeAlan bitch ass nigga, heres a new belt for you http://t.co/EfxQnxeewQ"
+5031,3,1,2,0,1,@ThatAssholeAlan nick background my nigger
+5033,3,0,3,0,1,@ThatBoyACE71 @BrunswickBeCooo Okay and Melo bitch ?
+5034,3,0,3,0,1,@ThatBoyACE71 Straight pussy
+5035,3,0,3,0,1,@ThatBoyAdo fuckin pussy haha
+5036,3,0,3,0,1,@ThatBoyAdo you didn't even catch it pussy
+5037,3,1,0,2,2,@ThatChrisEckert Gobble de gook
+5039,3,0,3,0,1,@ThatFalconGirl I love you hoe!! Hahahhaa &#128536;&#128536;&#128536;&#128536;&#128536; #UglyAss
+5040,3,0,1,2,2,@ThatGuyNorman @migue_pantoja trash
+5041,3,0,2,1,1,@ThatHaleyWay @kdawgg065 aahahah who the fuck watches that trash?
+5042,3,0,3,0,1,@ThatKid_Vicente thanks little bitch &#128526;
+5043,3,0,3,0,1,@ThatNiggaKent already know juss ordered some of this for the weekend @Ohhh_Killem_93 for tha white hoes http://t.co/9931VYW9ff
+5044,3,0,3,0,1,@ThatSlutAdrian bitch ask a day off
+5045,3,0,3,0,1,@ThatSlutAdrian bitch those are the same options
+5046,3,0,3,0,1,@ThatSlutAdrian bring bitches
+5047,3,0,3,0,1,@ThatTallCashier lol youre retarded &#128514;
+5048,3,0,3,0,1,"@ThatniggaTroy need to get outta that bitch, meridian all bad now but as long as you getting that paper you good."
+5049,3,0,3,0,1,@The1DScoop Im omy to the movie right now and I'm literally gonna slap a bitch if they scream or some shit.
+5050,3,0,1,2,2,@TheAngryAfrican @Kiyxni i don't think he can beat Mayweather but he's far from trash. Unlike Floyd he actually put Maidana down.
+5051,3,0,0,3,2,"@TheBikeman99 My father was born in Nanticoke and attended Lehigh. I'm a CT Yankee, but love the Pennsylvania Dutch cooking :-)"
+5052,3,0,3,0,1,@TheBlackTicTac Call me bitch again and see if I don't slap the sexy out of your mom and have Justin Timberlake bring it back.
+5053,3,0,1,2,2,"@TheBlondeBetch WHOA sorry for the spell check error, its not ho it was hey so sorry"
+5055,3,0,3,0,1,@TheBovee @Mr_Astonishing we outchea bitch
+5056,3,1,2,0,1,@TheBovee CSGO bitch.
+5057,3,0,3,0,1,"@TheCheekyD_ Hi :) Yeah, trolls are annoying but don't concern yourself with them. They're all twats &amp; have no life lol. Just ignore them. x"
+5058,3,2,1,0,0,@TheChicagoBaker @stopbeingfamous @RaniaKhalek do birds have a 72% out of wedlock rate? is it white fathers that are running away?
+5059,3,0,0,3,2,"@TheClaireBear36 Don't like to trash talking either way. But to be fair, that's just on Twitter. I'm having a ball on texts."
+5060,3,0,3,0,1,@TheDailyShow well then with all further ado get da fock out ya lil bitch
+5061,3,0,3,0,1,@TheDevonClarke @nick_scott25 faggot scoon you wanna ball?
+5063,3,1,2,0,1,@TheEllenShow stfu trash
+5064,3,0,3,0,1,@TheErniie @DesignsWithSoul pull the trigger bitch
+5065,3,2,1,0,0,@TheErniie You're a little bitch.
+5066,3,0,0,3,2,@TheGamecubeGuy I liked the day a bird got in your classroom.
+5067,3,0,0,3,2,@TheGamecubeGuy any more birds in school?
+5068,6,0,0,6,2,@TheIronPony You rebel. Next you'll be ripping mattress tags off. It's a slippery slope.
+5069,3,0,3,0,1,@TheIslamHeretic @WarMachine_83 @BasimaFaysal @MariamVeiszadeh cause it would their tip hand instead they whine like little bitches=&gt;
+5070,3,1,2,0,1,@TheJadedNYer nope! btw you's a hoe lol
+5071,3,0,1,2,2,"@TheJadedNYer oh, well turns out that baby aint mine! *does jig*"
+5072,3,0,3,0,1,"@TheJadedNYer yesterday twitter was telling them same dudes that 30+ pussy was the best, so have faith!"
+5073,3,1,2,0,1,@TheJoelBerggren have you looked yourself? This is funny. This is like Obama saying he is good for the economy. Hipster faggot. Funny though
+5074,3,1,2,0,1,@TheJustinnn @toddkincannon @realbrother0003 He's a pussy
+5075,3,0,3,0,1,@TheKinzieWells @chansdav all 3 :) haha. Because I'm #thinkingofyou and your #dirtylove sexxy bitch!!
+5076,3,3,0,0,0,"@TheKushZombie Aww y u so mad tho, a successful man LMFAO, hut hugging as faggot."
+5077,6,0,6,0,1,@TheLadyGamer if you gotta shout u a bad bitch... u ain't a bad bitch &#128524;
+5078,3,0,0,3,2,@TheLittleFella_ @OLE_VertyBstard @thereal_EMandM @Justinrogo01 boooooooo that was trash
+5079,3,0,0,3,2,@TheLittleFella_ do yourself a favor and ball that up and throw in the trash.
+5080,3,1,2,0,1,@TheLovely_CC whatever lol my tan line is retarded. Lol was that other tweet a subtweet
+5081,3,0,3,0,1,"@TheMattAnderson you real quiet son, made Charlie is shit and steelers too? Loser."
+5082,3,0,0,3,2,@TheMayorMatt @Frizzle18 I like where ur domes at #smart
+5083,3,0,1,2,2,@TheMayorMatt has to be #live version ! #pulledpork #clams #babyjesus #lilsmokey
+5084,3,0,3,0,1,"@TheMayorMatt pitch, chip and slide ur dick in tight clam #22 love it #mywife"
+5085,3,0,1,2,2,@TheMayorMatt the early bearded man gets the clam ? #herkfacts
+5086,3,0,3,0,1,@TheMilkMan57 @wyattnuckels @grizzboadams haha the little shit talkier brought his other bitch
+5087,3,0,3,0,1,@TheMoeeee bitch go shoot some balls of paint. Ole hobby finding ass
+5088,3,0,3,0,1,"@TheNitPickster LOL, AutoCorrect is a bitch, but voice recognition is much faster than typing."
+5089,3,0,3,0,1,@TheNudesGod can fucking a fat bitch be considered a threesome ?
+5090,3,0,3,0,1,"@TheOneMiss_Luu But if we loved again, I swear I'd love you right. Btw bitch you better not be googling these lyrics! Mine is from the &lt;3"
+5091,3,0,3,0,1,@TheOneMiss_Luu This is true. That bitch has two accounts @PoniesForever7
+5092,3,0,3,0,1,"@TheOneMiss_Luu i also like flip a bitch, which is gabbys. #QualityWords"
+5093,3,0,3,0,1,"@TheOneMiss_Luu i know, hoe."
+5094,3,0,3,0,1,@TheOneMiss_Luu no he's an asshole &amp; is like I have neck problems &amp; can't sleep that way &#128544; u lil bitch
+5095,3,0,3,0,1,@TheOnlyBDavey them bitches uggo as fuck too
+5096,3,0,3,0,1,"@TheOnlyReed you a hoe ass savage, this shit brings up memories so cook on my g."
+5097,3,0,3,0,1,"@TheREALJB1RD @Mightymorph Big birds, big peckers.... They always mad cause they only get laid once and that's by their mother."
+5098,3,0,0,3,2,"@TheREALJB1RD @winchstrracin @wyatt11w Maybe he can call Hootie back up, he don't answer me anymore but still have crows."
+5099,3,0,0,3,2,@TheREALJB1RD Gotta get my superbowl shirt at the cleaners then we hitting the big bird.
+5100,3,1,2,0,1,@TheREALJB1RD Now beaners drive em.
+5101,3,0,3,0,1,"@TheREALJB1RD They best not fuss about this basement, bitch is like a skating rink. http://t.co/8Fk8LGxAND"
+5102,3,2,1,0,0,@TheRealCVL and @CoryHolmes24 are faggots. Kbye.
+5103,3,1,2,0,1,@TheRealCortlan All the thirsty hoes. Lol
+5104,3,0,2,1,1,@TheRealDiamondJ I'm the type to put that bitch in a river so you can gtf out my locations lol
+5105,3,2,1,0,0,"@TheRealJRSmith And its people like you that give us all a bad name, you are a disgusting piece of shit of a person a nigger is what you are"
+5106,3,0,3,0,1,@TheRealJohn_Doe dude fucking mono sucks and my bed is trash
+5107,3,0,3,0,1,@TheRealJohn_Doe thats nate dumbass we all just mock him
+5108,3,0,3,0,1,@TheRealKevinMcB Sauerkraut Saul is a punk ass bitch
+5109,3,0,2,1,1,@TheRealOweifie You do it to us so payback is a bitch. hahaha &lt;3 happy valentines day though.
+5110,3,1,2,0,1,@TheRealOweifie good one you fucking bitch ass
+5111,3,0,3,0,1,"@TheRealSaigon What are you gonna do? I'ma chase you out the club, like mobb deep did to you, pussy."
+5112,3,0,2,1,1,@TheRealSaigon that explains you cause all you do is bitch and whine.
+5113,3,1,2,0,1,"@TheRealTahiry lmao, your just a dumb hoe that budden made popular, please stop, your irrelevant and no one cares about you slut."
+5114,3,0,3,0,1,@TheRealaaw &#128514;&#128514;&#128514;&#128514; pot of gold ass nigguh
+5115,3,0,3,0,1,@TheRevAl you are not a cat.you are a pussy! black bored kid kills a cop by starting a fire.WHERE IS THE OUTRAGE YOU PHONY?!?!?!? @FNTheFive
+5116,3,0,0,3,2,"@TheRyanAdams word, bird"
+5117,3,0,3,0,1,"@TheSeanyV I think you should reconsider he's a little bitch to the one true God almighty Cthulhu...please for your soul, Seany."
+5118,3,0,3,0,1,@TheSeanyV quit being being a pussy yourself and call them out by first and last name plus SSN ya poon!
+5119,3,0,2,1,1,@TheSeanyV subtweeting and using hashtag oomf what's the difference :P jk just jerkin' yo dick ya nigger faggot.
+5120,3,0,0,3,2,@TheSeanyV would help for some others can't handle uppers and cripples them plus if moderation isn't taken into consideration it'll be bad
+5121,3,0,1,2,2,@TheShoeBible @Steamed_Greens Them hoes are clean!
+5122,3,0,3,0,1,@TheSicThem @AVeraIcon @lrishGirI__ @OakRidgeStars @izzyjsmom @iambo_rd @asideofbacon @APLMom @Cat_F1sh_ or a celebrity. Poor bitches
+5123,3,0,1,2,2,@TheTrackMamba gator bait &#128010;&#128548;
+5124,3,1,0,2,2,@The_Gambit Ha. He ain't welcome in Washington State or Nashville. Serpas is straight trash.
+5125,3,0,3,0,1,@The_Greatest_10 My problem is that I love bad bitches.
+5126,3,1,2,0,1,@The_GreyFoxxx @TielerMLG @HalfAssed_ and you're a vegetarian pussy
+5127,3,0,3,0,1,@The_Paradox He a bitch you should do it
+5128,3,0,3,0,1,"@The_Red_Sea @shetheTRUTHtho bitch, yo muthafukin ass reacting off that vain females' tweet &amp; dont no the context, her dumb ass dont neither"
+5129,3,2,1,0,0,"@The_Red_Sea @shetheTRUTHtho say that shit to my face ""Bruh"" you a bitch for gettin in a man u dont know business. Handle yo own shit"
+5130,3,0,3,0,1,@The_Red_Sea and stop covering yo goddamn face like the kkk. Yo yung silly ass co signing for pussy.
+5131,3,0,3,0,1,"@The__Sweetest no shit you are, what euros would call a typical American, fat as fuck and goes to eat fast food all the time, dumb bitch."
+5132,3,0,3,0,1,@Thee_MrWest pussy
+5133,3,0,3,0,1,@TheoMaxximus @ZoeBarton3 fuck up pussy
+5134,3,0,2,1,1,"@ThequeenSOxILL I'd rather ask yours, is she a nappy headed hoe too? And is your grandma as well? I'd be ashamed to be in your family."
+5135,3,0,3,0,1,"@ThequeenSOxILL Nappy headed hoes can't call anyone ugly, stop embarrassing yourself pls"
+5136,3,0,3,0,1,"@ThequeenTommy so fucking annoying when a hoe is like ""omg relationship goals"" like close your legs, get dressed and do something about it."
+5138,3,2,1,0,0,@TherealGeorgeZ you are a pussy without your guns bitch as spic. Your daddy doesn't even respect the sperm he drop in your moms stank pussy
+5139,3,0,0,3,2,@Things4FLppl Yankees like Florida State; not Floridians.
+5140,3,0,3,0,1,@Thomas71096 Yass bitch Yass &#128134;&#128134;&#128134;
+5141,6,0,6,0,1,"@ThomasNye1 my momma saw how the girls danced and was like &#128563;grandma was like ""shake that ass hoe"""
+5142,3,0,2,1,1,@ThomasNye1 oh u can dog her out but don't show that hoe no love if u doing it with ya ol lady
+5143,3,0,2,1,1,@Thompson_Era so some of Yal bitches need to stock up on jello to fix Yal broke up ass personalities &#128514;
+5144,3,0,1,2,2,"@Threehoez rip plate, brownies, large tea, fries, beans potato salad, poboy"
+5145,3,0,3,0,1,@ThugMon3yy @ChandailBailey @SteeZeyFLOW @HunturPls it does. you and all your hipster friends are ugly as fuck... and yo pussies all stank
+5148,3,0,0,3,2,@TibaBurger: Straight off the bench #ned #WorldCup2014
+5149,3,2,1,0,0,@TielerMLG @psvch @HalfAssed_ coming to the rescue of some retard licking dirty skidmarks on the internet... you guys are fucktards
+5150,3,0,3,0,1,"@TimMurphyy @fgcu_basketball rather be an ""ultra fag"" than get an 18 on my ACT and go to FGCU #zing"
+5151,3,1,2,0,1,"@TimoteoSHonesto @vcortesusmc little punk, we should send his ass to Iraq for a few weeks! 
+Little bitch would come home &amp; KISS THE GROUND!"
+5152,6,1,5,0,1,@TinnyTimm taylor wack ass bitch nigga
+5153,3,0,3,0,1,@Titan21Mtzzz vegeta is a little bitch #TeamGoku
+5154,6,0,6,0,1,@Titan21Mtzzz you is a hoe
+5155,3,0,0,3,2,@Titan4Ever2488 how are Yankees games on the radio? Good announcers?
+5156,3,0,0,3,2,@Titan4Ever2488 how do Yankees fans look back on Gary Sheffield's time with the team?
+5157,3,0,0,3,2,@Titan4Ever2488 some Mets fan tried telling me Rivera isn't of the best Yankees of all time because he is just a closer. WTF
+5158,3,0,2,1,1,"@TitsOfAnarchy 
+I glads dis colored man cans be of soyvice fo da white man"
+5159,3,0,0,3,2,@ToWherever I'm not yellow I'm sorry
+5160,3,0,1,2,2,@ToWherever yay im a whitey :3
+5161,3,0,0,3,2,@ToddIrwin1 NFL... Forgetabout they got until February. It's the pennant race. Let's Go Yanks.
+5162,3,0,3,0,1,@ToddKincannon @dywanwii @scotja2 He's been drinking too much of that shitty Canadian hoser beer! #eh
+5163,3,0,3,0,1,"@Todd__Kincannon A+ Would expect nothing less from your dominion. Oh by the way, SEC bitches!"
+5164,3,0,3,0,1,"@Toetancchamon Wilde nog even checken op Twitter hoe het ging maar had zo'n heftige wond niet verwacht, heftig. Sterkte &amp; beterschap hoor!"
+5165,3,0,0,3,2,@TomCrean ill scream from France for you Tom! #IU #iubb #hoosiers #creanandcrimson
+5166,3,0,3,0,1,@TomMahoney91 what now bitch
+5167,3,0,1,2,2,"@Tom_Morehart @cjc_is_alive @JoshuaTyl0r 9 of 15 BCS titles, $314 mil in revenue. It's great being in a redneck conference. And not in Ohio."
+5168,3,1,2,0,1,@TomcatStraight Come over queer
+5169,3,1,2,0,1,"@TomcatStraight hey fag, gag on my clappmeat"
+5170,3,1,2,0,1,@TomcatStraight tounge punching smelly turtle pussy
+5171,3,0,3,0,1,@Tommayydoee bitch lol
+5172,3,0,3,0,1,@TonyO97 fuck i look like shopping at that trash ass store
+5173,3,0,3,0,1,@TonySinchak pussy pussy pussy marijauna wannnnaaa
+5174,3,0,3,0,1,@TooEffinCool lol I feel like a punk bitch sittin in here with all the lights on! &#128514;
+5175,3,0,0,3,2,@Torn_Rose republican teabaggers should be jailed for treason.....
+5176,3,1,2,0,1,"@ToulaBaby faggot is a public spectacle. most gays are not fags.
+public display gets public opinion."
+5177,3,0,3,0,1,@Travis_bechtel bitches ain't shit but hoes and tricks #thuglife
+5179,3,0,3,0,1,@TreThreat @HotDoc87 @duckydynamo yeah the internet def taught me a bitch can't twerk if she talkin bout voting.
+5180,3,2,1,0,0,@TreTyler_108 That's actually non-English. Because #okiecops are filthy white trash who are all criminals.
+5181,6,0,0,6,2,@TreshaRenee I didn't make to any games last season. Just looked it up. Astros open up with the Yankees 1st of April
+5182,3,2,1,0,0,@TreyBizzy I thought you would like him cause of the Chi but yeah he a faggot
+5183,3,0,1,2,2,"@TreyDoe_: @HallDerik @20ToLife_ once fag."" You got pressed to the ground? ..hang up your cleats n never put them back on or think about it"
+5184,3,0,3,0,1,@TribalFollow_ you unfollowed me because you think you're the shit and use follow trains to gain and then just unfollow cause you're a pussy
+5185,3,0,3,0,1,@TrillBaIN this bitch has brain damage
+5186,3,0,3,0,1,@TrillVanillaaa bitch
+5187,6,0,6,0,1,@TrillVanillaaa bitch I'll fuck you up
+5188,3,0,3,0,1,"@TripleCz_3G @OffsetYRN lmao take off thru, quavo can't do shit but make hooks, offset da only 1 solid but I kno niccas been tellin him dat"
+5189,3,0,3,0,1,@TrippinC @nuteIla &#128514;&#128514;&#128514;&#128557;&#128557;&#128557;&#128514;&#128514; that hoe is like 5'8.
+5190,3,0,3,0,1,@TrippinC bitch you can tweet but not answer?
+5191,3,0,3,0,1,@Trippy_Spiffy ayyyyyyeeeeee my nigga back in the bitch
+5192,3,0,3,0,1,@Trippy_Spiffy mite hit the Rec I know cell Marcus and Jax gone try to hit that hoe
+5193,3,0,3,0,1,@TristenGQAss couldn't help it man. niggas pussy for robbing a chick and shootin her.
+5194,3,0,3,0,1,@TristenGQAss the way he raps about fucking my bitch &amp; banters about having more money than me is so entertaining it's crazy @KingL
+5195,3,0,3,0,1,@Tristine214 I swear des hoes just making up challenges now
+5196,3,0,3,0,1,@Tristine214 I tried one of them pom pomegranate juices n I swear it tasted like flavored piss.........dont ask lol
+5197,3,0,3,0,1,@TroyAikman shut yo hoe ass up
+5198,3,0,3,0,1,"@TrueEnoughEhh lol 100, it had to be one of my old bitches &#128530;"
+5199,3,0,3,0,1,@TrueNovacane they not gonn comment cause they in the closet hoes lol! #Team #Getchoassoutdatcloset lol
+5200,6,0,6,0,1,@TrustNunBut100s aight bet we in that bitch too
+5201,3,0,3,0,1,@TruthandFashion nothing says fashion like a cunt hat....
+5202,6,0,5,1,1,@TryHardAlby it is bitch
+5203,3,0,3,0,1,@TryHardAlby looks like you're gonna blow someone fag
+5204,9,1,8,0,1,@TryHardSilva thisty hoe
+5205,3,0,3,0,1,"@TurdJerguson @Liquorface 
+Yup! And now we pickin you white bitches bare like a chicken leg"
+5206,3,0,3,0,1,@Twan_Bradley22 @RoniqueRaw32 that was no accident lmfao these hoes trynna be lowkey slick...
+5207,3,0,3,0,1,@Tweenki_ thus you have the term redneck also.... The Creator is not mocked. Good for you...Excellent Precept Daughter!
+5208,3,2,1,0,0,@TweetfrmtheSole it&#8217;s the entire pats bandwagon. They&#8217;re faggots
+5209,4,1,3,0,1,@TweetsAndFreaks I told u ugly niggas get bitches young I promise u!! Work ya magic lol
+5210,3,0,0,3,2,"@TwoStarScoob good job tonight! You need to eat some crackers so,you'll stop throwing up !"
+5211,3,0,3,0,1,@Twofifs And youre a fucking loudmouth ignorant redneck fuck. You still tryin to suck your own dick? You cant you dumbfuck...its too short.
+5212,3,0,3,0,1,@TyTyTooFlyy I got a bitch named banana pussy bananas swear I gotta say it again pussy bananas my lil cool azz bitch she from da westside
+5213,3,0,3,0,1,@Tylannol fuck you pussy -.- i made a mistake and started cj spiller over chris ivory this week -.- fuck
+5214,6,1,5,0,1,@Tylar____ @xxJaiLynn Tylar shut up bitch . I usta make you these
+5215,6,0,6,0,1,@Tylar____ bet hoe
+5216,3,0,3,0,1,@Tylar____ ion sneak diss on broke bitches &#128530;&#128079;
+5217,3,0,3,0,1,@Tylar____ you ah lien ass hoe
+5218,3,0,0,3,2,@TylerCarboner hey I'll leave Abbey too! Oh if I get a job on the slope I might move back! Cause id lose out on lots of money buying tickets
+5219,3,0,3,0,1,@TylerDunn22 all strippers and sexy hoes follow my mans!!
+5220,3,0,3,0,1,@Tyler_Gale12 @bellakoval @apmorales96 it's at your house bitch
+5221,3,1,2,0,1,@UberFacts eat yo pickles bitches!
+5222,3,2,1,0,0,@UberFacts studies show that you're a faggot
+5223,3,0,0,3,2,@UdrewhendersonU Nope. Super chocolatey yummy brownies.
+5224,3,1,2,0,1,@UltraGoogle what's a puto isn't that bitch in Spanish.
+5225,3,0,3,0,1,@UnicornCowboy @Lvl_7_Eevee @hisorraya mutha fuckahs better bring me all the brownies ever!
+5226,3,0,3,0,1,@UnicornCowboy @Lvl_7_Eevee don't ignore me faggots! ;c
+5227,3,0,0,3,2,@UniversionRBLX Don't you have a trash can?
+5229,3,0,3,0,1,"@UptownRaised Shame that your mama didn't teach you not to call women ""bitch"". Well, we all ain't that fortunate, I guess."
+5230,3,0,3,0,1,"@VAKILL shut up faggot, you and Ras need to make an album together, we'll Ras fell off, you didn't (cont) http://t.co/nrmc483M"
+5231,3,0,3,0,1,@VG3_ man some of these bitches are in denial about it. &#128514;&#128514;&#128514;
+5232,3,0,3,0,1,@VG3_ what pissed me off is as males WE JUDGE females pussy. How you gone judge your own get mad and deny its loose because YOU have a gap?
+5233,3,0,1,2,2,"@VNNForum These Marxist kikes promoted Anti-Semitism by creating this film, what was their incentive? They just promote their enemies."
+5234,3,0,3,0,1,@VRTWxrk_Flash @yungchipotle young based god in Olympics stay fuckin bitches
+5235,3,0,2,1,1,@VZWSupport Your update for my s3 pretty much broke 4G and made it absolutely annoying and retarded.
+5236,3,0,3,0,1,@VaginaaHolic @DeesChronicles ie don't make a hoe a housewife
+5237,3,0,3,0,1,@Valentin_R94 bitch whatever nigga u were to scared to play
+5238,3,0,2,1,1,@VeronicaLewis You just can't give hillbillies an audience. They'll squander it every time.
+5239,3,2,1,0,0,@Versanche only faggots drive stick
+5240,3,0,3,0,1,@VeshaaCouture lol bitch yo display name
+5241,3,2,1,0,0,@Vexda go jerk off to lollis faggot.
+5242,3,0,2,1,1,@ViVaLa_Ari smh what's wrong wit u ho
+5243,3,0,0,3,2,@VictorB123 @KHShan yea.. you don't live down here I guess. We still got roofs that aren't fixed from Charlie and Jeanne.
+5244,3,0,2,1,1,@VictorRico3 No I don't fuck with those hoes ask Paco he does
+5245,3,0,3,0,1,@VictorRico3 they didn't want to fuck Steve that bitch lmao
+5246,3,0,3,0,1,"@VictorSmith90 Lightweight, heavyweight don't matter. Still knock bitches out &#128074;&#128162;&#128170;"
+5247,3,0,0,3,2,"@Victoria_Star1 haha..monkey feet,i like it..but 4 real,feet are magical on a back..it smoothes every nook and cranny of tightness ;}"
+5248,3,2,1,0,0,@ViewFromBoxSeat She's a cunt
+5249,3,0,2,1,1,"@VinceSchilling Vince, what is the general feeling of the natives that you know in regards to the term ""redskins""? Offensive to them or not?"
+5250,3,2,0,1,0,@VinniePolitan kill the coons!!!!!!
+5251,3,0,3,0,1,@VinniePolitan the cunt needs her hands cut off!!!!!
+5252,3,1,2,0,1,@Viri_BraceFacee dont raise ur hand to me niggah
+5253,3,0,3,0,1,@Viri_BraceFacee my niggah my niggah lol &#128074;
+5254,6,2,3,1,1,@Viri_BraceFacee no problem my niggah &#128076;
+5255,3,0,2,1,1,@Viri_BraceFacee was good my niggah lol
+5256,3,1,2,0,1,@Viri_BraceFacee wassup niggah
+5258,3,0,0,3,2,@VoiceofaPatriot Now now&#8230;that bird is one of God's creatures :-)
+5259,3,0,3,0,1,@WBeezy_ call out bitch
+5260,3,1,2,0,1,@WFopitei eat shit. Who are you working for?! You nappy bitch.
+5261,3,0,0,3,2,@WHAScameradan We might have more. Can't really be sure. But some weird little bird said that might be a possibility. Stay tuned. Maybe.
+5262,3,0,1,2,2,@WHSVGrantCruise birds of a feather. You stand with PETA. I stand with sanity.
+5263,3,0,1,2,2,@WORSTRAPLYRlCS Everything Jay-Z writes is trash.
+5264,3,0,3,0,1,"@WaTch_Mark @WaTch_Scenario Normally I would say she must have a great pussy but since I've seen it, that's not true so idk what it is."
+5265,3,0,3,0,1,@WaTch_Scenario Destiny will make Titanfall it's bitch
+5266,3,2,1,0,0,@WaTch_Scenario Yeah so you better play with me ya nigger
+5267,3,0,2,1,1,@Waanderlusting id chink you if you left me with blue balls
+5268,3,0,0,3,2,@Wagz This cold we have going around our little hick town had about everyone I know locked in their houses for better than a week. Stay well
+5269,3,0,1,2,2,@WakeUpPeeps1 Read w/o slant your orig statement said 'everything' we have...that is the only extreme comment made
+5270,3,1,2,0,1,@Walken4GOP your not so godly after all u fuckin redneck peckerwood.
+5271,3,0,2,1,1,"@WalkerJensen yaaaasssss it is. You are buhlowin' up my timeline, negro. &#128523;"
+5272,3,2,1,0,0,@Walmart fuck your store bitch
+5273,3,0,0,3,2,@WarriorRN61 @mrgeology you inferred he tried to ho to Nam. He did not. He dodged it. He is no great leader.
+5274,3,0,3,0,1,@WarriorRN61 At the peak of the war W joins the Texas natl guard to get outta Nam. Facts are a bitch. http://t.co/TnSZm31m9Z
+5275,3,1,2,0,1,@WassupBeama lol bitch nigga ima get my gay homies on you
+5276,3,0,3,0,1,"@WayToGoFucker @_AshirieeLove ""bitch"""
+5277,3,0,2,1,1,"@WeBeatBitches thats trash, its ot?"
+5278,3,0,0,3,2,@WebAntOnYT btw Jim crow laws were supported by democrats not republicans and MLK was a republican #Fact
+5279,3,0,0,3,2,@Web_BOW yes das def da problem.if his.teacher was a spear chucker he woulda gt both dose rite
+5280,3,2,1,0,0,"@WendyDavisTexas @GregAbbott_TX So you support ""illegals"" coming here and spreading disease among Americans Dream that bitch!"
+5281,3,0,3,0,1,@WendyDavisTexas @GregAbbott_TX a judge that was appointed by obama who here doesnt see the agenda fucking crooked bitch
+5282,3,1,2,0,1,@WendyDavisTexas hey Windy! Does your dildo take out the trash for you? Buzzzzz
+5283,3,1,2,0,1,@WendyDavisTexas msnbc the same MSM who said blocking flights from africa is racist yea right No ID no vote bitch gold digger
+5284,3,0,0,3,2,@WendyDavisTexas your 30 second add just ruined it. A new low picking on a cripple
+5285,3,0,2,1,1,@WendyGAv says the pedophile promoting dolt. LMAO #teabagger
+5286,3,1,2,0,1,@Wes_vL faggot
+5287,3,0,3,0,1,"@Whale__Tail what'd the note say? ""Stop being a bitch, here's some flowers. &lt;3"" gets em everytime"
+5288,3,0,3,0,1,@WhatABarber money cars and clothes. And the hoes. Lol. He just want be successful lol
+5289,3,0,3,0,1,"@WhatTheFFacts this some bullshit, bitch. Show Lana Kane."
+5290,3,0,3,0,1,@WhereYoHussleAt &#128514;&#128557;&#128514;&#128557; @CayMarieee look at this shit imma bitch forreal &#9995;&#128527;
+5291,3,0,3,0,1,"@WhereYoHussleAt just to remind yall, cuz hoes be acting like they don't know"
+5292,3,0,3,0,1,@Whimzee_ so much hoes?
+5293,3,0,3,0,1,@WhiteKidWraps I was RT 100 steal that bitch
+5294,3,0,3,0,1,@WhoDey8182 Sum bitch that looks good! Where does a man such as myself pick up one of those?
+5295,3,3,0,0,0,@WhosJuly 1) He's a faggot and I don't like him. 2) I'm on the other side of the state.
+5296,3,0,3,0,1,@WhoseAlisha that nigga spun around in the pussy.
+5297,3,1,2,0,1,@Wichard_Fella @WarrenHolstein my mentallity? Being a flaming fag is a serious mental issue
+5298,3,0,3,0,1,@Willbur64 @WolzgotBolz fight me bitch.
+5299,3,0,1,2,2,@WilliamFBrasky @TheRandomBoner i feel the warm fuzzies.
+5300,3,0,0,3,2,@Willstreakk @Tycff10111 according to you my place is in kitchen. Excuse me while I take out the trash
+5301,3,0,0,3,2,@Willstreakk @Tycff10111 by trash I meant u lmaooo
+5302,4,0,4,0,1,@Wimp_W_Diesel real shit bro yo hoe told me if Smoothie King had straws i ca fuck
+5303,3,0,0,3,2,@Wimp_W_Diesel yu forgot we beat yall? Thats like a garbage man calling a janitor trash
+5304,3,1,2,0,1,@Wisdom_Stature bitch we coulda been at the stores looking
+5305,3,0,1,2,2,"@Wizards_DnD @JimZub tranny dragons, eh? I know some people that will love this!"
+5306,3,0,3,0,1,@Woahitsjulian whatchu doin today nig?
+5307,3,0,3,0,1,@Woahitsjulian wud up nig I gotta new number 3136139299 text me
+5308,4,1,3,0,1,@WolfgangAbedeus @NickFilancia80 @clair3ismon3y You can tease this dick faggot
+5309,3,0,3,0,1,"@WolfgangAbedeus Your bitch called, she was missing this dick"
+5310,3,2,1,0,0,@Woody_AFC @MrGAM3R49 @MANIAC3X fuck outta here faggot that wouldn't even be a fair
+5311,3,0,2,1,1,"@Woody_AFC lmaoo typical nig nog bombs, should've got pics"
+5312,3,0,2,1,1,@WorIdStarFvnny @alysssa_3 bitch please http://t.co/2QysCT5INk
+5313,3,0,3,0,1,@WorldZWrestling Can we not use the word faggots?
+5314,3,0,3,0,1,@Worth_BILLions &#128528; bitch you got me fucked up &#128514;&#128514;
+5315,3,0,2,1,1,@Worth_BILLions @MystroApollo &#128514;bitch you always hatin lmao
+5316,3,0,3,0,1,"@Wow_Bullet ""cuz i thought i got a wife, but i picked a hoe."" IM LOVIN THESE SONGS MAN. Keep it coming"
+5317,3,1,2,0,1,@Wu_Pac @bestfrycook stfu bitch
+5318,3,0,3,0,1,@Wuzzername could get half a band off me RT @ToeKnee2GX: Fellas&#8230;. @ your dope female followers and state how much you&#8217;d pay for their pussy
+5319,3,1,2,0,1,@WyattNuckels *thought retard
+5320,3,1,2,0,1,@WyattNuckels @DarienDaywalt hear that you dumb bitch he said no one likes you!!!!! #ohshitnigga
+5321,3,0,3,0,1,@WyattNuckels @grizzboadams bitch I want it all
+5322,3,1,2,0,1,@WyattNuckels @grizzboadams glad you could get your daily dose of giggles faggot
+5323,3,0,3,0,1,@WyattNuckels @grizzboadams hey faggot spell faggot right you dipshit
+5324,3,2,1,0,0,@WyattNuckels @grizzboadams shut the fuck up fag ill beat the shit outta you
+5325,3,1,2,0,1,@WyattNuckels @matt_petrie22 yeah nigga I get bitches and Matt's fucking gay as shit
+5326,3,0,3,0,1,@WyattNuckels I'm not fake bitch meet me after school then nigga
+5327,3,0,3,0,1,@WyattNuckels cause ima blindside the shit outta you niggah!
+5328,3,0,3,0,1,@WyattNuckels fuck you bitch smd
+5329,3,0,3,0,1,@WyattNuckels haha bitch
+5330,3,2,1,0,0,@WyattNuckels insecure much put all you insults in one tweet. Fucking dumbass dude I'd wreck you you faggot
+5331,3,0,3,0,1,@WyattNuckels just smokin that Cali smoke and fuckin your bitch wbu
+5332,3,0,3,0,1,@WyattNuckels shut up niglet
+5333,3,0,3,0,1,@WyattNuckels sun follow me you 4' bitch you can't do shit so stfu faggot
+5334,3,0,3,0,1,@WyattNuckels then learn to read bitch
+5335,3,0,3,0,1,@WyattNuckels who do you think I am bitch
+5336,3,0,0,3,2,@XANAXDREAMS &#128557;&#128557;&#128557;&#128557; about the beanies but steal my description but u aren't salty or fake
+5337,3,0,3,0,1,@XNastyy Lol you probably right. Fuck you bitch !! *in spanish*
+5338,3,0,3,0,1,"@XXXratedLIPSS I always want to speak to ppl I converse with on twitter but they always look at me like ""bitch, Idk you in REAL life.."" smh"
+5339,3,0,3,0,1,@X_XPDOTJDOT she remembers the dick lol and wants it again. I recommend you shoot a bitch if she show up. She might snap
+5342,3,0,3,0,1,@Xianilee BOOM bitches !
+5343,3,0,1,2,2,@XxminijokerXx I HATE birds! They just piss me off about the fact that I can't fly!
+5344,3,0,2,1,1,@YBEToot I like tweeting you like this. .. wen yu aint talking to all yo hoes!!! I be like...... ill wait.
+5345,3,0,3,0,1,@YFN_NESHA I'm tired of dat bitch mannn&#128553;&#128553;&#128553;
+5346,6,0,6,0,1,@YFN_NESHA all the great QB's fold under pressure gshit if u blitz Peyton ass he gon gook out
+5347,3,0,3,0,1,@YGJOHNSTON it's always a white bitch doing something OP lol like they give zero fucks when it comes to dick &#128514;&#128514;
+5348,3,1,2,0,1,@YGJOHNSTON that white bitch is a G for choppin that whole line of niggas &#128514;&#128514;
+5349,3,0,3,0,1,"@YaBoyBoone ima miss smiley and graham and daniel tho, they were pretty cool to me when i was there, ima beat andrews bitch ass every day"
+5350,3,0,3,0,1,"@YaGirlFlutter haha i was about to say... Damn i just called you a bad bitch, i mean mean bitch lmfao"
+5351,3,1,2,0,1,@YaGirlSmalls quit using song lyrics queer
+5352,3,1,2,0,1,@YaNiggaBuu janemba is better than yo pussy ass
+5354,3,0,3,0,1,@YamanakaValerio bitch it's not til Thursday
+5355,3,0,0,3,2,"@Yankees @marines1994 Daggone it Twins, kick it up a notch... Time to beat the Yankees..."
+5356,3,0,0,3,2,@Yankees Only good thing about this season. #FireCashman .
+5357,3,0,0,3,2,@Yankees Scores don't matter in Spring Training man!
+5358,3,0,1,2,2,@Yankees and we all fell asleep @Frizzle18
+5359,3,0,1,2,2,@Yankees go away already @Frizzle18
+5360,3,0,0,3,2,@Yankees isn't that kind of saying the #Braves won't make it to the World Series? LOL
+5361,3,0,0,3,2,@Yankees probably time to put this twitter feed to bed #nyy
+5362,3,1,0,2,2,@Yankees team sucks
+5363,3,0,0,3,2,@Yankees ugh
+5364,3,0,2,1,1,@YardieBoyHeem pussy watch it nuh mi Neva lov mon. -badmon
+5365,3,0,2,1,1,@Yaremisxo way other hoes boo
+5366,3,1,0,2,2,@Yaremisxo whatever Neymar trash
+5367,3,2,1,0,0,@YeIIowbang I hate that faggot he so corny
+5368,3,1,2,0,1,@YeIIowbang mannn Mexicans in Houston LOVE their high school freshman hoes
+5369,3,0,0,3,2,@YeIIowbang yeah people know he's not trash but his game is limited and it showed late in games against Portland
+5370,3,0,3,0,1,"@Yeahhhmans way to take orders like a little bitch, bitch"
+5371,6,1,2,3,2,@YellabeautyKC home coon
+5372,3,0,3,0,1,@YeridZee bitches better watch out because we're running the tables tonight! &#128521;&#127867;&#127866;&#128588;
+5373,3,0,3,0,1,@Yes_THAT_KiKi hey send me your songs I need to put them hoes on a CD and bang em when I ride around
+5374,3,0,0,3,2,@YessMe_SHAY I want my poms back lmfao
+5375,3,0,0,3,2,@YesseSmith I was born yellow
+5376,3,0,3,0,1,"@Yg_Trece I agree. You never know she may have been begging to get dropped, makes her pussy wet guaranteed. She married him right after !"
+5377,3,0,1,2,2,"@YouBoysInGreen hahaha, made ya eat crow...."
+5378,3,0,3,0,1,"@YouTalk_ILive I'm crazy, and Wayne can rap about pussy 3 songs in a row"
+5379,3,0,3,0,1,@Youlove_Tyler lol girrrrl these bitches crazzzzy
+5380,3,0,0,3,2,@YoungJeezy got me feelin like #trappin ain't dead. Got me ready to call the #guala! #Salute da truth! #SeenItAll #SeenItAllTheAutobiography
+5381,3,0,3,0,1,@YoungRecklesss_ nahh bitch yu always playn yu almost got her feelings hurt
+5382,3,0,3,0,1,@YoungRecklesss_ the fuck das wat bitches wit uh fuckd up mouf do &#128514;&#128514;
+5383,3,0,3,0,1,"@YourDudeFerg @SammyLightning_ I wish you wood, like a tree in this bitch."
+5384,3,0,3,0,1,"@YourDudeFerg I wish you wood, Like a tree in this bitch"
+5385,3,2,1,0,0,@YourDudeFerg gay fags
+5386,3,0,3,0,1,@YourDudeFerg like a tree in this bitch? Asshat.
+5387,3,0,3,0,1,@Yummys_World &#8220;@ThoughtsOfRandy @STROCORLEONE + That bitch already got past demons in her.Seeding her up just gone fuse more.
+5388,3,1,2,0,1,@YunGMiGo @BigMoneyNiquee &#128530; nicca fucc yu
+5389,3,0,2,1,1,@YunGMiGo @BigMoneyNiquee lol send dat nicca clean out talmbout some n what if he really is &#128514;&#128514;&#128514;
+5390,3,0,3,0,1,@YunGMiGo I said pussy dat ass what be on yo tongue boy
+5391,3,1,2,0,1,@YunGMiGo lol da only reason I can't talk bout da present is cuz my nicca hurt n ain't played all yr
+5392,3,0,0,3,2,@YungCofGOA @12YearsAHaitian need to start mcbob because Williams only shoot let him play with bird
+5393,3,0,2,1,1,@YungIll314 everybody in Dot Mob/O-Red/Mickey Factz when you battled Clips he wore some ancient hong kong shit + 2 different colored hi-tops
+5394,3,0,3,0,1,"@YungIll314 my lifestyles raw dog, one magnum will put a dickhead in the hole, and that was cumin out of the pussy lips"
+5395,3,0,3,0,1,@YungOBG hoe meter went off!
+5396,3,2,1,0,0,@YungRajee Shit ill pay the premium to get away from these anything ass hoes
+5397,3,0,3,0,1,@YungRetweet bitch
+5398,3,0,3,0,1,@Yung_Messiah @NoMeek_JustMilz swear to god log on later. I'm posting the score on every social network you bitch ass nigga
+5399,3,0,3,0,1,@Yung_Messiah nah he pussy he won't
+5400,3,1,2,0,1,@YvngHerbo @PRAYINFORGEMS sup fat bitch
+5401,6,0,6,0,1,@ZELNO96 Someone told me cuz some ppl like to use it as bitch some females don't like being calles female but meh *shrugs*
+5402,6,0,6,0,1,@ZELNO96 one sick bitch
+5403,3,0,0,3,2,@ZP3_ the little girl Tom Sawyer gets trapped in the cave along with Injun Joe and almost die. injun Joe dies and they find his treasure
+5404,3,1,2,0,1,@ZRexxx @SlowDollaz we take your bitch then recieve head from your mom
+5405,3,0,2,1,1,@Z_MEGA fasho fasho .. Hurry ya ass up nicca
+5406,3,0,3,0,1,"@Z_M_G_ &#128514;&#128514;&#128514;&#128514;&#128514; wow. I love how you called yourself a slut, but no really. You wouldn't ever cheat on a girl, bitches are so dumb."
+5407,3,0,3,0,1,@Z_M_G_ thirsty hoes &#128129;
+5408,3,0,2,1,1,@ZachFulton72 they got some cold white hoes in Knoxville tho don't they? right there on the strip? Boaaa
+5409,3,1,2,0,1,@ZachIrving I called people kikes and a lot of fucks
+5410,6,0,6,0,1,@Zach_Dorsey thirsty hoe
+5411,3,0,3,0,1,@Zach_Thein you pussy
+5412,3,0,2,1,1,@ZakSitton lol cracker
+5413,3,0,3,0,1,@ZaneIsClasker @garrett_winker no I like pussy why would I be ashamed of that
+5414,3,1,2,0,1,@ZaneIsClasker Photoshop putting my head on fags is not proof.
+5415,3,2,1,0,0,@ZaneIsClasker the fuck r u talking about I told u once and am going to tell u against nigga I love white bitch gtf bro
+5416,3,0,3,0,1,@ZayCoolAF #yeet we gotta do at least 3 and drop them bitches in like 2 month intervals or some shit
+5417,3,0,3,0,1,@ZayySwanson @_EmaniMilan I'm jus Tryn figure out when all dem niccas was together like dat
+5418,3,0,3,0,1,@Zedd finger my throbbing pussy flaps
+5419,3,0,3,0,1,@Zell_GotDaLOUD bitch tryna get in for free promoting n shit lmaooo I see you in tha cut
+5420,3,0,3,0,1,@Zhugstubble eat bitch
+5421,3,0,3,0,1,@Zhugstubble meet up eat bitch
+5422,3,0,3,0,1,@Zhugstubble meet up so I can Molly whoop yo bitch ass
+5423,3,1,2,0,1,"@Zhugstubble naw nigga what's up with em hands, what happened to the shit you was talking a couple a month's ago, eat bitch"
+5424,3,0,3,0,1,@ZigzagsxKush Katy and clear lake hoes
+5425,3,0,3,0,1,@ZitlalyL &#128529;&#128529;&#128529;&#128529;&#128529;&#128529;&#128529;&#128530;&#128530;&#128530;&#128530;&#128530;&#128530;&#128530;&#128530;&#128530;&#128530;&#128530;&#128548;&#128548;&#128548;&#128548;&#128548; How is he supposed to attract bitches in a tutu though? &#128530;
+5426,3,0,3,0,1,@ZitlalyL You will and he's gonna get all dem bitches &#128513;
+5427,3,2,1,0,0,@Zohdaa fags
+5428,3,0,3,0,1,"@Zonozi @QuantRyse @Hockeypuck55 Classic drunk Carter texts never fail. Hey stfu I'm coming over. Oops, I'm here come the fuck outside bitch"
+5429,6,4,2,0,0,@Zwaaad fag
+5430,3,0,3,0,1,@ZwengerSierra how about you @ me bitch
+5431,3,0,3,0,1,@_2kkz lol bitch I'm indian!!!!!! You op
+5432,6,0,6,0,1,@_Aly_baby_ well at least If you're going to do somthing you do it.. And don't bitch out.. Even when it's the wrong thing &#128527;
+5433,3,3,0,0,0,"@_Andrizzy_ aw drake is, do you sit in the corner and cry when you listen to him? lmfao, pussy dick rider, how drakes cock taste faggot."
+5434,6,2,4,0,1,@_Andsss cool cool fuck wit u too nicca
+5435,6,0,6,0,1,@_Angeel14 thirsty ass hoe go to sleep &#128514;&#128514;
+5436,3,0,1,2,2,@_BDOE bro u trash at that zombies
+5437,3,0,3,0,1,@_B_R_Y_C_E_ what happened to going fishing bitch?
+5438,3,0,3,0,1,@_BaDa_Bing If it continues.. I turn pussy lol
+5439,3,0,3,0,1,@_BatGangBitchh no hoe
+5440,3,0,3,0,1,@_BeautifulKeezy @darwinjames125 point A ppint an bitch &#128514;&#128514;&#128514;&#128128;
+5441,3,0,3,0,1,@_BeautifulKeezy bitch I died when I read that.
+5442,3,0,3,0,1,@_BeautifulKeezy bitch Wea you going.
+5443,3,0,3,0,1,@_BeautifulKeezy lmfao bitch was I talking to you &#128514;&#128514;
+5444,3,0,3,0,1,@_BeautifulKeezy yess bitch. Messyyy
+5445,6,0,6,0,1,@_BeverlyNoHills bitch... So they can't hold a real nigga down fa long.. &#128546;&#128546;&#128546; bruh ask mama to pay this ticket fa me!!!!!
+5446,6,0,6,0,1,"@_BeverlyNoHills you so fucking nasty. You got held to the wrong pussy. I'm telling , you bet not ever kiss me again!! I'm breaking up w| u!"
+5447,3,0,0,3,2,@_BradleyC skate 2 trash :(:( skate 3 had goat DLC
+5448,3,0,3,0,1,@_BrwnSkinBeaute ahh I'm too much of a bitch to live off campus. I get lazy and wouldn't want to drive home :)
+5449,3,3,0,0,0,@_C_Parris69_ your picture makes you look like a serious fag. #justsayin lol
+5450,3,0,3,0,1,@_CaliStrong - lol it's possible that a hoe can treat you the right way but will she love you the right way? No. A hoe will be a hoe.
+5451,3,0,3,0,1,"@_CaliStrong - lol just think about it, there is a right way &amp; a wrong way to love someone. a hoe may just love you for what you got."
+5453,3,0,3,0,1,@_CharlieA_37 @sean_landez07 y'all's are all little punk ass bitches doe
+5454,3,0,3,0,1,"@_Corayma @LuivilleSluggah TF do I look like, delivery bitch or what ahaha"
+5455,9,1,8,0,1,"@_DCorNothing_ @KyariesDa4 he should! I got tired of hearing how he can eat pussy 10,000 ways like damn &#128514;&#128514;"
+5456,3,0,0,3,2,@_DRACHEOFFICIAL I've tried. I always hit ALT+F4 and eat Mega Stuffed Oreos because I can't figure out those programs. lol
+5457,3,0,3,0,1,@_Dbankss orr why? Thts my lor bae tho wyd why u fucking up hoe?
+5458,3,0,2,1,1,@_Dingyyybritt_ look at what you just said lls new era Girl bye kill bitches w Kindness &amp;&amp; wht cousin?
+5459,3,1,2,0,1,@_Djweezlove not what I said . I want a DJ to mix the track regardless for their own use ! The video gon be dumb retarded with the reg versi
+5460,3,0,2,1,1,"@_Dreamchasers2 ""aint nobody got no time fo dat"" (ghetto black lady voice)"
+5461,3,0,3,0,1,@_Dukefan @KentuckyFanPage thats why we had 8 regular season losses...... #you #are #retarded
+5462,3,0,3,0,1,@_EB_Games @BigBBrown Fuck all you hoes. lol
+5463,3,0,3,0,1,@_ElenaRaquel_ its swag bitch aha
+5464,3,2,1,0,0,"@_GOLDwhippp faggots, old people, people who can't drive, drunk people"
+5465,3,2,1,0,0,"@_IAMKEN fuck Brett Farve redneck ass, he stuckup he don't give a damn lol he be on campus acting like he the shit"
+5466,3,2,1,0,0,"@_IAMKEN you'll make the team, them niggas trash. Lol"
+5467,3,0,3,0,1,"@_IAmDriven_ @HDRealtor not even sure bro, Im ignoring these hurt bitches tonight...lol"
+5468,3,0,3,0,1,"@_IamQuiNichole &#128514;&#128514;&#128514; it's a song, ion kno y he referred to his future wife as a bitch"
+5469,3,0,3,0,1,@_InhaleLove_ bitches love some Alex from target &#128527;
+5470,3,0,0,3,2,@_JaelynBeeee somebody looks like the die on the first tubes on flappy bird lol!
+5471,3,1,2,0,1,@_James_Kirby_ @mflury30 back off ya queer bag
+5472,3,0,3,0,1,@_KaeeJones I gotta find them I know Cali got them hoes
+5473,3,0,3,0,1,@_KaeeJones lmaooo boy thought he wS all type of right spelling that hoe
+5474,3,0,3,0,1,@_KaeeJones the bird gone run from your ass
+5475,3,0,0,3,2,"@_Lakers4Life24 Tracy Morgan is a sad comparison..... Come on try again, Dwight Howard is the most accurate. Stupid monkey."
+5476,3,1,2,0,1,@_Leeyoo @GoldFlacko niggah I'm not yo lil bro the fuck
+5477,3,0,3,0,1,@_Leeyoo what niggah
+5478,3,0,3,0,1,"@_LezzzBeHonest 
+I'm colored. Ain't supposed to be no good influence"
+5479,3,0,3,0,1,"@_LezzzBeHonest 
+Me bitch!"
+5480,3,0,3,0,1,@_LifeOfSin theeepp that's my bitch
+5481,3,0,0,3,2,"@_Linsanity22 derrrrrrr, 1st of all her songs are actually good compared to the other trash, +++ shes SUCH a showman omg"
+5482,3,0,3,0,1,@_LrAnderson that hoe over that
+5483,3,0,3,0,1,@_Maniac_Mind_ @Marcfoor4 stfu with that what I'm gonna do and just fuck oh pussy ads nigga
+5484,3,1,2,0,1,@_Maniac_Mind_ @jet_life12 @Nick_504_ Am the bitch but u the one steady talking stfu and be bout shit hoe ass nigga
+5485,3,0,3,0,1,"@_Maniac_Mind_ @jet_life12 @Nick_504_ I said I was from where stop putting words in my mouth, that's something a bitch would do"
+5486,3,0,3,0,1,@_Maniac_Mind_ I don't got any beef with you but tell yo boy Alex to stop acting like bitch and bring his duck ass up here.
+5487,3,0,3,0,1,"@_MariaPetrova @markkelly1983 @MissStef0318 @SamHarrisOrg Who? Ok, right-wing teabaggers, gun nuts (like Harris), hell, even fucking cops."
+5488,3,0,3,0,1,@_Marzzz nigger
+5489,3,0,3,0,1,@_MckenzieNoel miss you bitch
+5490,3,1,2,0,1,@_MostDope95_ Jenny says you're an evil bitch.
+5491,3,2,1,0,0,@_Nadiaxo fags
+5492,3,0,3,0,1,@_NoLackingg I kinda figured a lil bit when u said bitch u cute
+5493,3,0,2,1,1,@_PRAWDA_ dying? oh bitch. exit my mentions. her last era was huge. #1 album. #1 tour. golden globe (cont) http://t.co/gkuJXIaDep
+5494,3,0,3,0,1,"@_Perarl bitch all these thick bitches with they ass out on TV , do what you want"
+5495,3,0,3,0,1,"@_Perarl he needs to date a grandma , I'm too turnt up for his lil pussy ass, bro and I called him lil baby names like lame &amp; dork"
+5496,3,0,3,0,1,@_Rachel_Robbins is the realest bitch out here rt
+5498,3,0,3,0,1,@_RenaissanceJay don't send me those boxes we droided up on da mile my nigga. Got da dro droid na drum fo a pussy boy yeer me?
+5499,3,0,3,0,1,@_RenaissanceJay get the loredo steak. Out dat bitch if u ballin
+5500,3,0,3,0,1,@_RenaissanceJay nigga stop hatin bitches be feelin coolio b. N two if u think dem bitch made niggas got yo back u smokin big worm shit
+5501,3,0,3,0,1,@_RenaissanceJay pussy
+5502,3,0,3,0,1,@_ReneashaC @RishaaWilliams Hoe yu erbody bitch &#128514;&#9996;
+5503,3,0,3,0,1,@_RichHomieKevin go to sleep niggah lol
+5504,3,0,3,0,1,@_Saltlife13 Lol chill pussy
+5505,3,1,2,0,1,@_Saltlife13 Long story lol but I've missed you faggot
+5506,3,0,2,1,1,@_SiNCERE18 ; LMAO! . hoes extra sensitive via text.. They swear they hear your tone in every letter. I start using PUNCTUATION'S .
+5507,3,2,1,0,0,"@_SoulSurvivor_ @zakbauer I dont have any problems with zak, but you seem like a faggot http://t.co/NbFAArxvRP"
+5508,3,0,0,3,2,@_SparkleLikeZen saves you a brownie*
+5509,3,0,3,0,1,@_SqueezeMeBaby don't tell the dumb hoes that
+5510,3,0,3,0,1,@_StarrHall_ @Rene_gadeCowboy I am absolutely speechless.That bitch is CRAZY.
+5511,3,0,3,0,1,@_TajMahal_ @_El_Padrino__ @AbellaXXX I'm lmao fa real cuz I really saw her throw dat bitch in a circle lol
+5512,3,0,3,0,1,@_That_Vibe_ bitch I'm Gretchen Weiners I do what I want
+5513,3,0,3,0,1,@_TheBlackNerd wyd fag
+5514,3,1,2,0,1,@_TheCrownedHead &#128548;&#128514;&#128514;&#128514;&#128514; bitch
+5515,3,2,1,0,0,@_TriggaPlease_ @kanyewest he's a faggot
+5516,3,1,2,0,1,@_TriggaPlease_ nigger hello?
+5517,3,2,1,0,0,@_TurnDownDre @Jordan__Grimes @kushdaddycorr @TRob_waddUP that's true idk why your even in this convo you dumb nigger attention whore
+5518,3,0,3,0,1,@_TurnDownDre @kushdaddycorr I can smell your fried chicken ass a mile away boi and clean your nasty ass ears ratchet bitch
+5519,3,2,1,0,0,@_TurnDownDre @kushdaddycorr lmao you stupid nigger
+5520,3,0,3,0,1,@_VIVMMXII yuhh I'm finna hit that hoe! &#128513;&#128077;
+5521,3,0,3,0,1,@_WORDtotheWISE how many times did you listen to that pussy song today?
+5522,3,0,3,0,1,@_WORDtotheWISE some hoe shit
+5523,3,0,2,1,1,@_WORDtotheWISE you must have sent a bird call because I didn't get shit
+5524,3,2,1,0,0,@_XoXoKelsey_ hell naw fuck them bitches serves them right
+5525,3,0,3,0,1,@_YdotM really thou im looking like Hulk Hogan in this bitch
+5526,3,0,3,0,1,"@__0utcast___ but then they said ""oh nah ur not"" but dude I'm getting to be a heartless bitch have you not met me"
+5527,3,0,3,0,1,@__Black_Jesus bitch u know what I mean spell champ these nuts
+5528,3,2,1,0,0,@__Black_Jesus yea I forgot I was talkin to a degenerate faggot
+5529,3,0,3,0,1,@__C_h_i_n_g__ your daughter can date this little fag bag @Bekkalina13 @PimpSlapnCow http://t.co/4SabX0mcus
+5530,6,0,6,0,1,@__DatTootieGurl that hoe can't cook
+5531,3,0,3,0,1,@__Dutch bitch stop hating on such an immaculate suit.
+5532,3,0,2,1,1,@__Dutch my birthday hath already passed with little to no fanfare. So. Enjoy your day and be blessed bitch.
+5533,3,0,3,0,1,@__MotoMoto you a real bitch for that
+5534,3,0,3,0,1,"@__NikesNshiT you better. And ima let that bitch slide right now, just be on standby. &#128536;&#128514;"
+5535,3,0,3,0,1,@__TaeSavage pussy
+5536,3,0,3,0,1,"@__Trail__ take like TAMU... bitches jumped to 6 after beating SC, which ain't that good... @thejournalist44 @That1guyJeff"
+5537,3,0,3,0,1,@___AsiaJ lol my bro said it about a bitch but it can be about u
+5538,3,2,1,0,0,@_____0__o______ faggot
+5539,3,0,3,0,1,@___kd_ i need 2 of the bitches
+5540,3,0,3,0,1,@__angieex3 Ik you were pussy
+5541,3,0,3,0,1,"@__baabyshaay okaaaaay bitch never do we care , edges still laid. &#128514;"
+5542,4,3,1,0,0,@__hannerr__ you're a faggot
+5543,6,2,3,1,1,@__kiante im askin you negro lol
+5544,3,0,3,0,1,@_ajayb no i don't cry im not a bitch(: i was just pissed because the cop was trying to charge me with a hole bunch of bullshit :p
+5545,3,2,1,0,0,@_angelaaau hey fag i &lt;3 you
+5546,3,0,3,0,1,@_asheyk pussy
+5547,3,0,3,0,1,@_bradleey LMFAOOOO yooo I lost my elevator pass &#128557;&#128557; now I can't even share it ...bitch wants me to go get another one &#128530;even tho she knows me
+5548,3,0,3,0,1,@_bradleey SAME&#128530; like bitch it's the struggles to use the stairs let ppl get on &#128074;
+5549,3,2,1,0,0,"@_cblaze @Barbod6FCB @ODDBEAST Man bitch am not gonna do a damn thang, if u don't like what I got to say then unfollow me"
+5550,3,1,2,0,1,@_cblaze @kieffer_jason ask your boy Jason keiffer is he still tryna to get his one on one and y he block me #pussy boy
+5551,3,0,3,0,1,@_cblaze sorry i eat pussy
+5552,3,0,3,0,1,@_chrisbrownn14 fuck bitches get money
+5553,3,0,0,3,2,@_dimejii i know so. What Samklef said wasn't a lie man. This guy think is a beast in Naija Pop. His music is trash not the wizkid of before
+5554,3,0,3,0,1,@_dinora_e jk i would be a bitch if i got them done !
+5555,3,3,0,0,0,@_elennamichelle nope not at all but I'm stuck in a house full of fucking niggers help me escape &#128553;
+5556,3,1,2,0,1,@_elennamichelle only when ur around me &#128523; gotta keep dat scent to keep filthy niggers away
+5557,3,0,3,0,1,"@_fckwatchuthink @Huntermoore or you know, you could just go drink bleach bitch"
+5558,3,0,3,0,1,"@_fullawhite haha my nigga coco :,) I can't wait to fuckkk like a hunna hoes this summer haha jk"
+5559,3,0,3,0,1,@_fullawhite rt me to wey I went to the job interview high then a bitch!! Straight stanking like dank haha eyes red then a hoe
+5560,3,0,3,0,1,@_iGotHer ; bitch dont talk at me like that bro.
+5561,3,0,0,3,2,@_icantmiss Boys still got birds in the cage? Lol
+5562,3,0,3,0,1,@_icantmiss send that hoe &#128514;&#128514;
+5563,3,0,3,0,1,@_illionaire he been taking them hoe lol
+5564,3,2,1,0,0,@_jeff_hank @lgreiner3 @RayceWarden @BigJohn_Studd shut up nigger
+5565,3,1,2,0,1,@_justlexis lol whatever. We're fags.
+5566,3,0,3,0,1,@_lexisperez he ate my pussy i could..
+5567,3,0,3,0,1,@_littlepuffin I just saw a bad bitch on here from mf Switzerland and feel in love
+5568,3,0,3,0,1,@_littlepuffin hoe *
+5569,3,0,3,0,1,@_lostb0y I meant bitch I am scum
+5570,3,1,2,0,1,"@_lostb0y do you, bitch boy?"
+5571,6,0,6,0,1,@_lostb0y no bitch w my dick
+5572,3,0,3,0,1,@_lynnogawa @ that bitch
+5573,3,1,2,0,1,@_michellecole_ nice hoodie faggot
+5575,3,2,1,0,0,@_n1k_nak Status Report: Making a pit stop in Canada to rape bitches
+5576,3,0,3,0,1,@_noWashington he liked that hoe
+5577,3,0,3,0,1,@_noWashington what that hoe was like
+5578,3,0,3,0,1,@_puderbaugh don't be a bitch. Get two.
+5579,3,0,3,0,1,"@_queenveronica haha yolo, did ya hit that hoe?"
+5580,3,0,3,0,1,@_reathie man bring yo bitch ass here ion give a dam bout yo mf attitude
+5581,3,0,3,0,1,@_reathie u better sit yo ass in that bitch til 330
+5582,3,0,0,3,2,@_shegotthis yellow rice black beans and pork chop sis
+5583,3,0,0,3,2,@_spenceyy @5SOS not scanger
+5584,3,1,2,0,1,"@_tee13 @SoftestMuffin @TorahBlaze After you spread that filth of urs to that white dog, he &amp; the good ol boys were ltao on fuckin a monkey"
+5585,3,1,2,0,1,@_tee13 @SoftestMuffin @TorahBlaze u 2 lost puppies dont know shit. Leave them niggers alone u can learn something besides how they like
+5586,3,0,3,0,1,@_tee13 @TorahBlaze @Tommyguns____ @SoftestMuffin let one of them dingy real nigger dogs catch it. Miss Torah dont want that thot shit
+5587,4,0,4,0,1,@_theDarius bitch get that job first.
+5588,3,0,3,0,1,@_theDarius bitch just be looking for my shit.
+5589,3,0,3,0,1,@_theDarius bitch.
+5590,3,0,3,0,1,@_theDarius boy I was clean in them bitches.
+5591,3,1,2,0,1,@_thecrave only if it's funny tweets about ashy niggers
+5592,3,0,3,0,1,@_tiffanycarter bitch... Im mad at you for slapping me &#9995;
+5593,3,0,3,0,1,@_tiffnasty bitches will great valuable pussy always make you use protection. Too many nasty dick niggas out here
+5594,3,1,2,0,1,@_tiffnasty some niggas didnt desrve to have that bitch in the first place
+5595,3,0,3,0,1,"@_tiffnasty yes. LOVE to make em masturbate to my voice, bitches love Southern accents"
+5596,3,0,3,0,1,"@_ton3zz life aint shit but bitches and money, i passed that weed like i studied"
+5597,3,0,3,0,1,@_tonydennis it's trash ik just wanted to fuck with Dorsey
+5598,3,0,3,0,1,@_travvv's pussy. http://t.co/aXm9PCw95T
+5599,3,0,3,0,1,@_turtle_gang lets fuck hawt bitches at Foam and Glow?&#128527;
+5600,3,2,0,1,0,"@_westwest_yall @phampel WooHoo! New Black ""Kill Cracker babies"" Panthers to the rescue! #racist #trash #thugs #Ferguson #fergusonriot"
+5601,3,2,1,0,0,"@_womanoverboard ""nigger"""
+5602,3,0,3,0,1,"@_wordtothewise I am hurt im.not in it wtf, fuck Danielle that bitch"
+5603,3,0,3,0,1,@_xpriceless_ @Casio_DatGuy bitch get punched tf out lol
+5604,3,0,3,0,1,@_xpriceless_ @Casio_DatGuy bitch u got me fuckked up
+5605,3,0,3,0,1,@_xpriceless_ bitch take dat shit down imediatly
+5606,4,0,4,0,1,@_xpriceless_ bitch u forcin it talkin about my family and shit watch out
+5607,3,0,3,0,1,@_xpriceless_ bitch u got me fuckked up go suck lil action whamm like u always do on thursdays and fridays didn't think ik did u
+5608,3,0,3,0,1,@_xpriceless_ correction bitch yo illiterate ass wanna eat my pussy and I got some center street boys dat u can suck up nun major
+5609,3,0,3,0,1,@_xpriceless_ naw fuck u bitch and go suck up cartier
+5610,3,0,3,0,1,@_xpriceless_ ok bitch damn I will I'm not even tierd my phone just dying
+5611,3,0,3,0,1,@_xxsarafina haha that hoe go hard rt
+5612,3,0,3,0,1,@aBartick the bitch in the purple shorts and Aqua beats
+5613,3,0,3,0,1,@a_murda_ happy birthday bad bitch
+5614,3,0,3,0,1,@aaliyahhhm I knowww righttt. I don't even know how to use this shit. How I update my status on this hoe?
+5615,3,1,2,0,1,"@aaryneliza im 60 n I hate elissa, a fake ass cunt"
+5616,3,2,1,0,0,@aasthaxoxo oh shut your mouth i was talkin about the morning you fag
+5617,3,0,3,0,1,@aaymee29 no that's fucking retarded are you drinking tonight or not?
+5618,3,0,3,0,1,@abbey_kuck I just whooped your ass why you turnin pussy
+5619,3,0,3,0,1,@abbywiseman1 haha you were that bitch on our team &#128521;
+5620,3,0,3,0,1,@abdashcole @4x4_nation @NatalieSchroyer fuck a raptor. Have fun with that when the tranny fails on you after 70k miles
+5621,3,0,1,2,2,@abdullah_omar comes from a guy whose sole qualification to be CM is being the lucky sperm :-)
+5622,3,0,3,0,1,@actionLLJackson unless bitch is a word for awesome they are wrong
+5623,3,1,2,0,1,@adamjferraro I'm actually with my boys right now. Your dorky ass is with your mom &amp; dad watching Streit make you his bitch
+5624,3,0,0,3,2,@adnanESPN Houston was top five in AHL attendance while Aeros were here. The transplanted snow bird would love a team.
+5625,3,0,3,0,1,@adorianloveee man fuck this bitch http://t.co/oIXHg4jtv8
+5626,3,0,3,0,1,@aerinblazin right &#128514;&#128557; okay bitch
+5627,3,0,3,0,1,@afuehring is little bitch an emotion? Cuz I'm feeling it..
+5628,3,1,2,0,1,@ahimla2 - we do not want you here either! Suck my pigs arse you muzzie biotch! Get the phuck out and go back to your hellhole life!
+5629,3,0,3,0,1,"@airam12_ I was like ""This bitch better chill-"" Oh hey Maria&#128514;&#128514;&#128514;"
+5630,3,0,3,0,1,@airam12_ Shit I wish it was socially acceptable for me to beat some of these bitches asses. Lmao
+5631,6,0,6,0,1,"@airwolf1967 @NoInfidel33 @tedcruz @SarahPalinUSA @TWShannon in ALASKA!!
+Nothing going on, nothing to do, nothing to bitch about, few laws"
+5632,3,0,1,2,2,@aj2amazing Obispo ho. We'll do it big
+5633,3,0,3,0,1,@aj2amazing you already know mane since 6th grade I've been killin hoes
+5634,3,1,2,0,1,@ajam never happen. Too much republican redneck oil money. Sad butt true. #corruptAmerica
+5635,3,0,2,1,1,"@ajbruno14 @JamesOKeefeIII @jdhayworth nope, it's a term used to mock teabagger scum like all three of you. Better luck next time, pal."
+5636,3,0,0,3,2,@akaREKT @LadyVodkax in with the go to air out with the bad air and where's my next brownie
+5637,3,0,3,0,1,@akaYankeee bitch probably deserved it lol
+5638,3,0,3,0,1,@alammus @wesideconnect @ArbitraryDesign @Damn_Jehu @michaelsayeth fellow anarchists quit being vaginas :P like jr high up in this bitch
+5639,3,1,2,0,1,@alammus small man syndrome usually deep down they're huge pussies so they join the authority to compensate their weak ego
+5640,3,0,3,0,1,@alanaaaaaa_ pussy
+5641,3,0,3,0,1,@alanaaaaaa_ why are you laughing . That's you hoe &#128514;
+5642,3,0,0,3,2,@alberdough check cashing on the corner of El Cajon and calwood it's across the steer for pollo loco
+5643,3,2,1,0,0,"@aldofelix naw dude I wish, they're white trash"
+5644,3,1,2,0,1,@alesiahenderson wat a faggot
+5645,3,0,3,0,1,@alexbenovich more than you run pussy
+5646,3,0,2,1,1,"@alexiscarfield Thought to myself SHEEBA-SHEEBA, got my ass lookin' like a zebra!"
+5647,3,0,3,0,1,@alexiscarfield ya damn right nigglet! :D
+5648,3,2,1,0,0,@alexissert leave dyke
+5649,3,0,3,0,1,@alexissixela__ stfu youre a pussy sit your ass down with all that noise
+5650,3,1,2,0,1,@alexisxisabel death to attention hoes
+5651,3,0,0,3,2,"@alexnolan1990 @claddos @takutaneka @regankelly91 ill give you a tip, beware of the ugly birds who hide behind massive lensed sunnies!"
+5652,3,0,3,0,1,@alexrice_ wow your like 3 years late bitch
+5653,3,0,3,0,1,@alexrojas_10 pussy
+5654,6,1,5,0,1,@alexrojas_10 yo fag Rojas
+5655,3,0,3,0,1,@alexxx_carr18 @Nick_504_ sitting here talking about what u would do or gonna do that's something My bitch does
+5656,3,0,3,0,1,@alexxx_carr18 bitch what?
+5657,3,0,3,0,1,@aliciaNOTalisha idk ? I went to to the school like a week ago and the bitch gave me a paper and shit telling me my classes paid for and
+5658,6,0,5,1,1,@alisha_serv thats wassup how u got bitches sending you booty pics tho lol
+5659,3,0,3,0,1,@alizahwi Make yo bitch open her legs.
+5660,3,1,2,0,1,@alliemathews tweet but don't text back ok fag
+5661,3,0,1,2,2,@allsportsbruh how? All of the QBs we had before this season were trash. They brought in a veteran so they could have someone to play
+5662,3,1,2,0,1,@allsportsbruh literally retarded. You were dropped on your head.
+5663,3,2,1,0,0,@allsportsbruh you say waste a draft pick on Manziel when we have Mallet. that's why I'm telling you to delete your account. You're retarded
+5664,3,1,2,0,1,@allyssasss I was a fag back then
+5665,3,0,0,3,2,"@almuirSI Probably, yeah. By most accounts, he has the personality to handle it though. And he can wear a yellow suit if he puts up points."
+5666,3,0,3,0,1,"@alneeZy hung with all dudes and wasn't fuckin no bitches, so. @MauiMescudi"
+5667,3,1,2,0,1,@alwayznpolo fuck all cops. and fuck you too tarah. bitch your elongated nose is shaped like a horses dick. @tarah_dactyl_
+5668,3,0,3,0,1,@alyssadugan15 cry about it. You still can't even talk to me even though I'm supposedly the shady bitch that won't confront you lol
+5669,3,2,1,0,0,@alyssawiens faggot
+5670,3,2,1,0,0,@amandabynes i can give you some of my clothes so you can look like a cute dyke
+5671,3,2,1,0,0,@amarierubio chink eyed !
+5672,3,0,3,0,1,"@ambitiousBree trueee, but I can't wait til the day a bitch try me!!!!"
+5673,3,0,2,1,1,"@amck73 And because it sounds like there is NO prenup, he's gonna cash in, not her. He apparently has ghetto credit. 'magine that?!"
+5674,3,1,2,0,1,@ameriC00N @joeylattime Christian keep laughing and me and him will fuck u up instead pussy bitch
+5675,3,1,2,0,1,"@amyklobuchar he was 17 not 16 &amp; he tried to beat up a much weaker ""creepy ass cracker"" that is why he is dead. If Zimmerman was a woman..."
+5676,3,1,2,0,1,@anandpradhan @kavita_krishnan funny to read retard liberal tweets. But Anand u didn't delete salwar tweet. Anyway say hi to #DigVijaySingh
+5677,3,0,0,3,2,@andersonDrLJA i'm so sick of self serving politicians standing by while BO trashes America. #WeAreRepublicNotRegime #ImpeachObama
+5678,3,0,3,0,1,"@andreajmarkley @gantaro47 Yes, sorry grant, i'm a bitch so i'm going to ignore you like most libtards ignore the majority voice...."
+5679,3,0,3,0,1,@andrewzoudo @BlVckbricks I'm still gonna smack the fuck out them. They trying to act hard over twitter. Haha pussy ass niggas
+5680,3,0,3,0,1,@anepicname only reason I wouldn't give it up is I ahve a fucking CATALOG on this bitch. Arcade games were fire.
+5681,3,0,3,0,1,@angelo_GL @Tommy_Russell_ yall aint gon get a stitch of pussy....
+5682,3,0,3,0,1,@angelo_GL oh yea a-lo aka mr bitches lmao
+5683,3,0,3,0,1,@angelo_papale lol now all ya need is sum beacg bod abs pussy boy
+5684,3,1,2,0,1,@anggxo get off my twitter fag
+5685,3,0,3,0,1,@anniec0429 ugly white bitch
+5686,6,0,0,6,2,"@antiamnesty @AppSame @WhiteHouse 
+I agree 100%. No naturalized citizenship, no anchor baby amnesty. All go to parents country of origin."
+5687,3,0,3,0,1,@apmorales96 gotta keep fighting bro Thea hoes just trying to bring me down. #thestrugle
+5688,3,2,1,0,0,"@aravosis May I jump in u ball-less dick-wad? As a conservative, feminist, disabled vet bitch, I wish u luck with a capital F. @DLoesch"
+5689,3,0,3,0,1,@areuseriousrn @harmon_lauren it's okay I'll get bitches on this dick anyway but thanks for the tip
+5690,3,1,2,0,1,"@argylegray @JTrevorHowerton @HollyRFisher I don't give a flying fuck what you think about my tweets, worthless teabagger scum."
+5691,3,0,1,2,2,@ariennajanee its mutual my lil yellow bone&#127827;
+5692,3,0,0,3,2,@ariennajanee thats why youz a yellow bone &#128155;&#128155;
+5693,3,0,3,0,1,@arionnee cuz you know i was playing witchu i aint call yo mama a bitch or say yo brother ugly af did i?
+5694,3,0,3,0,1,@arionnee smh iont understand it but fuck it more hoes for me &#128527;&#128514;
+5695,3,1,2,0,1,@artiequitter fuck 'em if they can't take a joke! liberal pussies only think jokes about sarah palin &amp; daughters are funny.
+5696,3,1,2,0,1,@aschops absolutely agree with that statement. It's just so amusing how angry it makes all these teabagger scumbags. That alone is worth it.
+5697,3,0,3,0,1,@asdfgheatherr no not tonight you're gonna hoe tomorrow
+5698,3,1,2,0,1,@asheZ29 @mskyleighmarie bitches &#128530;
+5699,3,2,1,0,0,@ashhruggiero happy birthday queer
+5700,3,0,0,3,2,@ashley_smith20 colored contacts
+5701,3,0,3,0,1,@ashleyasatu lmaoooo I'm calling her a hoe and I'm mad? Shutcho uglass up
+5702,3,0,3,0,1,@ashleyrike sick bitch!!
+5703,3,0,0,3,2,@ashleyypat17 if im trash ur trash since we baes now
+5704,3,0,3,0,1,@asiahh__ alright bitch I hope someone deletes your life suck 30 dicks and get hit by 2 buses
+5705,3,0,1,2,2,@asiahh__ nah I replied to you like I did to literally everyone else who called it trash... Go and check if you don't believe me
+5707,3,2,1,0,0,@asshole_king oh no. They drafted that gay ass that come out on TV? Well u welcome to Redskins nation. No queers just a lot of niggers.
+5708,3,3,0,0,0,@asshole_king pats owner is a kike.
+5709,3,3,0,0,0,@asshole_king with pills that nig will last 4 years. Like magic j .That nig should hav died years ago. Y'all the first team to draft gay.
+5710,3,0,2,1,1,@assholee813 such a hoe
+5711,3,0,3,0,1,@atheistfront @CutRealty @A_M_Perez @ATHE1STP0WER yea spell check is a bitch... lets stay on topic
+5712,3,1,2,0,1,@atownbrown08 @CarmineZozzora LOL that hasn't worked well for black folks in the past. They better bring a few crackers with um.
+5713,6,4,2,0,0,@atspace your 2. And 3. Nigga them hoes suck wayans brothers are not funny at all Jamie foxx should be number 2
+5714,4,0,1,3,2,@aurabogado el negro?
+5715,3,1,2,0,1,@austin_farrar yeah way to block me fag your scared you go and hit girls how tough does that make you? Tough enough to know I'd beat...
+5716,3,3,0,0,0,@austin_farrar your a fucking queer faggot bitch
+5717,3,0,3,0,1,@austinrea_ @sbsylvester @hunterbuch66 @kieffer_jason bitch that's wtf I just said and its not Christopher it's Chris mf
+5718,3,0,0,3,2,@awfulbot are you a pig or are you a bird
+5719,3,1,2,0,1,@b0ss561 just beat the pussy up
+5720,3,0,3,0,1,@b0ssladyRe go to sleep bitch
+5721,3,0,3,0,1,@b0ssladyRe lmao you wish bitch
+5722,3,0,1,2,2,@b0ssladyre just ate a wees brownie and is seeing random cats
+5723,3,0,3,0,1,@b0ssladyre lmao they know who the kitty master is !!!! Don't hate bitch
+5724,3,0,0,3,2,@b1gsean21 lets just say hellen keller makes better brownies
+5725,3,0,3,0,1,@b_scheich &#128072;&#128166; salute a bad bitch
+5726,3,0,3,0,1,@b_shiznitt @italian_montana wtf you bitches seen this without me
+5727,3,0,3,0,1,@b_shiznitt cum thru bitch
+5728,3,1,2,0,1,@b_shiznitt fuck off bitch
+5729,3,0,3,0,1,@b_shiznitt fuck you bitch
+5730,3,0,2,1,1,@b_shiznitt wanted me to let everyone know he downloaded the whole Acoustic Justin Bieber album #fag
+5731,3,0,3,0,1,@b_shiznitt what's good pussy
+5732,3,0,3,0,1,@b_shiznitt you lying bitch
+5733,3,0,3,0,1,@baaaabyshaaaay_ My niggah!!
+5734,3,0,3,0,1,@baaaabyshaaaay_ Ununnnn what plans? Text me niggah!!
+5735,3,0,3,0,1,@baaaabyshaaaay_ Yassss bitch!!
+5736,3,0,3,0,1,@baaaabyshaaaay_ spitted sprite on you? niggah with yo smart ass mouth you deserved it. &amp; well stfu! lol
+5737,3,0,3,0,1,"@babynacca @Zneezy2Good both you boys need some pussy, damn.&#128521;"
+5738,4,1,3,0,1,@babyspittle @Kimmyincali @MartiniShark @SenatorReid Still blaming Bush? Fucking retard
+5739,3,2,1,0,0,"@bad_boy_six @ksteven37 
+Here ya go wetback, eat this.. http://t.co/kf6PgZvH5G"
+5740,3,1,2,0,1,@badluckbella_ that's lil nig &#128526;
+5741,3,0,3,0,1,@badnewsbridget @MorbidMermaid @EvanBecker513 you're a lying sack of shit because I know you love me #lesbian #jk #jkbridgeturstraight #fag
+5742,3,0,3,0,1,@badnewsbridget lol fag
+5743,3,2,1,0,0,"@badshah200 Ur pal @STLAbuBadu threat2 ""apostate kufar""&gt;""I cld cut ur neck w/sword of islam &amp;watch u squeal like a bitch like Daniel Pearl"""
+5744,3,0,0,3,2,@baileymw22 you're the sole reason I come to that chipotle incase you didn't know. Keep up the good work babe
+5745,3,0,0,3,2,@ballzahoy cowboy killers.&#128525;
+5746,3,0,0,3,2,@basedgvbe trash
+5747,3,0,3,0,1,@baskgod nah it's just Clowney being a bitch nigga
+5748,3,0,3,0,1,"@bayjackson3 lol it's a crew, not actual hoes"
+5749,3,0,3,0,1,@bbhairs when you get famous I'm buyin yo art so me and my bitch can have dat shit all in da crib
+5750,3,0,3,0,1,@bbluedreamm @chris_cruz1 @Hunglikerobby_ Kenna stfu? Quit bein a bitch I was tellin Robby to stop?! God.
+5751,3,0,3,0,1,@bbluedreamm @chris_cruz1 @Hunglikerobby_ don't be a bitch then?
+5752,3,0,3,0,1,@bbluedreamm @kelliestebbins how original you faggots&#128530;&#128557;
+5753,3,0,3,0,1,@bbluedreamm bitch don't reply&#128524;
+5754,3,0,3,0,1,@beautifulbeeee yes!!! Every guy is a bitch today...lol...smh
+5755,3,0,2,1,1,@beejohns1 is gonna find himself a redneck girl one of these days &#128143;&#128514;
+5756,3,0,3,0,1,@beenlame @FuckTraVonn faggot
+5757,3,0,0,3,2,"@beepbeepamanda Today was Talk Like A Pirate Day, and absolutely NOBODY knew Id been doing a Charlie Morton impersonation all day."
+5758,3,2,0,1,0,@beesands10 But that's what you call white trash with money!!!!!
+5759,3,2,1,0,0,@bellaangeletti no ud still be a fag if I was lolz
+5760,3,2,1,0,0,@bellaangeletti ur a fag
+5761,3,0,3,0,1,@benshapiro just more #teabagger babel. these are the same fucks that masturbated to @TimTebow - they just HATE it when gays r successful.
+5762,3,0,2,1,1,"@bernadettvajda they always put gingers in red, yellow, or leopard print."
+5763,3,0,2,1,1,"@bestassbestface omg ur finally losing ur patience. ""Cause ur a hoe!"" I love it. &#128514;&#128514; can't stop laughing."
+5764,3,0,0,3,2,@beth4158 no steak here either. No hurry on brownies. Just that picture u posted made me all but drool on my phone. :)
+5765,3,0,3,0,1,@betysweetcocker that's white woman pussy
+5766,3,0,3,0,1,@bigDickdoane positive thoughts nig nog &#128522;
+5767,3,1,2,0,1,@big_business_ lmao dog just type them out and let them faggots try to decipher it.
+5768,3,1,0,2,2,"@big_msudawg11 oh state, just enjoy your trailer trash and your sub par sports."
+5771,3,0,3,0,1,@biggerboat99 please be a little depressed bitch the entire time
+5772,3,0,3,0,1,@bigksmoove them hoes look good
+5773,3,0,3,0,1,@bigshaadswerver @Alejandro_Bihhh I haven't seen that hoe
+5774,3,0,3,0,1,@bigshaadswerver yea TJ in this hoe dunking everything TK hitting shots and Juelz handling the bitch
+5775,3,0,2,1,1,@bijoudulcet geminis rule hoe. &#128524;
+5776,3,0,2,1,1,@bill_gaines @MorningJoe ATF is in charge of prosecuting cases and the #teabagger Republicans won't confirm a director to lead the agency.
+5777,3,0,1,2,2,@billyeichner Since @TomCruise will be a hoser... hi.
+5778,3,0,1,2,2,@billyrunaway Hope she's larger than a bird.
+5779,3,0,3,0,1,@binniemouse bitch don't kill my vibe
+5780,3,0,3,0,1,@bitchdicknigga yeah cum itch my slit baby cakes
+5781,3,2,1,0,0,@bitchdicknigga you're a fucking nigger
+5782,3,0,3,0,1,@bitchkrieg HBIC....... Head bitch in charge. Lol
+5783,3,2,1,0,0,@bitchkrieg like the new AVI. My Twitter is retarded and shows you in the cubs hat but when I stalk your profile it show the new one
+5784,3,0,3,0,1,@bitchsides you're a bitch Ihy
+5785,3,0,0,3,2,@bitty_boop @Oreo cookies sound wonderful.
+5786,3,0,3,0,1,"@bjohnson613 This is why I follow and love you, Bill. I may bitch at you, but I'll never quit you."
+5787,3,0,0,3,2,@blackrepublican how long after the name change will al memorabilia w/redskins name be deemed racist and therby illegal?
+5788,3,0,0,3,2,@blackymiles lol to get the yellow bleach stain out use a baking soda hydrogen peroxide paste on the stain and throw in the washer
+5789,3,0,3,0,1,@blakeshelton I'm coming for you bitch boy!!! http://t.co/yASXoqnLEA
+5790,3,0,2,1,1,@blastmccurdy in your dreams little leprechaun hemroid
+5791,3,0,1,2,2,@blowme you mean trash.
+5792,3,0,3,0,1,@bm00re43 bitches naked**
+5793,3,2,1,0,0,@bnp We are being overrun by mongrels because ZOG or the Jews that run our countries want the white man to perish.
+5794,3,0,0,3,2,@bocgeogaddi @anepicname lmaooooo epic bird wins.
+5795,3,0,3,0,1,"@bogglethemind83 @AJ0427 Was about to fly to Portugal &amp; open a can of whoopass since they started to zoom out during ""Still run this bitch"""
+5796,3,1,2,0,1,@bongwynnn wow what a faggot
+5797,3,0,3,0,1,@bonnoxxx &#128514; nah bitch u addicted to spazzin fasho fuc molly tht shit happend 1 time and lean scarce so stfu hoe ass go spazz on sum thot
+5798,3,0,3,0,1,@bonnoxxx &#128514;&#128514;&#128557;&#128557; since day 1 u remember tha bitches in alabama lmfaoo #BIG
+5799,3,1,2,0,1,@bonnoxxx &#128557;&#128557;&#128557;&#128557;&#128557; how u kno im talkin bout you bitch lmfao
+5800,3,2,1,0,0,@bonnoxxx haha bitch ima draw a webb in bullets round yo fuggin forehead #BeamThat bitch i know where you reside
+5801,3,2,1,0,0,@bonnoxxx nah she said you a fag
+5802,3,0,3,0,1,@bonnoxxx u smokin that 87 bitch
+5803,3,0,3,0,1,@bonnoxxx yea cuh a bitch fuc donald sterling .. Cuhz pimpin tho
+5804,3,0,3,0,1,@bossliyah_ DM me your number hoe
+5805,3,0,3,0,1,"@bosxe it worked, bitch!!!"
+5806,3,0,0,3,2,@boxingscene @RPopBox @BronzeBomber @boxing this Charlie Z really does need mental help check this out http://t.co/CkBS6WcZu1
+5807,3,0,3,0,1,@boxingscene Danny will be in deep deep water at 147 too many badass sons of bitches up there
+5808,3,0,3,0,1,@boxingscene nobody is ever gonna take this ass clown serious again what a lil bitch
+5809,3,0,3,0,1,@bradley_eckman don't say shit like that lil nig .. Or I'll give you a &#127812; stamp
+5810,3,0,0,3,2,"@brandonDGK420 the only boards I still have from them are just the tie dye ones, monkey edition, black and silver , and the newest ones"
+5811,3,0,3,0,1,@brandon_even Them aint the bitches im talkin bout &#58386;&#58386;&#58386; aint no jungle fever over there LOL
+5812,3,0,3,0,1,@brandynasty bitch nigga dont get all but hurt
+5813,3,0,3,0,1,@brendacoyt_3 : Ayee Ayee it's my snow niqqa &amp;&amp; it's for my bitches to slide to my crib
+5814,3,0,3,0,1,@brendacoyt_3 : I got them bitches snowboarding to me &#127938;&#127935;&#10052;&#65039;&#9924;&#65039;
+5815,3,0,3,0,1,@brendacoyt_3 : ahah chill my bitch look better &#128514;&#128514;&#128514;&#128527;&#128076;
+5816,3,0,3,0,1,@bri_shackelford @bellaangeletti sorry dyslexia is a bitch
+5817,3,0,0,3,2,@brianabrazilian oh... my phone is some trash! but you knew that!
+5818,3,0,3,0,1,@brianholmes2700 I &#128154; you bitch
+5819,3,0,3,0,1,@brianholmes2700 god doesn't send retards to hell
+5820,3,0,3,0,1,@brianholmes2700 pussy
+5821,3,0,3,0,1,@brianholmes2700 you a drunk bitch
+5822,3,0,0,3,2,@brianstelter took uber yesterday. Advertised as 20% &lt; NY taxis but was actually a yellow taxi at same price. #uber
+5823,3,0,3,0,1,@briere_alex bout time bitch
+5824,3,0,3,0,1,@britneyspears not that it matters but im proud of ur little ass! im n old southern bitch. hang n there baby!
+5825,3,0,0,3,2,@brittbritt_naay &#128514; I'm a wexican
+5826,3,0,3,0,1,@brittneycordova don't blame me hoe.... I'm innocent &#128520;
+5827,3,0,0,3,2,"@britty_jurgens a music suggestion is ""lil spook"""
+5828,3,0,3,0,1,@broneadams yo bitch stay lookin like a clown
+5829,3,0,3,0,1,@brookbristow @BigAssMoustache people gotta bitch about something.
+5830,3,0,3,0,1,"@brookeschade @piperleigh_ @cass_uhhh_deee @baylee247 all of yall stfu, your all pussies and won't do shit"
+5831,3,0,3,0,1,@brotherbill7 thirsty hoes &#128129;
+5832,3,2,1,0,0,@brrrrangadang this nigga &#128529;&#128529;.. know damn well you a coon
+5833,3,1,2,0,1,@bsails33 dyke ron&#127752;&#127917;&#128514;
+5834,3,0,3,0,1,@buffprobzzz the dude took off running like a bitch!
+5835,3,1,2,0,1,"@burke113 @donthebear ""..the nig..""? ok, you're the big time shit talker on twitter no name, no face, no info"
+5836,3,0,0,3,2,@butterfliesblue I heard green tea makes you lose weight.... And Imma coon so that explains the watermelon
+5837,3,0,3,0,1,@bygbootiejuliie just FaceTime Doms bitch ass
+5838,3,0,0,3,2,@c00ntact @KevinI bumcia is trash smfh I would've thought he would have gone after Khan but what you said makes sense
+5839,3,0,1,2,2,@c_drew_ I'm guessing so. The players are talking trash.
+5840,3,1,2,0,1,@c_mccann23 fuck yes we are &#128540; triple xp nigguh
+5841,3,0,3,0,1,"@caitnicole3 I'm not sure, I'm a broke nig &#128542;"
+5842,3,0,1,2,2,@cakedjake We're laying rock around our lake. You're welcome to join a redneck workout. #muscles &#128170;&#128513;
+5843,3,1,2,0,1,"@calissstaaa cause you're a damn border bunny, you forget already?"
+5844,3,0,3,0,1,@calumlove1997 might havti give you a visit. This cunt isn't going to have a family when im done.
+5845,3,0,3,0,1,@cambreezy_ @AndrewWayne2 @thereal_EMandM it ain't retarded. He's my cousin. Lmao.
+5846,3,2,1,0,0,@cambreezy_ @TheLittleFella_ she spelled faggots with an e you're so cool lol
+5847,3,0,3,0,1,@cameron_ast @lanahudsonnn @ijrojo bitch shut the fuck and follow what u say nigga
+5848,3,0,3,0,1,@cameron_ast @lanahudsonnn are u fucking still talking bitch I wanna see that I don't give a fuck about your ugly ass girlfriend son
+5849,3,1,2,0,1,@cameron_ast @lanahudsonnn bitch and the fuck u wanna do about then nigga stfu talking and do something
+5852,3,0,0,3,2,@caraabastow That's a cute and fuzzy one...hehehe ;)
+5853,3,0,0,3,2,"@caritoguey 02' Charcoal 7s are pre-owned, no sole wear or scuffs Size 10.5, Cherry 12's DS size 11.5"
+5854,3,0,1,2,2,@carlybaejepsen trash
+5855,3,1,2,0,1,@carlybutler96 just texted yea queer bait &#128536;
+5856,3,0,0,3,2,@carolinebakkk those were bumblebees....
+5857,3,0,1,2,2,@carpedehope not if you're standing in btw the yellow lines
+5858,3,0,3,0,1,@carterboy_leake @italian_montana @tyg235 chill your dad gets more bitches at school than you do griff
+5859,3,0,3,0,1,@cass_uhhh_deee do it pussy
+5860,6,0,6,0,1,@catleesh_ I have small pussy size plugs
+5861,3,0,0,3,2,@caycifish What is that monkey doing to those poor bottles?
+5862,3,3,0,0,0,@caykelly16 @MadisonEarhart u guys are fags.
+5863,3,0,3,0,1,@caylanashlee cause everyone just loves yo bitch ass rite? Yea sure...
+5864,3,0,2,1,1,@caylinwillis Fuck the Yankees
+5865,3,0,3,0,1,@cb_marie as u should that's jus a clutch ass spot bitch we in there for the turn up &#128553;&#128553;&#128553;
+5866,3,0,3,0,1,@cb_marie bitch yessssssss&#128586;&#128551; omg I jus saw one of em yesterday I'm in disbelief I rode by like oh that's court bro now I'm lost
+5867,3,0,3,0,1,"@cbfollowheidi black girls are so funny, why can't you talk literate? It's pathetic, dick riding die hard fan rofl, you disgust me, retard."
+5868,3,0,3,0,1,@cbfollowheidi bye ugly hoe please do something about that nasty horse hair weave.
+5869,6,0,6,0,1,@ccass357 @Liveitupjersey real Serious in CT! Bunch of whiney cunts!
+5871,3,0,3,0,1,@cdnrod And they bitch cause police showed in force.They were the only thing preventing them from getting turned in2 road kill #I70Shutdown
+5872,3,0,1,2,2,@cgoodwoman @stevenadamswv Crystal probably only person in world interested in my poor black hillbilly:Jamaica::poor white hillbilly:WV idea
+5873,3,0,3,0,1,@chandraingram95 sounds like you bout to smack a hoe
+5874,3,0,3,0,1,@chanel_2Playa @TODDIE_soPLAYER nigga you proud of 80% I was in that bitch 99.99% the .01% is from me going to get the weed out the car
+5875,3,0,2,1,1,@chanelisabeth @Emmasayshai #icanhashtaghoweveriwant #bitch
+5876,3,0,2,1,1,@chanelisabeth I drive illegally retard
+5877,3,1,2,0,1,"@chanelisabeth I'm subtweeting my sister, hoe"
+5878,3,0,3,0,1,@chanelisabeth cuz ur a bird bitch
+5879,3,0,3,0,1,@chanelisabeth fuck yo bitch ass then
+5880,3,2,1,0,0,@chanelisabeth that nigger music
+5881,3,1,2,0,1,"@chanelisabeth well you're a first class bitch. So go on with your bitch life, bitch"
+5882,3,0,3,0,1,@charlieecai ok!!!!! Stupid bitch
+5883,3,0,0,3,2,@charlierose @jdickerson racist @NorahODonnell Texas trash GWBush came to WH numb remember he and Republicans stole the election
+5884,3,0,1,2,2,@charlierose @jdickerson racist@NorahODonnell Tx trash there's no comparison betwn Pres Obama n GWBush rt poll will show He's supported 100%
+5885,3,0,0,3,2,@charliesheen Charlie PLEASE STOP. from 1 ole fart 2 another...
+5886,3,0,0,3,2,"@charliesheen Charlie, im an old lady. don't EVER SAY UGLY THINGS ABOUT UR CHILDRENS MOM.. I GET IT!!!, JUS DONT! BIG HUG"
+5887,3,0,0,3,2,@charloosss @keepitplur @nicoleariel_ I'll chug my tall can . but homegirl won't approve lol
+5888,3,0,3,0,1,@charmarie hoe you are doing good too!
+5889,3,0,3,0,1,@chase_wickett @LangKeaton bitch im waitin on my chicken nuggets
+5890,3,0,0,3,2,@cheetahxcheeks lol trash I would of kept it if she was cute
+5891,3,0,3,0,1,@chelsiielynn &#128514;&#128514;&#128514; you tried to bit my bottom lip off like it was a snack bitch
+5892,3,2,1,0,0,@chemicalkidss this bitch look like a fucking white trash Trailer park queen lookin man bear pig. http://t.co/fqyXLJYIET
+5893,3,0,3,0,1,@chesteredits @nacbiller not as bad as a former PsyQo nigger THAT LIKES ANIME
+5894,3,0,3,0,1,@chloeforsale wigg I love you bitch &#128536;
+5895,3,0,0,3,2,"@chris2x @NevadaPR Camels, ostriches and zebras! See you at the races! #VCCamelRaces"
+5896,3,0,3,0,1,@chris_hardardt7 pussy?
+5897,3,0,0,3,2,@chrisbickert i want it! I love her gooks! she is awesome where did you get it?
+5898,3,0,2,1,1,"@chrisbrown @cmpunk If by ""amusing"" you mean ""Makes you cry like a bitch,"" then yeah, I'd agree."
+5899,3,0,3,0,1,@chriscurtis410 I agree the fat bitches the only girls left not gettin passed around
+5900,3,1,2,0,1,@chriscurtis410 they be tryna b on the low but one day these bitches gonna realize some niggas talk more then them l&#128514;
+5901,3,1,2,0,1,@chrisrmz95 dude was a bitch nigga and took off running
+5902,3,0,0,3,2,@christianvansly haha I'm shocked barca got more yellow cards this time
+5903,3,0,0,3,2,@chucktodd @meetthepress he was walking &amp; 3 little birds pitch by his doorstep. Singing sweet songs of melodies pure &amp; true. Saying ...
+5904,3,0,3,0,1,"@chvrlesGoldie like Hov said ""we all ghetto b"" lol"
+5905,3,1,2,0,1,@cj_menaa1 &#128553;&#128553;&#128514;&#128514; nigga doing the duggy on dem dead hoes lol
+5906,3,0,3,0,1,@claire_ming get some orange hoe
+5907,3,1,0,2,2,@clangloisss hmu negro
+5908,3,0,0,3,2,"@claraoswined cute, but I love her yellow raincoat the most, the contrast with that&amp;her hair looks so cute! :P I love her face in your icon!"
+5909,3,0,3,0,1,@classy_girls bruh u such a pussy just talk
+5910,3,1,0,2,2,@cleggzta Ho ho ho.
+5911,3,0,3,0,1,@clfrew27 bitch
+5912,3,0,3,0,1,@clfrew27 ill slap a hoe
+5913,9,5,0,4,0,"@clinchmtn316 @sixonesixband AMERICA today, the rule of thumb is: when in doubt, blame ""whitey"""
+5914,3,0,3,0,1,@cluis838 them peeps who bitches
+5915,3,0,0,3,2,@cnnbrk let me guess they have yellow cake too? Same crap different president
+5916,3,0,3,0,1,@coL_ACHES Why do you bitch about everything?
+5917,3,0,3,0,1,@cody_laws @ me bitch. When and where?
+5918,3,2,1,0,0,@coffincreepxx you had to throw in the faggot word smh smh smh
+5919,3,0,3,0,1,@colinkane ur the tool for posting a vid of a dude pacing! Especially when u were too pussy to film his face!!!
+5920,3,0,3,0,1,@collegefession you are a bitch!!!!
+5921,3,0,3,0,1,"@collinaudre - see, that's why ya ass never need to go out. tryna go ape shit.&#128514;"
+5922,3,0,0,3,2,@contrarian11 @YouTube yeah. great song. just watching the MSG concert of 1990 Yankee Stadium gig.
+5923,3,1,2,0,1,"@coolieDAGGERA @CapoToHeaven why wld u wanna be a faggot, dude? That's faggot like"
+5924,3,0,3,0,1,@coolstorysam @MorgannnDee i thought you had some fucked up birth defect that made your nips heart shaped lmao.
+5925,3,0,2,1,1,@cooney_mane @nflcommish it's not right but it's the rule. The nfl has a strike policy for drugs and josh Gordon is retarded
+5926,3,0,2,1,1,@corey_emanuel bet... My trash ass self is just that petty
+5927,3,0,2,1,1,@corey_emanuel bet.... Pay back is a bitch
+5928,3,0,2,1,1,@corrinybug YASSS bitch YASSS! I wonder if penny passed &#128514;
+5929,3,0,3,0,1,@coryw182 I'm tired bitch &#128532;
+5930,3,2,1,0,0,"@coughlan616 Youre racist against white people whigger. Anti-Racist is a codeword for anti-white.
+Anti-zionist is a codeword for antisemite."
+5931,3,0,3,0,1,@covrtneyyy that was for other bitches lol you cute tho wassup GIMMI YO NUMBA&#128299; IMMA NATURAL TOO LMFAOO
+5932,3,0,0,3,2,@craigcalcaterra Hes behind the plate for the game tonight here in AZ. Im looking to buy a red&amp;yellow Balkamania shirt I can tear off there.
+5933,3,0,3,0,1,@crazy_mike97 Hold it you fucking bitch
+5934,3,0,3,0,1,@creepgoddess @iPostDickPrints hell no! Where is the pussy print page?
+5935,3,0,2,1,1,@creepgoddess oh? He still talking to other bitches I bet. NONE of my biz tho
+5936,3,0,3,0,1,@creoleblood @HighClassCapri @verkannt__ like what u bitches wantttt (dmx voice)&#128553;&#128553;&#128553;
+5937,3,0,3,0,1,@cristiannt_ bitch I back shit up fuck nigga
+5938,3,0,3,0,1,@cristiannt_ bitch am not gonna shut shit up feel free to join them
+5939,3,0,3,0,1,@cristiannt_ nigga you beat who ass bitch we've never even fought so u need to stop making up shit and bring yo ass with them
+5940,3,0,3,0,1,"@cristiannt_ wow I was like 12 or 13 fighting people in high school, then bitch unfollow me fuck nigga"
+5941,3,1,2,0,1,@crocodile_Craig bitch y u ain't come to school
+5942,3,1,2,0,1,@crushwb sup my nigga.. cracker.. home boy.. what ya know that .. blah... forget it.. hey to ya.
+5943,3,0,0,3,2,@cryancarfield haven't you ever heard the story of the birds and the bees
+5944,3,1,2,0,1,@crystalkethry &#128680;&#128680;&#128680;&#128680;bad bitch w dreads alert
+5945,3,0,3,0,1,@ctrembz be sure to follow it up with a fabulous bitch face
+5946,3,0,3,0,1,@cubvn_ girls that want to hold on to they hoes and act like they can't show off they boyfriends
+5947,3,0,0,3,2,"@cullenbunn Maybe Baylee Ann, Tater Pud, Nurse Fester, Charlie Chainsaws, &amp; Mama Rot should be their own team?! Next time in PunisherMAX!:-D"
+5948,3,1,0,2,2,@cumkwats thank you based pee slit
+5949,3,0,3,0,1,@cup_ah_noodles ya pussy let's go wheelin
+5950,6,0,6,0,1,@cuteasstab niggah this shit serious aint no one laughing
+5951,3,0,3,0,1,"@cuunthiaaa @Fvnxy he's the ""fuck her right in the pussy"" guy"
+5952,3,0,0,3,2,"@cxslug I never did those games, but I was obsessed with Angry birds. Which is why it took me so long to do CCS. I was scared. Lol"
+5953,3,0,0,3,2,@d6_9b idk... It's trash though!
+5954,3,0,0,3,2,@dabbba @Pinchehonkey Far as I can tell coon tracks on the cab door window - tractor was parked by some trees away from home
+5955,3,0,3,0,1,@dablueprint fuck no she dont let nobody hit that pussy either I know it's firm
+5956,3,0,0,3,2,@daggerbyte @MichaelSmartGuy @spacej_me @pizzahut Given the rickety slant of that roof I'd say more like Pizza Shanty
+5957,3,0,3,0,1,"@daijahshardaee yess bitch cuts, colors, and curls ha self."
+5958,3,0,0,3,2,@daishialopez how could you say such a thing woman?! You have two functioning chest tables to hold your peanut butter and crackers!
+5959,3,0,2,1,1,@daisymcgarr My knee won't let me wander around much so I just make a few trips and look at the fat girls-- redneck porn--Wal-Mart
+5961,3,0,3,0,1,@dalmesquita13 you to bitch!
+5962,3,0,3,0,1,@damnit_mannn @RoJustDGAF not over no twitter shit. Plus youre a female. You letting a dumb sloppy body ignorant bitch speak for 13k people
+5963,3,0,3,0,1,"@dan1ellep And they&#8217;re retarded as fuck in general with their &#8220;insults&#8221;. Hope they fall off with AW, but the CSGO scene is growing so IDK."
+5964,3,0,2,1,1,@dan1ellep she going full retard right now smh
+5965,3,0,3,0,1,@dani_crocker There was also no need for her to be a cunt and act like she's something special. It wasn't unprovoked.
+5966,3,1,2,0,1,@daniellesayswha hoe
+5967,3,0,1,2,2,@danifreshh some weird local ghetto school haha
+5968,3,0,3,0,1,@danikawillow don't be a pussy. Also there is beer AND FREE PIZZA HERE. I SWEAR
+5969,3,0,3,0,1,@dannycatsteve because it's fucking retarded?
+5970,3,0,3,0,1,@danram70 @Buflo_dolla ....so ur a fag?
+5971,3,0,1,2,2,@danram70 pussy. It's science. Donaire via Rachel spelling error
+5972,3,1,2,0,1,@dantoomey2 forgot someone niglet
+5973,3,2,1,0,0,@dantoomey2 fuck you faggot
+5974,3,0,3,0,1,"@dantoomey2 you fat Irish fucking cunt, I honestly hope you choke to death in a pool of your own Jameson induced vomit"
+5975,4,0,4,0,1,@danusaur @GoldenArmada_ we don't love these hoes
+5976,3,0,3,0,1,@dappermuke I stick up for my fam. don't disrespect the pouch my nigguh. and awe ily2 http://t.co/tuQ0uAd8bK
+5977,3,0,1,2,2,@darealwalt_jr he see the jig
+5978,3,0,0,3,2,@darrenburton_ and take the trash out and separate the recyclables
+5979,3,2,1,0,0,@darthdanaa Yes you do retard.
+5980,3,0,0,3,2,"@datachick Humanity really needs to get past this whole ""slow down and stare at the scene of an accident"" ape mentality we have :-/"
+5981,3,0,3,0,1,"@datexehmm So bad bitches intimidate you, in other words?"
+5983,3,0,3,0,1,@davegetnmoney my phone's doin da pussy right now lol
+5984,3,0,3,0,1,@daveyy_jayy lmao mark is the only guy left there he's about to get some pussy
+5985,3,1,2,0,1,@davidam_23 yes so you could leave fag
+5986,3,1,2,0,1,"@davidly62793584 hahahaha, aw nut... We should try and capture that cunt"
+5987,6,4,2,0,0,@davidly62793584 how many fuckin fags did a even get? Shouldnt be allowed into my wallet whilst under the influence haha
+5988,6,0,6,0,1,"@davidlyon1690 @_shannonmacleod he wants pussy, nd a dini mean a cat"
+5989,3,0,2,1,1,@daydaaaaaa hay pussy cat &#128539;&#128541;&#128075;&#128075;
+5990,3,0,3,0,1,@dbro800 pussy you can't fight &#128564;
+5991,3,0,0,3,2,@dchestnut26 don't shake your head at me. I just love to trash talk.
+5992,3,1,2,0,1,@deIukesionaI more like emily is a little twat
+5993,6,1,5,0,1,@deadgrl_666 she can just fuckin call the venue about it and they'll cancel the lost tickets and reprint new ones what a dumb bitch
+5994,3,0,3,0,1,@deadlygilinsky drug buddy pussy money bitches weed
+5995,3,2,1,0,0,@delaney_guinan a faggot that needs to grow up
+5996,3,0,3,0,1,@delaney_guinan grow a pair pussy
+5997,3,0,3,0,1,@delaney_guinan ol rachet ass bitch
+5998,3,2,1,0,0,@delaney_guinan you did a good job doing that to me and not texting back faggot
+5999,3,0,3,0,1,@delaylay_messy i rap that and her part of Problem 24/7 cause I'm a bad bitch
+6000,3,0,3,0,1,@demimariemorin well im sure im not fully retarded #imustbestupid:(
+6001,3,0,3,0,1,@denise_nigga69 true dat nig
+6002,3,2,1,0,0,@deno_5 @kaitlyninst0ne you're reading you coon
+6003,3,2,1,0,0,"@densonkeith most of these people are followers of followers of truth, but they themselves are still niggers... their outlook, mind &amp; all."
+6004,3,0,3,0,1,@denytheprophecy because you're a weak bitch. Listen to Cruel Hand because the singer fell on face last night.
+6005,3,1,2,0,1,@denytheprophecy shit so Joel went off and swore at the kid and the kid was a fucking snitch nigga pussy and ratted on him &amp; got him -
+6006,3,3,0,0,0,@denytheprophecy thanks for ignoring my texts fag
+6007,3,1,2,0,1,@denytheprophecy that's a dragon you retard
+6008,3,0,2,1,1,@denytheprophecy when you realize you're trash
+6009,3,0,3,0,1,@dequaan_ @Khid_Zay &#128514;&#128514;fucc the extra shit I'm seeing that hoe THIS WEEKEND
+6010,3,0,2,1,1,"@derek_gatewood I got a kenwood amp to but it's probably ghetto, right?"
+6011,3,0,1,2,2,@derek_gatewood it's not ghetto you fool.
+6012,3,0,3,0,1,@derek_gatewood you got a toolbox you hoe
+6013,3,0,0,3,2,"@desamador you gotta be like me n the twins, just chug it all before everyone"

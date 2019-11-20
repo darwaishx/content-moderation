@@ -1,270 +1,1251 @@
-<!DOCTYPE HTML>
-<html>
-
-<head>
-    <meta charset="utf-8">
-
-    <title>profanity-training-docs-1k.txt (editing)</title>
-    <link id="favicon" rel="shortcut icon" type="image/x-icon" href="/static/base/images/favicon-file.ico?v=e2776a7f45692c839d6eea7d7ff6f3b2">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="/static/components/jquery-ui/themes/smoothness/jquery-ui.min.css?v=3c2a865c832a1322285c55c6ed99abb2" type="text/css" />
-    <link rel="stylesheet" href="/static/components/jquery-typeahead/dist/jquery.typeahead.min.css?v=7afb461de36accb1aa133a1710f5bc56" type="text/css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    
-<link rel="stylesheet" href="/static/components/codemirror/lib/codemirror.css?v=288352df06a67ee35003b0981da414ac">
-<link rel="stylesheet" href="/static/components/codemirror/addon/dialog/dialog.css?v=c89dce10b44d2882a024e7befc2b63f5">
-
-    <link rel="stylesheet" href="/static/style/style.min.css?v=56cad67b8b1ff3ed9b48850e9efcffb3" type="text/css"/>
-    
-
-    <link rel="stylesheet" href="/custom/custom.css" type="text/css" />
-    <script src="/static/components/es6-promise/promise.min.js?v=f004a16cb856e0ff11781d01ec5ca8fe" type="text/javascript" charset="utf-8"></script>
-    <script src="/static/components/preact/index.js?v=00a2fac73c670ce39ac53d26640eb542" type="text/javascript"></script>
-    <script src="/static/components/proptypes/index.js?v=c40890eb04df9811fcc4d47e53a29604" type="text/javascript"></script>
-    <script src="/static/components/preact-compat/index.js?v=aea8f6660e54b18ace8d84a9b9654c1c" type="text/javascript"></script>
-    <script src="/static/components/requirejs/require.js?v=951f856e81496aaeec2e71a1c2c0d51f" type="text/javascript" charset="utf-8"></script>
-    <script>
-      require.config({
-          
-          urlArgs: "v=20191023041617",
-          
-          baseUrl: '/static/',
-          paths: {
-            'auth/js/main': 'auth/js/main.min',
-            custom : '/custom',
-            nbextensions : '/nbextensions',
-            kernelspecs : '/kernelspecs',
-            underscore : 'components/underscore/underscore-min',
-            backbone : 'components/backbone/backbone-min',
-            jed: 'components/jed/jed',
-            jquery: 'components/jquery/jquery.min',
-            json: 'components/requirejs-plugins/src/json',
-            text: 'components/requirejs-text/text',
-            bootstrap: 'components/bootstrap/dist/js/bootstrap.min',
-            bootstraptour: 'components/bootstrap-tour/build/js/bootstrap-tour.min',
-            'jquery-ui': 'components/jquery-ui/jquery-ui.min',
-            moment: 'components/moment/min/moment-with-locales',
-            codemirror: 'components/codemirror',
-            termjs: 'components/xterm.js/xterm',
-            typeahead: 'components/jquery-typeahead/dist/jquery.typeahead.min',
-          },
-          map: { // for backward compatibility
-              "*": {
-                  "jqueryui": "jquery-ui",
-              }
-          },
-          shim: {
-            typeahead: {
-              deps: ["jquery"],
-              exports: "typeahead"
-            },
-            underscore: {
-              exports: '_'
-            },
-            backbone: {
-              deps: ["underscore", "jquery"],
-              exports: "Backbone"
-            },
-            bootstrap: {
-              deps: ["jquery"],
-              exports: "bootstrap"
-            },
-            bootstraptour: {
-              deps: ["bootstrap"],
-              exports: "Tour"
-            },
-            "jquery-ui": {
-              deps: ["jquery"],
-              exports: "$"
-            }
-          },
-          waitSeconds: 30,
-      });
-
-      require.config({
-          map: {
-              '*':{
-                'contents': 'services/contents',
-              }
-          }
-      });
-
-      // error-catching custom.js shim.
-      define("custom", function (require, exports, module) {
-          try {
-              var custom = require('custom/custom');
-              console.debug('loaded custom.js');
-              return custom;
-          } catch (e) {
-              console.error("error loading custom.js", e);
-              return {};
-          }
-      })
-
-    document.nbjs_translations = {"domain": "nbjs", "locale_data": {"nbjs": {"": {"domain": "nbjs"}}}};
-    document.documentElement.lang = navigator.language.toLowerCase();
-    </script>
-
-    
-    
-
-</head>
-
-<body class="edit_app "
- 
-data-base-url="/"
-data-file-path="profanity-training-docs-1k.txt"
-
-  
- 
-
-dir="ltr">
-
-<noscript>
-    <div id='noscript'>
-      Jupyter Notebook requires JavaScript.<br>
-      Please enable it to proceed. 
-  </div>
-</noscript>
-
-<div id="header">
-  <div id="header-container" class="container">
-  <div id="ipython_notebook" class="nav navbar-brand"><a href="/tree" title='dashboard'>
-      <img src='/static/base/images/logo.png?v=641991992878ee24c6f3826e81054a0f' alt='Jupyter Notebook'/>
-  </a></div>
-
-  
-
-<span id="save_widget" class="pull-left save_widget">
-    <span class="filename"></span>
-    <span class="last_modified"></span>
-</span>
-
-
-  
-  
-  
-  
-
-    <span id="login_widget">
-      
-    </span>
-
-  
-
-  
-  
-  </div>
-  <div class="header-bar"></div>
-
-  
-
-<div id="menubar-container" class="container">
-  <div id="menubar">
-    <div id="menus" class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-          <p  class="navbar-text indicator_area">
-          <span id="current-mode" >current mode</span>
-          </p>
-        <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <i class="fa fa-bars"></i>
-          <span class="navbar-text">Menu</span>
-        </button>
-        <ul class="nav navbar-nav navbar-right">
-          <li id="notification_area"></li>
-        </ul>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">File</a>
-              <ul id="file-menu" class="dropdown-menu">
-                <li id="new-file"><a href="#">New</a></li>
-                <li id="save-file"><a href="#">Save</a></li>
-                <li id="rename-file"><a href="#">Rename</a></li>
-                <li id="download-file"><a href="#">Download</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Edit</a>
-              <ul id="edit-menu" class="dropdown-menu">
-                <li id="menu-find"><a href="#">Find</a></li>
-                <li id="menu-replace"><a href="#">Find &amp; Replace</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Key Map</li>
-                <li id="menu-keymap-default"><a href="#">Default<i class="fa"></i></a></li>
-                <li id="menu-keymap-sublime"><a href="#">Sublime Text<i class="fa"></i></a></li>
-                <li id="menu-keymap-vim"><a href="#">Vim<i class="fa"></i></a></li>
-                <li id="menu-keymap-emacs"><a href="#">emacs<i class="fa"></i></a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">View</a>
-              <ul id="view-menu" class="dropdown-menu">
-              <li id="toggle_header" title="Show/Hide the logo and notebook title (above menu bar)">
-              <a href="#">Toggle Header</a></li>
-              <li id="menu-line-numbers"><a href="#">Toggle Line Numbers</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Language</a>
-              <ul id="mode-menu" class="dropdown-menu">
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="lower-header-bar"></div>
-
-
-</div>
-
-<div id="site">
-
-
-<div id="texteditor-backdrop">
-<div id="texteditor-container" class="container"></div>
-</div>
-
-
-</div>
-
-
-
-
-
-
-    
-
-
-<script src="/static/edit/js/main.min.js?v=d52f7cc935e2b6bf0a01c88ae4487399" type="text/javascript" charset="utf-8"></script>
-
-
-<script type='text/javascript'>
-  function _remove_token_from_url() {
-    if (window.location.search.length <= 1) {
-      return;
-    }
-    var search_parameters = window.location.search.slice(1).split('&');
-    for (var i = 0; i < search_parameters.length; i++) {
-      if (search_parameters[i].split('=')[0] === 'token') {
-        // remote token from search parameters
-        search_parameters.splice(i, 1);
-        var new_search = '';
-        if (search_parameters.length) {
-          new_search = '?' + search_parameters.join('&');
-        }
-        var new_url = window.location.origin + 
-                      window.location.pathname + 
-                      new_search + 
-                      window.location.hash;
-        window.history.replaceState({}, "", new_url);
-        return;
-      }
-    }
-  }
-  _remove_token_from_url();
-</script>
-</body>
-
-</html>
+tweet
+!!! RT @mayasolovely: As a woman you shouldn't complain about cleaning up your house. &amp; as a man you should always take the trash out...
+!!!!! RT @mleew17: boy dats cold...tyga dwn bad for cuffin dat hoe in the 1st place!!
+!!!!!!! RT @UrKindOfBrand Dawg!!!! RT @80sbaby4life: You ever fuck a bitch and she start to cry? You be confused as shit
+!!!!!!!!! RT @C_G_Anderson: @viva_based she look like a tranny
+!!!!!!!!!!!!! RT @ShenikaRoberts: The shit you hear about me might be true or it might be faker than the bitch who told it to ya &#57361;
+!!!!!!!!!!!!!!!!!!@T_Madison_x: The shit just blows me..claim you so faithful and down for somebody but still fucking with hoes! &#128514;&#128514;&#128514;
+!!!!!!@__BrighterDays: I can not just sit up and HATE on another bitch .. I got too much shit going on!
+!!!!&#8220;@selfiequeenbri: cause I'm tired of you big bitches coming for us skinny girls!!&#8221;
+ &amp; you might not get ya bitch back &amp; thats that 
+ @rhythmixx_ :hobbies include: fighting Mariam  bitch
+ Keeks is a bitch she curves everyone  lol I walked into a conversation like this. Smh
+ Murda Gang bitch its Gang Land 
+ So hoes that smoke are losers ?  yea ... go on IG
+ bad bitches is the only thing that i like 
+ bitch get up off me 
+ bitch nigga miss me with it 
+ bitch plz whatever 
+ bitch who do you love 
+ bitches get cut off everyday B 
+ black bottle &amp; a bad bitch 
+ broke bitch cant tell me nothing 
+ cancel that bitch like Nino 
+ cant you see these hoes wont change 
+ fuck no that bitch dont even suck dick  &#128514;&#128514;&#128514; the Kermit videos bout to fuck IG up
+ got ya bitch tip toeing on my hardwood floors  &#128514; http://t.co/cOU2WQ5L4q
+ her pussy lips like Heaven doors  &#128524;
+ hoe what its hitting for 
+ i met that pussy on Ocean Dr . i gave that pussy a pill  &#128524;
+ i need a trippy bitch who fuck on Hennessy 
+ i spend my money how i want bitch its my business 
+ i txt my old bitch my new bitch pussy wetter 
+ i'd say im back to the old me but my old bitches would get excited  &#128524;
+ if you aint bout that Murder Game pussy nigga shut up 
+ if you're toes ain't done you pussy stinks 
+ im done with bitter bitches its a wrap for that . if you a angry bird theres a app for that 
+ is that ya bitch 
+ it aint nothing to cut a bitch off 
+ jus meet son now he ya mane ass bitches  #Shots
+ lames crying over hoes thats tears of a clown 
+ like Snoop said in 94 we dont love these hoes 
+ momma said no pussy cats inside my doghouse 
+ most hated but the hoes favorite  #2MW #SevenOne # http://t.co/BMdSVMc3rC
+ nice girls bad, make me get naughty. Bad yello hoe, real nice body. Down south chick, like em real thick http://t.co/bzRDl3kF7U
+ pimps up pimps up hoes down  Future voice
+ post a picture of that pussy get 200 likes 
+ pussy is a powerful drug  &#128517; #HappyHumpDay http://t.co/R8jsymiB5b
+ quick piece of pussy call it a drive by 
+ running round here like some brand new pussy thats bout to get fucked 
+ these bitches even worst they'll send them guys for you 
+ these hoes like niggas that spend money not talk bout it 
+ we dont trust these niggas all these bitches 
+ yall niggas b cuffing hoes cause yall aint never have bitches 
+ you dodge a bullet  &#128517; &#8220;@DaRealKha: All da bitches I cut off pregnant or bound to be ....thank God &#128591;&#8221;
+ young Pill Chamberlain these bitches love my music 
+&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;@VandalSavage_: Teanna Trump probably cleaner than most of these twitter hoes but.........
+&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;@DaHomieFuzz: Gay niggas couldn't wait to act like bitches tonight
+&#128514;&#128514;&#128514;@The_Paradox: And ima steal his cat n replace it with a pitbull &#128514;&#128514;&#128514;&#128514; RT @80sbaby4life: @The_Paradox He a bitch you should do it
+&amp; he's gone always be a hoe
+...Son of a bitch took my Tic Tacs.  I like this movie.
+..All I wanna do is get money and fuck model bitches! - Russell Simmons
+@2015seniorprobs: I probably wouldn&#8217;t mind school as much if we didn&#8217;t have to deal with bitch ass teachers. Retweet
+@A7XDemery: I'm a fucking fag they said
+@ARIZZLEINDACUT: Females think dating a pussy is cute now? http://t.co/VxBJg26Gsz how does doing this stuff make him a pussy?
+@Addicted2Guys: -SimplyAddictedToGuys http://t.co/1jL4hi8ZMF woof woof hot scally lad
+@AdoreBellaaa: Have ya ever asked your bitch for other bitches - kanye voice Yes
+@AdoreZoey: How u gone bring ur side bitch to a game where You know Ya gf friends at ?! &#128553;&#128553;&#128553;&#128553; I SWEAR!!!!!
+@AllAboutManFeet: http://t.co/3gzUpfuMev woof woof and hot soles
+@Allyhaaaaa: Lemmie eat a Oreo &amp; do these dishes. One oreo? Lol
+@Almightywayne__: @JetsAndASwisher @Gook____ bitch fuck u http://t.co/pXmGA68NC1 maybe you'll get better. Just http://t.co/TPreVwfq0S
+@Almightywayne__: Fuck Red Malone man bitch ass niggah could you please use complete sentences?
+@ArizonasFinest6: Why the eggplant emoji doe?y he say she looked like scream lmao
+@AutoWorId: Hennessey Venom GT &#128584; http://t.co/i8eGMnKaJ9 that's one sexy bitch
+@BOSSBYTCHH: Him seh me pussy wetter then a shower curtain....#ahmesehwetness&lt;lmao!!
+@BRO_HEN314: #Eaglesnation and every #Eagles need to see that pic I just posted because that bitch just said the most racist shit
+@BVSEDCHINK: Yo fuck skateboarding, all y'all some wood pushing faggots man, ball is life http://t.co/VBCzP6HMT7 @AmJemieBenn
+@BabyAnimalPics: baby monkey bathtime http://t.co/7KPWAdLF0R Awwwwe! This is soooo ADORABLE!
+@BaylaaGottaBody: &#128514;&#128514;&#128514;&#128514; I ain't shit . Damn Skippy lol
+@BeEasyJrizzy: u ever kill a ant on the sidewalk and think damn what if that nigga was on his way to get some pussyNo bs must b &gt;30%chance
+@BeenBasedB: @_KudaBrazyy http://t.co/LuUBGL9Y5u 0 rings 0 mvps 0 bitches lol
+@BeenFLYnSolo: ppl talk bad about the ghetto/hood ... but as a kid growing up, a nigga had funnnnnnn !
+@BestProAdvice: The facts on tattoos...tattoo http://t.co/ZwnbhpDZ8e he's a pussy with not tattooing them nipples
+@Bill215_: &#128175;&#128175;&#128175; RT @nel_ayden Bitches be wanting to act like niggas so bad &#128553;&#128553;&#128553; that shit aint cuteeeee but niggas act like bitches..
+@BitchJones92: Get worshiping bitch! http://t.co/R37CejCjou woof woof
+@BlackChiquitita: Wow. RT @thatmanpalmer I'm lost. Are those buttcheek piercings? http://t.co/yn6guyOUQ6 yeah she's a hoe
+@BlackNerdJade: Ok, sis. She'd rather be a broke bitch? *shrugs* she'll have to tell me how it works for her
+@Blackman38Tide: @WhaleLookyHere @HowdyDowdy11 queer gaywad
+@BrokenPiecesmsc: @ItsNotAdam faggot read my tweets after dat k it wasn't even funny lol
+@BrosConfessions: This bitch was so ungrateful http://t.co/06e77bGwbx fr ..... LULWHORE
+@CASHandBOOBIES: I been kidnapped yo bitch
+@CB_Baby24: @white_thunduh alsarabsss hes a beaner smh you can tell hes a mexican
+@CCobey: @AydanMcCoy happy birthday nigs Thanks yo
+@CHlLDHOODRUINER: when ur teacher tells u that u have homework https://t.co/RKk5vawIj1 this bitch need to go!!!
+@CaelanG15: @22EdHam: @CaelanG15 that nigga was eating that hoe lol Hell Yea lol john Paul nigga said john paul.. http://t.co/OSIpBKPr9h
+@CanIFuckOrNah: What would y'all lil ugly bald headed bitches do if they stop making make-up &amp; weave?
+@CarelessOne92: Leafs better win this damn game so I can go riot and shit #EarlyChristmas you better start looting my nig
+@CauseWereGuys: Going back to school sucks more dick than the hoes who attend it.
+@CauseWereGuys: On my way to fuck yo bitch http://t.co/j906T5zE2R me as a 9 year old
+@CeleyNichole: @white_thunduh how come you never bring me food i dont have a car retard
+@ChadMFVerbeck: If Richnow doesn't show up with hella tinder hoes Im not his friend anymore chill I brought like like 8 prople
+@ChandlerParsons: How bout them Cowboys!!!! Shutup pussy
+@ClicquotSuave: LMAOOOOOOOOOOO this nigga @Krillz_Nuh_Care http://t.co/AAnpSUjmYI &lt;bitch want likes for some depressing shit..foh
+@Coley_Cee: @lil_aerii girl you know I was spitting that G shit to you &amp; you was going lbvsbitch plz
+@Coley_Cee: Let me make a couple tweets off cuzzo page, so I won't get in twitter jail.lmao bitch don't trick me again
+@ComedyPosts: Harlem shake is just an excuse to go full retard for 30 seconds.
+@ComedyTruth: amen miley &#128591; http://t.co/P2Kb2tfyxrokay, but she don't need to act like a hoe just bc she's emotionally damaged foh
+@CoryBandz: having one loyal female is wayyyyy better than having hoes , idc &#128175;
+@Crhedrys: Pussy licking pussy.... meow meow #StopWhitePeople2014 &#128049; https://t.co/KeegDCjS5K&#8221;  &#128533;
+@DBAB_Holloway: Check out our 12th man. #CowboysNation even with all those faggot ny fans in the stands
+@DGotBricks: What happen to them vixen ent bitches they got ran and threw to the side like a foothill bitch
+@DaeDaviDavie: @white_thunduh im the bitch okay nudes pat &#128554;&#128527;&#128056; wow
+@DevilGrimz: @VigxRArts you're fucking gay, blacklisted hoe Holding out for #TehGodClan anyway http://t.co/xUCcwoetmn
+@DiamondLoudKush: The fuck be wrong with these bitches? Nobody knows
+@Dietrich1892: Yall shut up:p make me bitch
+@DionaIrish: I hate a I'm pregnant type of bitch.
+@DoYou_Q: Got bitches in the DM but I don't ever read'em which is y your top 3
+@DomWorldPeace: Baseball season for the win. #Yankees This is where the love started
+@Dommoneek: Little stupid as bitch I don't fuck with yoooooouuuu..
+@DreadheadAri: she really asked me that dead ass serious tho, all i could say was bitch wheet LOL
+@DunderbaIl: I'm an early bird and I'm a night owl, so I'm wise and have worms.
+@EdgarPixar: Overdosing on heavy drugs doesn't sound bad tonight. I do that pussy shit every day.
+@El_Grillo1: Pit Bulls Photographed As Lovely Fairy Tale Creatures http://t.co/Q0Sm89oOLh&#8221;  They *are* fairy tale creatures.
+@Ferocious_Ghost: @1stName_Bravo Aw. ...fag, don't tweet aw to me lol
+@FloKid88: As long as the Lakers trash from now on, I could careless. And that's real.. CC: @BENBALLER hahaha
+@Frosstyy_: @h0rheyd I didn't say anything tho kiss me then faggot
+@FunnyPicsDepot: this the I play soccer, cheat on girls, and wear khaki coloured cargos haircut http://t.co/ZUai7qWBIR &#128514; yup
+@G27Status: I could go for a fat ass bitch on my lap same
+@GEDMelle: 17 missed calls!!!! &#128544;&#128545;Das yo P.O bitch twitter finna be screamn #FreeMoneyMelle
+@GTM_Al: Ya side bitch gotta know it's rules to this shit..anybody ask you my cousin from jersey thinkin bout moving lmmfao &#128514;&#128514;&#128514;&#128514;
+@GagaTom1: &#8220;@MaleFoot: 3 | Amo los pies http://t.co/4QE1hDkK8i&#8221; fuck yeah
+@GirlThatsVonte: These hoes be thinking Meat won't slap they ass &#128564;&#128075; ainna bruh
+@GirlThatsVonte: Yall bitches wit no edges be doing the most talking &#128553;&#128564;&#9995;&#128514;&#128514;&#128514;
+@GirlThatsVonte: Yall still going trick or treating this year or nah?hell yeah ima be da sweet tooth bandit steal bitches bags n shit
+@Girllssues: I wanna have sex with my mom fuck her right in that pussy where I came from damn you got hacked like fuck
+@Gizzy_Jones94: If she kiss u with her eyes open watch that bitch!lmfao
+@Goofstroop: You a woulda coulda shoulda ass hoe &#128563;&#128586;
+@Gotti_LTF: Happy Bday Bitch Ass Nigga @JetsAndASwisherpreciate that bitch roll up!
+@HBMostDope: @1Jayee @PipinHoes used to send that bitch up
+@HBMostDope: Ugly bitches be like I'm my own WCW duh bitch you ain't nobody elses&#128514;&#128514;
+@HaloTGMG: @1stName_Bravo nigga you know we hacky sack hoes. ...nah, I throw no look passes lmao
+@HeartlessFuck: Glad I'm getting outta Atlanta. Nothing but a bunch of niggas in &amp; outta jail &amp; dumb bitches with mad kids fuckin em.
+@HermosaAlma: This isn't ghetto.....it's smart https://t.co/MPAzQ3Jswf I'm doing this idc
+@HiImJoriB: I would wife a hoe only cuz we wouldn't care that we cheating in each other. ...why force the relationship in the first place?
+@HornyFacts: Being single isn't an excuse to be a hoe. @TheOneMiss_Luu
+@HoskinsTy96: White boy power bitch black power bitch
+@Hudgens_11: Lets get drunk, get blowed, spit shit spark blunts &amp; fuck hoes! Bro white dudes have no chill.
+@IScoutGirls: @verbally_abrupt bitch where u been Around the world and back. Where you been?
+@ItsYahBoiRay: @anelylove if I don't get my dick sucked at yo party by a bad bitch I'm fr gone set it off &#128514;&#128514;&#128514;&#128514; *by @anelylove *
+@Itsyesie: #oomf is soooo cute. But he probably has hoes on him a lot.
+@JAYten9: In every cartoon theirs alway a @_nuffsaid15 saving these hoes lmao. http://t.co/9uKD8wtZ6x lmao damn captain SaveAHoe
+@JReebo: Who wants to get there nose in these bad bois then #scally #chav #sockfetish #stinking http://t.co/FeQxgN0W6I hot sox and legs
+@JamesyNBA: I wish I was a bitch like my brother keezy &#128530; ooooow I bet you do
+@JasminePore: If you dressed up as a cat for Halloween you are basic. ...or a pussy
+@Jewelxo: Can pornhub just get a gaming stream feature so these dumb bitches can gtfo @Pornhub get on it Katie&lt;3
+@JoeBudden: stop being scared to choke her during sex u bitch ass niggas. She&#8217;ll like it.. Says the guy who hits women out of bed. FOH
+@Johnny55Perez: @white_thunduh ha well iguess I make them hoes loyal bro theyll never be loyal that y they hoes my nig
+@KazAtta: @1TAKEHOV Oh man.. its 5 am, you off a molly, ho where the fuck ya seed at?? #fixed
+@KelsieBelsi: You're not a man if you refer to every girl as a bitch
+@KeyshawnSwag: Lmfao this cat started beating the shit out of me my nigga finally got some pussy?!? MY NIGGA!!!
+@KeyshawnSwag: Peel up peel up bring it back up rewind back where I'm from they move Shaq from the line ooooow who tf said that trash!!?
+@KingCuh: @16stanleys io io alu record ho vine sai pe hahahaha lol anywaaaaaays..... haha
+@KingHendo95: @VonDreaam naw it's my old tape. new cover . my upcoming mixtape is #KingOfTheHill Yeah I'm waiting on that hoe Mayne!
+@KingTeej_: Ol dirty foot ass bitches.. this was too funny to me.
+@King_Shawn_6: @white_thunduh that's where I get my yellow flags for being amazing &#128079;&#128524; HELL YEAH NIGGY
+@KissMySmilee: Don't got time for bitches to be actin iffy.
+@KnightfanNeal #UCFPINKPARTY come on stay alive knights nation!!!! This is still the early bird special. #ComeAtMeUT
+@KyraNadiya_: These hoes ain't loyal ; no they ain't http://t.co/h1UBsVbkGl  Smfh &amp; wonder why nobody decent wants them
+@LCisTJ: Bruh, you studs keep thinking I'm soft as hell. Ask ya girl how many times she screamed she was my bitch. Oh okay. STFU. BYE HOE!
+@LODYCASH: dry pussy bitches always blame it on the condom&#128514;&#128079;&#128514;&#128079;&#128514;
+@LUNAraps: shut yo bitch ass up! https://t.co/IemN1u0gm5 &#128557;&#128514;
+@LaFlareGodJosh: Gucci Mane in jail and dropping mixtapes every month and you hoes can't even text back
+@Latrobemark: You love these hoes more then money wats wrong these niggas
+@LeBronVuitton: A loyal bitch from the burbs without daddy issues is like finding a holographic Mewtwo. ...sounding like me over there lol
+@LiLFridayHOE: Easy cum, easy hoe That's a fact !
+@LifeAsBros: Charlie Sheen is too real http://t.co/gGGdK3kOV7 major fucking respect for Charlie Sheen.
+@Lightskingawdd: Wish I had a bae &#128533;  You got all the hoes tho
+@Lil_Mike_12: Fuck twerking bitch can you cook ?
+@Linniekravitz: @WesGodLaFlare bitch wtf http://t.co/DaSmycxODB
+@Lipe_the_Great: &#8220;@h0rheyd: @Lipe_the_Great: Shut up zoe fight me pussy&#8221; for zoe? I'm good, man. You are good ma'am. Move along now
+@LolaaIsDope: Lmao fucking snake bitches @ em
+@Loveable_Aizah: Big booty hoes everywhere sheesh &#128525; damn &#127807;&#128064;&#127807;
+@MLBNetwork: Stay tuned to @MLBNetwork for an update on the report that @Yankees 1B @teixeiramark25 will be out 8-10 weeks @dliming35 #bum
+@M_Rad: &#8220;@DezDLT: I play soccer, cheat on girls, and wear khaki coloured cargos haircut http://t.co/tYCIhD6PkW&#8221; yes lmfao@soccerboy_04
+@MadFlyentist: Oregon chokes every year get off the field trash ass program RFT
+@MannyDiesel: Def not cowboy lol RT @ArtofFloyd: Terrell Owens was the best Eagle &amp; Cowboy ever ..dude cried like a bitch on tv, over Romo
+@MarkRoundtreeJr: LMFAOOOO I HATE BLACK PEOPLE https://t.co/RNvD2nLCDR This is why there's black people and niggers
+@Master11_: @20ToLife_ @GabrielaStarr How could u do this to me bitch potent
+@MaxMayo77: http://t.co/3Jk4kR44X3 a pissed lad past out. I would lick his dirty soles while he slept.
+@MaxMayo77: http://t.co/PrrskknqRv love frat boy w/ soft long soles
+@MaxMayo77: http://t.co/XpSC3makgJ sexy lad with hot soles and arches.
+@MegamindNick: @white_thunduh nah fam I gotta cheat with the hoes depends on the female i feel
+@Mesha_nojas: @_Vontethekidd &#128079;&#128079;&#128079;&#128079;&#128588; I got hicks lol
+@Migsmichelen: This new twitter is confusing the shit out of me. Go back to south america bitch
+@Miikito_x3: Toto means ass or vagina?I think pussy cause toto santi is like nasty pussy
+@MikelaHenry: but what if he actually does choose the ugly bitch over you? &#58381;Her ass must be fat!
+@MileyCyrus: bitch couldn't kill my vibe if ya tried. &#127752;&#127752;&#127752; dis why i love miley :*
+@Montrell_: I'm tired of bitches saying I look mean.. &#128530; nigga you big af, wear tight shirts, and grim everybody.
+@MotherJones: 10 birds your grandkids may never see, thanks to climate change http://t.co/XqmXHkAsWt http://t.co/RbITeGRnhm #Climate
+@MvckFadden: Stay beautiful you bitch
+@NICKIMINAJ: #WutKinda  r purple. Ceeeleeeman this gurl was jus playin on the stupid hoe  track. But in still shitted on sum gurls
+@NastyCopper: Money getting taller and bitches getting blurry
+@NewsomeJade: I ain't never seen a bitch so obsessed with they nigga&#128514; I'm obsessed with mine &#128529;
+@Nicholas_ted33: Kobe stay talking trash. But let's not forget http://t.co/VH4tnEkvTP @J_Austin12 I meant to do this one. Smh.
+@NoChillPaz: At least I'm not a nigger http://t.co/RGJa7CfoiT  Lmfao
+@No_FAKINGG: People always asking me what I'm mixed with. She a bad asian bitch lol
+@NotoriousBM95: @_WhitePonyJr_ Ariza is a snake and a coward but at least he isn't a cripple like your hero Roach lmaoo
+@OSAY_it_aint_so: &#8220;@IgnoreAllLaws: Fosters home for imaginary trash&#8221; WHOA CHILL  that show was everything tf
+@OfficialReplay: I am lowkey tired. ...if you tired, be quiet and go to sleep hoe!
+@PRAYINGFORHEAD: &#8220;@macklemroe: Stop bringing weird niggers into my mentions! @PRAYINGFORHEAD&#8221; http://t.co/cussDJesRK
+@PRETTyBOSs_BRAt: We don't love these hoes &#128080;&#128581;
+@PatrickQuelo: If yo girl cant have homeboys you a ol weak bitch ass nigga!
+@Patsfanjoe32: @d_palomino52 I think worst advice I gave you was  don't be a pussy and speed up lol
+@PoemsPorn: Quote this tweet with your favorite animal.pussy
+@Poetic_Success: I hate when strippers tell you they're dancers. Hoe, ballet dancers don't pop their pussy to Beethoven. You a STRIPPER!
+@Poffalicious: Andrewbryant: Poff has double vision after 2 beers Poff: ... Double pussy &#128526; smh
+@Poobie_: When bitches TWERK on the computer....  ME: In ya &#128089;, in ya damn &#128089;&#8252;&#65039;
+@ProdsJewel_: &#8220;@sreadthepeace: &#8220;@yungmindless: @PeacePunkPrince Prince, THIS is art. http://t.co/EPHRWxMBHr&#8221; nobody takin his bitch!
+@QUAN1T0: 61% of welfare/government aid is claimed by white people. So y'all black slander is trash now.
+@QUAN1T0: These bitches don't care they just play that role.
+@Queen_Kaaat: It took a while for you to find me, but I was hiding In the lime tree. @Iemonaids dis bitch in da wrong tree bro.
+@RTNBA: Drakes new shoes that will be released by Nike/Jordan.... Yes, there's glitter on the shoes http://t.co/QCtPLxHEXM ....dudes a fag
+@RachieSoul: @DizzleOfficial inna di ghetto!!! You alone lmaoo
+@RamBoutIt: &#8220;@Master11_: @20ToLife_ @RamBoutIt hoes Austin&#8221; teach us Austin.I teach u how to get curved? That's all I know
+@ReachtheeCLIMAX: bitches can't cook but know how to suck dick .. s/o to the ones that can do both!
+@RenegadeMo: Fat hoes get chose lol
+@RiahSM: #hoesaintloyal well they're hoes,no one expects them to be loyal
+@RishaaWilliams: @TRESHON_SCROOGE @_Nevertrustt ol bitch ass http://t.co/AmcOinY0wG
+@RnadJorell: Bruh im tired of niggas retweetin Miley Cyrus naked that bitch aint no types of bad lmaooo
+@SacTownProdigy: Just because tony romo at the mavs game dont mean he still not a bitch lmao.. Fuk them cowgirls lol bitch fuck you
+@SamJLayman : Holy shit, Freddie Highmore was in Charlie and the Chocolate Factory Me: *rolls on the floor, laughing*
+@Samirahusic_: I don't want to have sex with my gf because I feel like I'm using her.. - anonymous Whata faggot
+@SexualGxfs: @ One of your followers with this &#128525;&#128553; http://t.co/F1TJl9xnCT @ somebody, bitch if you don't
+@Shaa_Jenkins: If ya bitch always bitching clearly she care! Or just an annoying Bitch!
+@ShanTaughtHer: These catfish hoes thinkin they slick.. But niggas catching on &#128524;
+@SheWentToJordan: Can't worry about a bitch that ain't worried bout me #real
+@ShowArrive: Side hoes are for insecure niggas that can't handle a real one.
+@Shun_stokes: &#128514;&#128514;&#128514;&#128514;RT @bluprint_4: Lmao! This bitch come scooting in the tent like she about to fuck some shit up! &#128557;&#128557;&#128557;
+@Shun_stokes: My cousin said he share hoes with his brothers. He said sharing is caring and he love his brothers &#128514;
+@SlimGirl_Probz: i'm hungry but ionn wanna spend my money on food&#128530;Broke hoe problems &#128514;&#128514;&#128514;&#128128;
+@SmeegBaby: Dese hoes be LYIN to all of us nigga
+@SnakecharmsDump: http://t.co/4b427dQZCV oh yeah fuck that bitch
+@SportsCenter: Eli Manning just threw his NFL-leading 27th interception of the season. Lmao trash
+@SportsCenter: USC senior RB Anthony Brown calls head coach Steve Sarkisian a racist and quits team. &#187; http://t.co/JOOsdSubIR he's a bitch
+@StellaTex: Guess what? I also have zero time for your mansplaining! Adios! Stfu pussy
+@Stephenwildboy: Chilling &#128069;&#8482; http://t.co/mik3iPNle6 sexy scally lad
+@Strap__: I ain't sharing no bitch if you mines you mines &#128175;
+@SukMySweetness: money only impress the simple broke bitches
+@Sylvieamx: #Pisces will never be anybody's bitch, they don't let people control or change them. Rigghhht
+@TEE_JONEZ: @16stanleys @KingCuh tuku ho idk blah blah blah &#128514;&#128514;&#128514;
+@TEE_JONEZ: @KingCuh @16stanleys I'm not mad cuh hahaha suure.. tuku ho ita! &#128514;&#128514;
+@TayKnosBest: These hoes is crazy
+@Taylorr_Babee: You ain't ever gonna be a slice bitch. Kevin hart. (:
+@ThatniggaTroy: Oomf so fuckin fine tho &#128553; dam @ her, don't be no bitch.
+@TheGamerKingKev: I wonder if the girl that gave head to 24 boys for a drink in magaluf has twitter she probly sends nudes for fags
+@TheNewSAT: #NewSATQuestions Yeah bitch, yeah bitch, call me _______: a.) Maybe b.) Steve-O c.) Later d.) Jesse Pinkman @machinegunkelly
+@TheNymphoTweets: Hickies in between her thighs right by her pussy &gt;&gt;&gt; Its only right
+@TheOneMiss_Luu: Would you still love me when I'm no longer young and beautiful? No. Ugly monkey ass.
+@TheRealRickyB21: @JetsAndASwisher @Gook____ y'all come through the front.bitch I ain't coming
+@TheRealRickyB21: @JetsAndASwisher faggot bitch http://t.co/2HyyAbk4eH
+@The_Realist_Sam: @Madrid2_ yea, I'm on my iPad. I don't work this Friday. Let's ball this faggot up @TropicalBlanketi work 2-5
+@Theo17100: http://t.co/BYj1HOyhmG this scally lad would get it
+@TheoMaxximus: #GerrysHalloweenParty http://t.co/3ycrSrnjHc Halloween was yesterday stupid nigger
+@TheoMaxximus: Chrus still supahot tho *walks up to teacher with test, drops test in that bitch fohead* http://t.co/nb5VgdssgI
+@Thornton25: &#8220;@KantKeepAhBYTCH: I love eating pussy lol I never get full lol&#8221; I can eat that shit forever lol and ever.
+@Tmacc_GFG: &#8220;@VoiceOfDStreetz: @Tmacc_GFG: &#8220;@tizzimarie: No slushes &#128549;&#8221;hoes nasty anyway fam&#128564;&#8221;them hoes taste like meds&#127815;&#127815;&#127868;
+@Tmacc_GFG: &#8220;@tizzimarie: No slushes &#128549;&#8221;hoes nasty anyway fam&#128564;
+@Tmacc_GFG: BOBBY BITCH-by @BobbyShmurdaGS9 be getting me live as fuck hell yea i play that hoe before my workout
+@TreLeKidd: Yo bitch is Gucci Mane RT @JabariTheGreat : My bitch a stoner &#128175;&#128175; http://t.co/lt9LIJjpg9&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;
+@TweetGameLazy: I can ride your bitch with no handle bars
+@TyJonCuffee: And if you ain't a hoe get up out my traphoussseeeee
+@UberFacts: 15 sad TV character deaths we're still bitter over... http://t.co/uLclFUF8nC http://t.co/1RXYQOOsM0ned stark was the man
+@UnHoly_Jack: These harbor bitches are all Party Bus hoes Lol all?
+@Vbomb20: @Woodchuck20 pussy love it
+@VeronikaHumbert: Ultraviolence video, its coming you little bitch! #MTVHottest Lana Del Rey http://t.co/533fLbvWqh   bitchy promo
+@VineForTheByrd: On my way to fuck your bitch https://t.co/4lMTFNL2iy  LMFAO KITTYCOPTER
+@WBUR: A smuggler explains how he helped fighters along the Jihadi Highway: http://t.co/UX4anxeAwd
+@WBeezy_: @QuaTheGreat: Aww their avis look so cute together &#128145; http://t.co/9lPorCb8w0 &#128128;&#128128;&#128128; do I gotta get Ike avi on this bitch ?
+@WBeezy_: @Run_DRC: Its simple, dont be a hoe=dont worry about being exposed &#128540; fight mewhy ?
+@WannabeKanye: whys this bitch boosting herself http://t.co/uOd2f5WtKV  Her size isn't exactly the most healthy tho
+@WitHaPrettyface: @_1nonlykeisha bet not be no bitches! &#128514;&#128080;&#128299;&#128299;&#128298; &#128514;&#128514; Kim bye!!!
+@X_XPDOTJDOT: Damn near gotta protect my tweets.. stalkers being annoying you got that dope dick. Drive these bitches loco
+@XoJennyGirl: I'm making marack my girlfriend . @marackaf aye b you pullin hoes just like o taught you
+@XoXo__Angiee: Bruno fag boy you love me.
+@YEHits_Von: &#8220;@Run_DRC: I must be a bitch&#8221; you are &#128514;&#128514;&#128514; sike naw This why we always beefing &#128514;
+@Yankees: Down 6-1, #Yankees look to rally in the bottom of the 9th. #RALLYCAP
+@YoungRicooo: &#8220;@WexicanAfro702: Don't take advantage of a nice person&#8221;@ hoes@ everyjuan
+@YoungRicooo: Happy birthday bitch nigga @WexicanAfro702 Thanks pal
+@YoungRicooo: Sad knowing that most hoes won't fuck with you bc you ain't got stacks. wait till friday
+@YunGMiGo: @Shane_A1 cinco shit harder fucc niggayee but you fucc wit rich homie cuz dats ya homeboy fucc nicca
+@ZoeBarton3: @h0rheyd ewww I said THAT last Sunday..as in the last Sunday I was there. Read it again nigs&#128563;&#128563;&#128563;&#128563;&#128563;
+@_BaDa_Bing: I only punch real niggas in the face cause a pussy Nigga is gonna punch me right back Strong Mush or Shake..
+@_BeeDontCare My pussy still fresh &lt;----- something stank girls say.
+@_GeeWillikers_: Ass slapping is one the greatest things. Haha. &#128527; I slapped a girl on the ass. . She got mad I aint get pussy for a week
+@_TommyCollins: @WeAreRichnow @buffalobills yeah Texans are so much better you fucking retard I see that you're mad about this.
+@__MALIBUbarbie: Nd wtf is up with dark bitches with blonde.. PLEASE HAVE SEVERAL SEATS HOE! ..looking like black&amp;milds out here
+@__Sugga: There's a lane some bitches need to stay in &#128526; the left n get right the fuck outta our face &#128557;&#128129;&#128536;
+@__sneakyb: I hate when boys deny that they have bitches &#128080;&#128553; smh
+@__taradise__: Ya nigs out there still saying y'all don't eat butt?! WITH A STRAIGHT FACE!
+@__youreWelcome: Im a boss ass bitch ...that needs to sit in a corner
+@_iwantfranny: He's a hoe , I can't
+@_prettyflvck0: Me And Paul Thinkin Bout Gettin Rentals For Da Weekend &#128665;&#128168;&#128168;oooh shit bitches betta stay out da streets
+@_rapdreams: bitches hold they nigga down when he get locked up... but if a nigga go to college or the military it's a different story. &#128564;
+@_simplycaitlin: why do my friends hate me because you a ratchet hoe..
+@adriwadrri: No love for these fuck niggas hoes*
+@airmaxlad1: Hot meat http://t.co/BRz8Imk5vK sexy as fuck scally lad. I would love to meet him and his trainers.
+@airmaxlad1: Sniff http://t.co/FHHbBRMYBN perved up scally lad. fuck yeah.
+@alejandra_p13: These bitches love Sosa
+@alexissixela__: &#8220;@white_thunduh: I legit watched it for about 30 or 40 seconds &#128529;&#8221;SO DID I WTF prob cause were retarded smh
+@allisonnamaya_: What should I name my cat, ideas? Mr pussy
+@altosteel115: http://t.co/tM28mh5XG2 woof woof. Sexy thug boy scally.
+@ambitiousBree: @_1nonlykeisha u see the damn phone ringing? &#128547;&#128530;&#128542; when you married bitches makes demands!!!! You haven't called me
+@analicialouise: Tevin is my favorite sophomore I think he's so funny Hes really not. Lmaoo hes a little hoe
+@angelenagoley: 10 sex positions http://t.co/nt3PABMWsm http://t.co/JmHZ8Sczf0naw this what u call fucking the soul outta bitch &#128557;
+@ashlingwilde: @ItsNotAdam is bored supposed to be cute, you faggot? Sometimes
+@ayyee_ceee_: One mans trash &#128686; is another mans treasure &#127942;
+@babineaux_: I don't got no type. Bad bitches is the only thing I like *Iongotnotype
+@bigbootybishopp: @white_thunduh lassen cc , the coach wants me i feel it youll get more my nig no doubt
+@bleedingtrap: god teeth , gold chain white bitches , cocaine
+@cheetahBluntz_: Its me hoe, its me hoe&#128129; shhhhh
+@chieflottahoes: In D.C., we call them rollers, in Chiraq we call them thots. All across America they have been known as a hoe.
+@clayton_jenn99: I'm gonna miss that bitch of a bus driver...no you won't. Don't lie
+@coltforty2Gone: hate when bitches try and put you in the friendzone. bitch I'm tryin to score put me in the endzone &#128293;&#128293;&#128293; ON. MY. SOUL!
+@complex_uk: Ashley Young has tried to deny that bird s*** landed in his mouth ---&gt; http://t.co/mlr5eWgonK https://t.co/AvCHFj7reM hahaha
+@datFullerkid: @TreVaughnLG yall both gimped up?? Ain't tht a bitch huh lol
+@deepthroatMike: @Boys_South: Take me for a ride &#128525;&#128139; http://t.co/H5mAtjYfGA#redneck woof woof
+@demi_eggleton: oh my god I love Victoria Mitchell all my bitches love me
+@djsliime: That long distance shit wack I knew the bitch was cheating- uh oh
+@fIirting: HE'S DOING IT RIGHT &#128525;&#128120;&#128158; http://t.co/JZKkiVUVjC no bitches smh
+@fatboyswagg347: they BAN dat pussy for life &amp; he gotta pay 2.5 millon dollar fine
+@fuckcamoclark: Roses are red and violets are blue and niggers are black, you know that's true. @dylan72892
+@g0rillaz0e: Sitting on my window sill, window open, bird tries to fly in. Smacked it. #ProtectTheAnimals @peta
+@glowstruck: But a nigga gon be a nigga, be a nigga. You sound fuckin retarded
+@greggutfeld: a video an entire media will likely mock. http://t.co/XFr1cRXWSm i am such a crybaby
+@gurl_Im_Angie: @ItsKiaraaaa @WestYourMajesty I'm not even shy stfu kikis mom: Hi angelique  Angelique: Smiles *Dips cracker in soup*
+@haitian__goLd: Tim Tebow got cut from every team he was on in the NFL and he already got more hoes than me in Starkville. Smh. &#128514;&#128514;&#128514;&#128514;
+@hazelebaby: Karma is a bitch #Damn #GodProtectsHisAngels &#128588;  *sips tea*
+@hornyjhb: Fuckin hot gym pussy http://t.co/ZVYmcXQuTA fuck yeah
+@hxhassan: Jihadi patron Hajjaj al-Ajmi is arrested at Kuwait airport https://t.co/ZmloKfWDQl
+@iAMPickUpLines: You can call me Fireman cause I turn the hoes on.
+@iCrawley: I could never have a bby by a lil dick Thts y I got a abortion by the last bitch- oh My God
+@iDntWearCondoms: Watch women try to argue with me like they have a dick and actually fucked some pussy before I hate when bitches do that
+@iLGDaily: And smoke weed in public, fuck cops man, do what you wanna do, they don't own you, run if they come are you retarded?
+@iTrapWatermelon: tweety bird tho &#128514;&#128514;&#128514;&#128514;https://t.co/JbnoNM3N1P
+@irlfatty: my pussy sweet like watermelon http://t.co/SKlPh3TtoG  Thotermelon
+@itscoleharmon_: When twitter rappers dm me their trash links http://t.co/35nMR4AUQg
+@jSadass: loud bitches annoy me
+@jacaxeltlu: Eventually every bitch turns into that hoe. # Truuu
+@jaimescudi_: @Tonybthrz_: @jaimescudi_: I swear if oomf try talking to me tomorrow.. @ @BarackObama pussy
+@jama_jam: You bitches be pretending to be TF crazy.. You ain't never lied...
+@jasmyncyniquee: @white_thunduh k bye hoe um bye ..
+@jayswaggkillah: Jackies a retard #blondeproblems At least I can make a grilled cheese!
+@jboii2: ima keep on giving these pussy ass niggas ah reason to hate !
+@jethromass: Photo: http://t.co/CxRs5BVhPw he is in sole heaven
+@jgabsss: Stacey Dash won &#128166; http://t.co/PDLG46rjOL baddest bitch evaaaa
+@juicyyyjayyyy: Side bitch Sunday &#128514;&#128514;&#128514; &#128514;&#128514;&#128514;
+@k_eazy26: Facts what baldheaded bitch made this shit. &#128074;&#128074;&#128555;&#128530; http://t.co/fDYojpT9Xg  Lmao &#128553;&#128514;
+@kayreneeee_: Fuck wit us and then we tweakin hoe shmurda!
+@kazooook: We actin like it's the 7th day @WesGodLaFlare http://t.co/s9gMtEvpaT &#128123;spook
+@kikiSTFU: I'll break that lil bitch neck and won't even feel sorry about it Savage
+@leikant: This is so fucking hot!! #scally #sneakersex #sockfetish #sniff #trainersex http://t.co/TubivxbxcO love me some kinky scallies
+@likemicah: Y'all dumb ass niggas be so pressed to have hoes. Y'all weak as fuck as fuck ...weed over hoes, oreos too.
+@lildurk_: I can turn yo bitch into a eaterrrrrrrrr
+@lildurk_: I don't trust dese hoes Nikki told 51st where I stay at all my fans screen shot ASAP we finna come to Chiraq and shoot sumn
+@marackaf: &#8220;@white_thunduh: Aye yall ima tryout for the bowling team frfr&#8221; tryouts passed tho no theres two more retard
+@maybe6789: Now u got what u want bitch ! Enjoy it http://t.co/gLQzwtGMj9 now this is a crazy party I would love to attend.
+@metroadlib: colored contacts in your eyes? blinders on mine. cause i can't see you at all. Lmao
+@michelle_westt: Facts @POONsoaker: Only the dudes with hoes say they don't got hoes&#8221; @J_Austin12
+@midyWIDEY_: I'm rea start smacking bitches period ! Bluffin at its best
+@molssyo: Lifes a bitch, and then you die  Thats why we get high, cause you neva know when you're gonna go my sister is perfect (:
+@molssyo: One of us is on drugs, and its me but you're still wrong &#128514; @currieburry hahahahahahah im a bitch sometimes (:
+@morgandaylee: I'm feeling pretty fuckin ghetto Smh
+@nohands_24: @20ToLife_: @nohands_24: @DejaaLeeann_: @B_Coleman2 swears I'm #1 man easily easily behind Austin nip?
+@obey_jrock__: This is a true ride or die bitch &#128175; http://t.co/bkwHX83fkW what the fuck hahahahah
+@oldpicsarchive: H.G.Wells and Charlie Chaplin http://t.co/sTiDDHK3WT #History #Photography
+@ortiz_jaylene: All I see is Bruno's bitch ass on my twitter now. wtf Bruno's all that she sees (Drake voice)
+@ozzie_garza: @white_thunduh I'm about to cool faggot chill tf is cool nigga
+@ozzie_garza: @white_thunduh I'm so sure bitch frfr tf
+@poppunksucks: Twitter is not a source of news broadcast you fucking retards it is when nbc, abc, cnn, Fox, etc are all keeping quiet.
+@queendulaaa: Got a couple bitches saying they know me But I&#8217;ma let the money talk for me &#128526;&#128076; AND I'M LIKE... #WWYD
+@realFORTES: Grudges are for weirdosand bitches
+@rhythmixx_: I told Mariam to but cigarettes for her birthday  You also called me trash rn
+@riananewman: @22EdHam brownies tonight what kind?!?!
+@roLLYuP23: No text back? I don't give a fuck, I'll text another bitch damn someone is hurt lol
+@ronald_iongi: Ummmmmm okay http://t.co/4BVLsci5K5 you got hoes from left to right &#128514;&#128514; do yah thang!
+@royalswagg_: using y=mx+b to find the slope of that ass
+@rugbysocklad: Fit lads! Nice gear! http://t.co/ThnXX1lC1M these scally lads n trainers would get it
+@rugbysocklad: Hell yeah bro! http://t.co/9yIb45UD6c fuck yeah sexy scally lad in hot gear
+@rugbysocklad: Helping out a mate!! http://t.co/eMNAdO1QOj I love scally play. Fuck yeah
+@rugbysocklad: Lads being Lads! http://t.co/f3UJcYJ4OF fuck yeah. I love scally lad action. Hot trainers too.
+@savage_twotone: Next year bitches is gonna be like you gotta promise you won't expose me &#128514;&#128514;&#128557;
+@scallynikelad: &#8220;@sleazytwinks: So hot!! RT @opcinjen: Lick it, bitch http://t.co/JLoUkqDcOM&#8221; fuck yeah. Eat that trainer u dirty fucker
+@sierrabernia: &#8220;@T2G_CincoKilby: Y'all think celebrity pussy different from the locals? &#128514;&#8221; yeah Meghan goods is
+@sleepy_yongguk: I saw an ajumma walk out in the beginning saying, 'Wow, this is so trash that I can't even listen to it..' &#128514; lmaoo
+@sniffsockslad: Need these sox http://t.co/xydb1RchXh fuck yeah. I love a kinky scally lad w/ rank sox and sneaks
+@snoleezey801: I don't ever expose females like that.. That's childish.. bitch nigga shiiii.....
+@socass_: @00sexilexi00: @socass_ yasss  *trys new things with bestfriend*  *bitch who do you love*
+@socass_: Dude remember this wop video? @00sexilexi00 http://t.co/P3HEuBOQBu OMG WHERE DID YOU FIND THAT
+@soxandjox: Thick raw fuck http://t.co/g8RvUHCeBN Damn his man pussy is getting a workout.
+@soxdawg: RAWR!! RT @skinrubberboi: My sexy French scally. I love him! #frenchscally http://t.co/5idQ3R5Akz sexy scally woof woof
+@splurgb_: Nothin in life is free.. Some of you bitches need to write that on ya panties&#128557;&#128514;
+@stephencdo: @currieburry if one of you bitches want some of my burrito u can catch me at potosino huh? Haha
+@talibanshawtyy: Niggas whole hoes out here cuz Couldn't had said it better..&#128588;
+@theaveragerocks: Hardcore way to eat Mac and cheese 1. Boil water  2. Snort cheese powder 3. Drink boiling water  4. Fuck bitches
+@thebravebird: #YoureNotMyType if my fade is perpetually fresher than yours. That's a real ass bitch rite there
+@thejudyann: annoying bitch that I love http://t.co/8oxlQvQBrC JUDYANN'S SO PRETTY!!!!!
+@thotmouths: http://t.co/aQKGOrAUxx  Lmao bitch got on some huggies
+@trestiffer: Hi bitch  No bitch Bye bitch http://t.co/RbcRXMRtQP
+@trutherbot: does he look like a bitch? @el_capacitor
+@whoiscoreyking: Chase money &#128176; not &#128581; hoes &#128111; &#128175;&#128175;&#58399;&#58399;&#58399;&#58399;
+@whooligan__: can't stand a I don't know what I want ass nigga &#128564; bitch*
+@wiganzlad: @MarkyCrumb: @gmail_shorts: I'm on my way http://t.co/MqcZuXlbtT love a #chavhot sexy scally fucker.
+@witmyRUDEass: These newly gay bitches don't kno how shit works
+@witmyRUDEass: When a bitch don't want a real job they just become strippers lol lol.
+@wodaeeex3: Awww Meat Meat In His Feelinsi ainn n my feelings bitch
+@wodaeeex3: I Want Snake Bites , MY Industrial Piercin &amp; A TattooDem hoe accessories dea &#128064;&#128064;&#128056;&#9749;
+@worldtraveIs: Baby albino &#128034; http://t.co/2tYTQJ3fec @Meeeesh1395
+@worldwarzee_: these hoes ain't loyal.
+@xoxoclauudia: YASSSSSS, ORDERED CHINESE &#128079; bitch you just ate tacos you fat fuck
+@z0mbiedance: I made that bitch lunch. @elizabethbatman Bitches love lunch.
+A NO BRAINER But as soon as this bitch gets rich in political power, her views will change! POLITICAL WHORES! http://t.co/ekEPSjWcyU&#8221;
+A pussy a day keeps the devil away -@DoperThanYola
+Ain't that about a bitch... What does that mean?
+All these bitches want a baby, I don't want no children.
+And bitch you must be lost &#128514;&#128514;
+Baby I like being on your left side no bitch you can't be there Cuz the street on that side and Twitter said I ain't real if you do
+Bae sounds like such a ghetto word. Use something else
+Batter the wee cunt Jewis y cos he fucked my ex? Emma isnt battering the girls I've nailed?Ive moved on,stop being a pussy n do it urself.
+Bleed out hoe!!! -Alexa
+Boolin' in the bando wit a few bitches
+Brownies for my brownie I love this movie. &#128517;
+But I need a bad bitch that's hotter than me might be the realist shit PartyNextDoor ever said. That's how I be feelin everyday
+By the way we do punch bitches.
+Caesar is home RT @Naewoodster: &#8220;@MjaySkillz: https://t.co/mw5KAojKXBtheres so much this bitch looks like. Lets start with ape shit&#8221;&#128557;&#128557;
+Chinese Maverick: We were communicating Comrade , u know giving the imperialist Yanks the Birdie https://t.co/38GZ1jerPS
+Dad say hi to my snapchat  Dad &#9996;&#65039;&#9996;&#65039; duces bitch &#128514;&#128514;&#128553;&#128553;
+Do you believe these hoes are not in fact loyal? I disagree with that, I do believe they are in fact the loyalest bunch,these hoes
+Don't know no ugly bitches! Don't know no broke niggas!--@Kevin_Gates
+Don't make me make you fall in live with a nigga like meee... The birds 1&amp;2 are my favorite songs by Weeknd
+Don't worry about the nigga you see, worry about the nigga you DON'T see... Dat's da nigga fuckin yo bitch.
+Don't you ever give my pussy away. You keep it tight, alright?
+Dropped a stack cause bitch I'm ON. -@1PoloBoy  Song called Dope. Download the mixtape here: http://t.co/LaCZ1e6TG7
+Dumb bitches do dumb things
+Eat the pussy like a real nigga hungry
+Eff it. Let's go after the cripple. http://t.co/kSaMx1JPfV
+Everything look better with a bitch next to it
+Facto @ShaunaSayomi: Who cares if you a hoe when your ass looks like this? http://t.co/CJdT987aqf
+For every bad bitch there is a nigga tired of fucking her
+Foreign chick, no lie.. Man that bitch Beautiful
+Fresh nigga so you kno I need a clean bitch... Who kno I'm working cuz I wanna see my team rich. http://t.co/Cgx3HNAK9A
+Fuck 5/0 I make my own rules. Suck my dragon balls bitch call me goku
+Generate ASCII boxes with NodeJS all I see is the ability to bring flappy-bird in node via ASCII tubes and bird ^_^ http://t.co/lRJWDFhv7T
+Get me that shit bitch you is fine bear
+Get your ass back to Detroit ya fuckin' wigger!
+Girls that I dated, its okay I ain't mad yo, unless you stabbed me in the heart, no love hoe
+HOW DO YOU KNOW MY TWITTER PASSWORD bitch please
+Have you seen my shows? Have you seen my hoes? If I wasn't hot would they be so thick?
+He a bitch for hitting that hoe &#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;
+He married to a white woman... lucky sum-bitch - Uncle Ruckus
+He wanna be my nigga, but I'm just trinna be his savings account &#128553; &#128514;&#128557;&#128514;&#128557; omg imma funny ass bitch man, but that's Real Shit &#128175;
+Her great grandmas a hoe,her grandmas a hoe,her moms and a hoe, and she's a hoe! It's a long line of hoes! -Grandpa Carl everyone
+Hey go look at that video of the man that found the kidnapped girls in Ohio........what a nigger - #shitmybosssays
+Hey pussy you still there?
+How about we draft all those gung-ho folks and send them to Afghanistan or other war zones so they can show their... http://t.co/sR1zceHx
+How hotter than is it? A bitch.
+How u talking to hoes bout bro n em.. Why you talking to hoes bout bro n em
+How you doing, crazy bitch? is hilarious!
+I KNOW my shoes dirty as fuck, whatever, bitch. You don't have to call!  Like, negro... one of the first things they LOOK at is shoes, dog
+I am a thrill billy..with a hillbilly heart. -@billyraycyrus. HAHAHAHAHA Jesus Murphy!
+I call him my bitch @MaKennaM_
+I can't handle no liquor... But these bitches can't handle meeedd - Chief Sosa
+I don't chase after dudes... I chase after bitches. - Edgar Bautista
+I don't love these hoes, baby It's me and you forever
+I dont even need a picture of tamar, that bitch is beat in every picture&#128514;&#128557;&#128514;&#128514;&#128514;
+I dont have hoes &#128564;
+I found a new way to chug you have to open your mouth alot #shitallysays
+I fucking hate that bitch so much I wanna smack her in the face then tongue kiss her
+I got a bitch set it off like jada picket..queen latifah you riding round with your nieces bitch you titi
+I got a sister, she told me stop calling women bitches..
+I guess this is the night bitches die...!!!! Stewie is that nigga...!
+I had a bitch that had a bitch, had the bitch eating halibut.. - @iamyoungroc #FreshRhymes #JerkSquad #SlowStir
+I have this lady-love She's married, but I still wanna bang her She won't have sex with me What a bitch ~A troubadour, probably
+I heard you was looking for Candy Man, bitch
+I hope you don't get mad, ladies. I only call you bitches 'bitches' bc I don't know your names individually. -Katt Williams @LetMicahDown
+I just got a number 3 I'm a bitch boy
+I know that shit eatin grin! You either just fucked the girl of your dreams or you sold a car. We know you're a faggot. What'd you sell?&#128514;
+I only be with older men cause they're more mature  That supposed to fool us bitch?
+I prolly leave up out this bitch with my cups in my hand and yo hand in my other hand.
+I said i don't like it, it tastes like wolf pussy  what? How do you even know what that tastes like
+I taught myself how to eat pussy, and cut my own hair I taught myself how to eat pussy hair&#128514; Name the movie &#128514;
+I used to dress up like a cop too. Oh really? Yeah...right after 9/11...mad pussy. Really? Yes...I'll NEVER FORGET.
+I went to jail for a flock, &amp; came home wit a strike.. You went to jail as a bitch, came home as a dike- @YG
+I will fuck u where u stand. U dizzy bitch. Two unique &amp; separate phrases I overheard a relative saying when I was younger.
+I woke up like thi- bitch go back to bed
+I would rather you call me bitch than sir -my manager
+I'll beat on that pussy so hard
+I'll slit your throat-neck http://t.co/ChFFSDeDdd
+I'm a funky ass honkey. - @jtimberlake 's shout out to @macklemore tonight before Cabaret &#128514; #JT2020Tour
+I'm comparing KFC to the pussy @MaxOn_MaxOff5
+I'm downloading you a new personality and ordering you a new face! You bitch.. I love you.. Goddamn it! -Axl Rose yelling at his sex robot
+I'm feelin like Malcolm in the middle, these bitches surround me they can't miss em
+I'm gonna piss on your dimple @SoNi99a_: Stop wasting prayers on trash teams lol
+I'm probably your main bitch chocolate dipped cinnamon apple
+I'm sick of his shit man @JonnieSantana: Sit his bitch ass, I'm fed up bro RT @80sbaby4life: Geno threw yet another pick smh
+I'm sorry I fucked yo bitch... But she really dig a nigga @KingL
+IBS irritable bitch syndrome.
+If you love her then hide yo bitch so you'll keep shorty. @wizkhalifa
+If you talk back to me you ain't getting no pussy. Me: http://t.co/vgnwcFgvSJ
+If you're a bad bitch put your hands up high  Every girl in the room starts waving there hands around.
+Imma tie that bitch up in the basement and donkey-fuck her ass for two weeks straight hahahahahahahahaha #50centmovie #beforeiselfdestruct
+In My Mind Gotta be the dumb hoe anthem...
+Is that an albino Mexican? No dad, he's Asian.
+It takes a true directioner to accept Larry You know what bitch its fans like you that make the boys cry. #ThankYouPaulForConfirmingLarry
+It's allegations, were u in the bedroom? Did u see it? Words of a naive &amp; blind bitch. We know ur husband cheated on u. Ramona is dumb!!!
+It's never too late to tag a bitch.- @CyFyre
+It's the dykes -hunter dyke with a dyke http://t.co/LGtw3AWMeh
+Julia Roberts, you're a ho @LaurenGardner8 #NottingHill
+Just follow the yellow brick twitter.
+LMFAOOOOOOOOOOOOOOOOOO @bb_brooks: If your pussy is good but my mama don&#8217;t like you? Guess who gotta go&#8230;&#8230;&#8230;..my mama.
+LOL, cripple! - Wendy Davis. RT @MailOnline: Scientists create remote-controlled chick to study shy penguins http://t.co/mT3B09Slod
+Let's do nips ahoy and spank me maybe
+Let's kill cracker babies!. WTF did I just hear???????? WOW.
+Like... correct me if I'm wrong but... Doesn't pimpin involve 'smackin bitches for money'?
+Lmao @BlackBeauty515: &#128514;&#128514; RT @80sbaby4life: Pound cake look like pussy &#128514; http://t.co/UFYwCC9xCI
+Lmao @SWILLA_LO: The d.rose adidas are lighter than my phone .... Shit is retarded
+Mam, Ren&#233;e doet in haar rol net of ze ongesteld is Wat is ongesteld? Van dat soort vragen waar je denkt: hoe leg ik die weer uit.
+Maybe she wants to be more than your friend or maybe she's a stupid bitch. You never know until you make her cum. &#128514;&#128514;&#128514;
+Mine plays DMX and kirk Franklin smh @_justcallmeBRIT: Well my neighbors are ghetto . They get up at like 5am and beat their kids.
+My grandma used to call me a porch monkey all the time... Come to think of it she did refer to a broken bottle as a nigger knife &#128563;
+My momma told me to tell you to mind yoooo damn motha fuckin business you 2+2 not knowin what it is bitch!!!!!!
+My nips are freeeeezing...and that's not okay because they're slicing through my bra.... &#128514;
+My twitter was hacked = I'm too pussy to admit that I said it and now I want to act like I never said it.
+Nah girl I ain't gon be able to make it, it's been tight since Russ loss his job you in the back like damn bitch really
+Nah its You @NoMeek_JustMilz: &#128514;&#128514;&#128514;&#128514; yo i thought some1 photoshopped my face on that faggot smmfh...i hate yall http://t.co/5e2fkQ3Q2T
+New Flame the song of the yr lol that bitch SUPER run like
+Niggas always yelling Fuck bitches, Get money meanwhile they're broke and still want the bitches&#8230;.
+Niggas be pressed for pussy, Eeeeeen nothin
+No bitches  - nan
+No boats and hoes please thanks - Mom
+OVO &#8220;@Allthingsfresh3: &amp; kendrick lamar still trash&#8221;
+On top of that, she just a pregnant ass sorry hoe. Aint never got no money. Even her water broke. - @TallTrappin88 #RIPTALLT
+Only a couple of Red Sox have gotten past first base. I'm dying laughing. Maybe the Yanks need to teach them some game.
+Our people. Now is the time for the Aryan race 2 stand up and say no more. Before the mongerls turn the world into a ghetto slum. 1488
+Pistol whip my Dickau, shoot yo bitch club up.  Sometimes freestyles be freestyles. And I'm okay with that.
+RT it for me. Please and thanks @BmorePocahontas: Did a pierced pussy just come across my timeline &#128528;
+Remy Machiavelli send shots to ya belly &#128553; my bitch &#9994;
+Roberto you are one nasty hoe
+SORRY JB FAN&#65292;REALLY JUSTIN COME BACK. That is the top comment on a Justin Timberlake video with 10 million views. Son of a fucking bitch!
+Searching the incredible story of 1 white man's quest to find the ingredients necessary to make Caribbean Jerked Chicken in redneck land
+Selling my soul for material wishes: fast cars and bitches #Tupac #smile #remix
+Shake that Bear ... aka two rednecks having sex on a dead bear
+Shall I compare thee to a summer&#8217;s day? No, a summer&#8217;s day is not a bitch.
+She gotta shape up her pussy lips tho @PostPrettyPussy: Whole wheat organic pussy http://t.co/kq0R0A7z2g
+She said wigga man you rich...take the du-rag off http://t.co/jb7J3zSbam
+She was a bitch anyway
+She's from Florida so you've got to do the sniff test in those swamp pussies &#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128553;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;
+Slow the fuck down, bitch, I know where you live!  Classy young lady.
+So he's a good football player...but he still acts like a nig
+Stop being a pussy, son, and shove that needle into your own heart! #afterearth
+Stop looking us and go eat some pussy, you yuppie fucks.
+Takin it straight to dirt, why finger the pussy when I know I can put my dick in it? @xErnee18
+That ain't bro moves, that's hoe moves
+That girl is plain looking borderline ugly &amp; chunky. Hey at least she's got a nice smile &amp; a great personality.
+The devil grows inside the hearts of the selfish and wicked White, brown, yellow and black color is not restricted
+The water isn't yellow, I'm a healthy student
+These hoes ain't loyal
+These hoes keep callin but I ain't pickin up&#127926;&#127926;
+These sour apple bitter bitches, I'm not fuckin wit em
+They Faggots @JonnieSantana: Orioles petty as fuck...got swept up outta this bitch
+They have some ghetto ass bands * gets snuck* &#128514;&#128514;&#128514;&#128514;
+They have to. That division is trash @NoMeek_JustMilz: Saints gon win the NFC South...watch
+This is for all the fans that waited, the bitch niggas that hated / Old hoes we dated, look mama, we&#8230; http://t.co/sNRY6A7VYB
+This is for my ghetto motherfuckers -Missy Elliott
+This recipe calls for a leftover brownie. What the hell is a LEFTOVER brownie? That's just a brownie you haven't eaten yet.-@EricaNadine26
+Those ratchet broads don't represent me but YOUR white ass can't talk trash about them 'cause you on racist shit Black
+Trust noneeee, bitch I don't 
+Twitter is twitter bitch twitter is life
+Two roads diverged in a yellow wood, and I chose the one to J&#246;tunheimr - Robert Frost Giant
+U got my 200K bitch nigga--Al Haymon to Antonio Tarver
+Uh-uh, what do we have? Your empty heart, my empty bottle, a yellow cab.. That you would like to catch cuz yo latest ex made u mad..
+Used to have a girlfriend, now all I got is hoes.. I was lookin for a good girl, but she was fuckin on the low.
+Virgin pussy  ()  , regular pussy  ( )  , Oomf pussy (_________________________)
+WHAAAAAAT! LMAOOO!!! @Cromotoasted: @creepgoddess that's why I luv u fat bitches cuz y'all got some big ole titties and phat booties
+Walked in that bitch like, NIGGA WE MADE IT!
+We hate niggers, we hate faggots and we hate spics-kkk rally
+We're out here, and we're queer!  2, 4, 6, hut! We like it in our butt!
+Well bitch, biology said... &#128514;&#128514;&#128514;
+What I do? @betysweetcocker: Gotta report you as spam RT @80sbaby4life: Ladies RT if your head game better than your pussy
+When im done with a hoe i pass her to the squad G!!!!!!!!!!!!!!!!!!!!!!!!
+Who the fuck you callin jiggaboo, nigga?!
+Why people think gay marriage is okay is beyond me. Sorry I don't want my future son seeing 2 fags walking down the street holding hands an
+Why u being such a little bitch chris you ain't six bitch - Allisons Mom
+Why would I want to play with some pussy? - @jimmyfallon *DEAD* #SNL
+Why would you wanna be the Green Ranger? He's evil! Duh bitch
+Why would you want pussy on your side burns?.. Thats a good question @_hy0ung hahahahaha &#128514;
+Will shank a bitch for ceviche
+Work - @tydollasign Gets me through those rough days hahaha #hoes
+Wow you are a bitch   Yes that's already been established, anything else you have to say?
+Y'all forget he has his brand new baby girl at home bitch the cookies are burning
+YAH has said in his word that the Mtzra'ym(egyptians) are his people and Ysrah'al is his inheritance and the Kushite(ethiopians).....
+Yaoooooooo @yea_im_JAMAICAN: Mawnin yardies! &#128154;&#128155;&#128536;
+Yo bitch on the horn. Tryna shoot a porn. - @KingL That's T shirt worthy Tony
+Yo can I sublet your pussy #ShitFahdSays
+Yo feet smell like my puss &#128514;&#128557; Whut ? Like flowers bitch &#128514;&#128557;&#9995;&#128553; omg
+Yo mama, bitch. RT @TheAceTJShow: What was the ONE sentence that ended your relationship?
+You ain't gunna do shit spear chucker
+You ain't my bitch is my favorite response to long texts
+You and yo boys some pussy cats.
+You are a cunt
+You can pull more pussy with a dodge and collect them panties alright. -stormy and jake &#128514;&#128514;&#128514;
+You can take someone out of the ghetto, but you can't take the ghetto out of them.
+You don't like us colored folks, what the he'll you're not colored you white fucks &#128514;&#128514;&#128514;&#128514;
+You got hella hoes http://t.co/ZN1A0gsTpc
+You hit no lights, no line for toco bell at 2 in he morning, and Diana's back in her house. It's a miracle - Charlie @dianaaaxo
+You look cute today :).. Really?! Helll no, swerve hoe!
+You look like little birds help you get dressed in the morning
+You ol trout mouth ass bitch  DEEEEAAAADD
+You talk like a fag and your shit's retarded. But that's cool scro, lot's of tards out there living total kick-ass lives!
+You took our land so you could make each other retarded in DIAPERS? Sure....use our image....cool.... #redskins #NFL #concussion #jokes
+You're a garden rose, and that bitch is a weed.
+You're fucked up  No shit you dumb ass cunt now go post pictures if your flat ass titties on ig slut
+Your a queer. &#128530;&#128530;&#128530;&#128530;
+Your homeboy looking bad and you giving cash to them hoes
+Your teeth are like the stars. Aww thanks! Yeah... yellow and far away from each other.
+Yup. Fuck em @Aloha_Hoesss: Playing like trash RT @80sbaby4life Clippers don't wanna play lol
+ain't it time for you hoes to get out of here LOL this is what Ariana's mom says to us
+are we bitches? - @chellyhernandez
+ayo i even kill handicapped and crippled bitches/look at my scalp real close and you'll see triple sixes
+bitch freak my shit
+bitch my vagina is a little more resilient than that -@rosestokoe
+but I love him nah bitch that ain't love.
+but pussy is the root of all drama an attribute put up in they head by they mama.
+call me Keyshawn Johnson cause im catchin erry hoe
+captain save a hoe is the most annoying phrase
+day of judgement everybody gonna be looking at the big jumbotron watching me fuck this majjinn buu bitch
+don't let your side bitch settle in, I might have to headbutt you Evelyn
+dont show me no bitch unless she look like Dolly Parton!!!
+fuck you you pussy ass hater go suck a dick and die quick - Someone, to me, in Youtube comments. I think we'd be good friends.
+hick and raver is a venn diagram that has a very large intersection
+hoes suck my dick cus i look like john stockton hit em wit the choppa, luke i am your fatherrr - @LILBTHEBASEDGOD
+if i wasnt in a work place id deck you aye fucking right, I'd give you a tyson 4 combo nd end you with an uppercut. Shut the fuck up bitch
+if she can suck your dick with a dip in, she's not only a keeper but a true redneck woman. - Kim's Dad.
+im gonna rip that bitch apart rip what apart lol
+its britney bitch - the bible (leviticus 7:58) http://t.co/ZoAkn1ZlHm
+niggas bitches bitch ass niggas dike ass hoes black ass and bright ass hoes fag tags and scally wags
+no pussy, or not tryna go to the studio, don't CALL my mufuckin crib like that, god. Yo. Word up god I will BUSS YO SHIT, god, word up
+oh ya these hoes think they cute in skin tight cat suits assuming that they bodies to boomin to dispute
+omg this bitch is fucking stupid I swear blah blah blah *a week later* omg ilysm bae ur my best friend I swear
+on my way to fuck your bitch in the name of The Lord - Mr. Race
+poor whitey http://t.co/3UkKeyznz8
+riding with my bros still don't trust these hoes
+this weekends going to be fabulous naa man, you're seeing nae cunt. If you do they'll be koed in 2 seconds flat. Hate u. #fuckgm
+whatever you are, be a good one. -Abraham Lincoln, this quote is not for yall hoes!
+when guys say Latinas &gt; they mean the Kim Kardashian looking girls not you bitches that shaped like a mini fridge &amp; smell like tortillas
+when rappers say twat it makes me feel weird &#128514;&#128514;&#128514;&#128557;
+you better pipe your pussy down over there- @EsEx_Ruskii&#160;lmao wth does that even mean?
+you fucking pussy you couldn't even beat your dick. - Angry Youtube Comment
+you're being a cunt right now -@RQ978
+# That son of a bitch moment when it rains and you forget your car windows are down
+#10ThingsThatGetsOnMyNerves Needy hoes, ratchet Hoes, sideline hoes, Beggin' hoes, dumb hoes, looking for love on Facebook hoes..
+#11 get to hit any bitch on campus he wants to
+#1personidbitchslap @Khamruz. Fa blowin my tl. Up like a bitches spare tire leavin dairy queen
+#2013Faves RT &#8220;@grahamorama: #Snoop and #Justin are having so much fun at this Charlie Wilson tribute #BETAwards https://t.co/C6NHwUBlXN&#8221;
+#2013TaughtMe how pussy feels &#128514;&#128076;
+#5WordsAfterSex is that all pussy bitch?
+#AZmonsoon lot of rain, too bad it wasn't enough to wash away the teabagger racist white trash in the state. #Tcot #teaparty #azflooding
+#AlexFromTarget gets a million retweets but #ChrisFromWalmart cant even get a bitch to text him back.... http://t.co/l0XTPSIG8Z
+#AlexFromTarget had them bitches wet...lmmfao
+#AnnCoulter still calling #Obama a 'community organizer' re: #Syria. Well, she is still #cunt as well. So what?
+#AsAGiraffes pussy http://t.co/YaaTsF52tu
+#AskDems Aren't you embarrassed that Charlie Rangel remains in your caucus?
+#BOB Bass over bitches @HankJohnson11 bitches on his dick, fishes on the dock
+#BREAKING: AP calls Mass. Governor race for Charlie Baker. Watch live coverage on WCVB, streaming online. http://t.co/S6hY2eVoaT
+#BangBangBirdGang ya bitch you!!! 56 -fruit loop
+#Bartending becomes a real bitch when you the #bartender are way way taller than the bar was designed for. Holy back pains.
+#BestSongToHaveSexTo bitches love sosa #bangbang
+#BigBird was made by a gay couple. So yes, under a GOP world the bird would not have existed since its creators would be in jail for sodomy.
+#BitchSlapThursdays 2NITE PURE PASSION DOORS OPEN @ 10.... But we watching the game in that bitch too&#8230; http://t.co/IggoHWEwfh
+#BlessJesus Amos 3:3 - Can two walk together, except they be agreed?
+#BlessJesus Amos 5:10 There are those who hate the one who upholds justice in court and detest the one who tells the truth.
+#BlessJesus The #Crown of HIS head to the sole of HIS feet
+#BlessJesusAir Matthew 6:26 Look at the birds of the air.. and yet your heavenly Father feeds them.Are you not much more valuable than they?
+#BlessJesusLove Happy Belated ( Sixty-Fifth) 65 Birthday *28 Aunt Mary Agnes #Strong
+#Bout2GoCrazy #AintNoLevelz2DisShit hungrier then a phat ho on a diet IG http://t.co/nzuBUC2QpR
+#BurnNotice Fi shoots bean bag rounds at the guy - Hurts like a bitch don't they?
+#California is full of white trash
+#California is full of white trash who moved from #Oklahoma
+#CelebrityLeakedPhotos YEAH&gt; NOW YOU KNOW how it feels knowing the #NSA is on all our phones. Quit whining like #muslim #bitches.
+#ChristianBale should be KISSING #Moses ass for his fight with God, OTHERWISE WE MIGHT ALL BE FUCKING DEAD&gt; #retarded #ass #actor #faggot
+#CommonQuestionIGet  Why uou so ghetto?
+#Cowboys are 6-1 bitches #Cowboysnation another great win Ilove this team
+#Crack that whip, cracker
+#DTLA is trash because of non-Europeans are allowed to live there.
+#DUH @Transhuman_: That's because they're possibly tucking a penis @EmperorIra: This bitch got man boobs http://t.co/VJvXwLrJoP&#8221;
+#DearFeministMen there are easier way to get pussy w/out sacrificing your man hood...best of all they dont include losing ur self respect!
+#DegenerateArtist Ain't fuckin' AROUND with #Allahs #retard #crest&gt; I GOT BLESSED by Jesus and you are NOT NEXT, you fake ass TEXT&gt;
+#DegenerateArtist Can't do it ALL on CARD&gt; I'm not a French Muslim retard&gt; I don't expect or demand a child bride yard, cuz I got MAN DICK&gt;
+#DegenerateArtist Isn't a bitch walks back his words&gt; Isn't a WITCH who questions a TURD&gt; I'm a GLITCH WHO EVOLVES YOUR ABSURD!!!!!!!!!!!
+#DegenerateArtist KNOWS words&gt; Bo Jingo dangle fan slang ho, ting pang lick drum swing flick alarm bic&gt; But you can't hear fire can you?
+#DegenerateArtist Sniffs whiffy balls involuntary, cuz a FAIRY walks DOWNTOWN HAIRY, #climatechange all our scary sense of hillbilly sneeze&gt;
+#DerekJeter as a lifelong #Yankees man, I will miss you. #FirstBallot #Unanimous
+#Dutch farmers are white trash.
+#Dutch people who live outside of #NewYorkCity are all white trash.
+#EarlyBird #early #morning #sunrise #dawn #bird #thebird #jerryreed @ Kansas City http://t.co/kuVq8UpwUw
+#Ebola Great and I thought the panic from bird flu was bad. I really ain't got time for that.
+#Ebola is a great metaphor for how #GOP #teaparty policies eat off of vital organs until the host dies. #Tcot #teabaggers
+#ExplainAnAnimePlotBadly Boy with a monkey tail grows up to the the savior of a futuristic yet old earth
+#FACT RT @KeyshBeChillin Kanye is best when a good piece of pussy fucks him over
+#Fact females that tweet ALL the dayum day r hoes that need attention #ijs #wontgetme
+#FemaleLogic is worse than the jig, I'm convinced
+#FireCashman Why?? Because I am having to root for the Royals in October. #Yankees
+#FreeElChapo is trending?! why cus French Montana's bitch ass?? you fucks that think selling drugs is cool are the LAMEST POSERS!!
+#FreeballoutPartyPart3 bitch it's going! 3 mo weeks&#128588;
+#FreshmanAdvice and if you ain't a hoe get up out my traphouseeeeeeee
+#Glory Isaiah Mom asked me if I wanted a brownie I said, no thanks  She said what are fasting,
+#HOLIDAYSEASONLIVE @ShyGlizzy @plies Shy Glizzy Feat Plies - FREE THA GANG: http://t.co/pYGOSk0qCP
+#HappyColumbusDay !!!! If is wasn't for #America.................#KarlMarx would never have thought of sharing #colonialism with #injuns !!!
+#HappyColumbusDay .....hate to sound all #PETA callous and all........but #buffalo had it a LOT WORSE than the #injuns..........
+#Havok is one bad bitch wouldn't wanna mess with her #TNA IMPACT
+#HellYeah RT @BaconGawd #No RT @HuffingtonPost Happy Fall! Pumpkin Spice Oreos are here http://t.co/2prvsKantE http://t.co/hleYm0YC29
+#HelloBrookland! We're here at the @MonroeStMarket opening! Serving free samples of cider, vegan sliders, brownies! http://t.co/BW9uYtLQu1
+#HolySpirit Joshua 1:3 Every place that the sole of your foot shall tread upon, that have I given unto you, as I said unto Moses.
+#HonestyHour in middle school hoes used to call me a Mandingo warrior
+#IDontHaveTimeFor Ratchet hoes.
+#IHopeSomeday that these hoes just find their own relationship instead of ruining others
+#IStandWithRand Wise up RINO pussies, real leaders like Rand, Cruz, Lee, Bachmann etc. actually exist. Fight or go home. #TeaParty
+#IU 8 straight nation #college soccer champions! Wow! #hoosiernation #hoosiers &#9917;&#127942;
+#IU should make me an honorary student, id be way cooler than the other international students. i have my own football card! #hoosiers
+#IfThePurgeWasReal I'd be the best prostitute and madam EVER. Hey, if you got pussy, you shouldn't be broke, right? LMAO JK
+#IfWeDate i eat da pussy better than a lesbian.
+#InMiddleSchool i was fat as hell and was a band faggot. Thank god i played sports after 6th grade and didnt stay in band
+#IndigenousPeoplesDay .........right. Because these #redskins had a lot of #queens, right? nomg. #sofunny
+#IndigenousPeoplesDay HAHA!!! You fuckin' retarded commies!!!!! Hunter Biden loves snortin' that PYGMIE FAIRY DUST don't he? #liberals
+#Iowa is full of white trash
+#Iraq gov troops were handed a severe defeat by #ISIS at Saqlawiya -- there's chatter of over 300 soldiers lost &amp; Jihadis raving about it
+#JesusChrist was STRAIGHT&gt; That's why the #faggots killed him. #PERIOD #SonOfGod&gt;
+#KanyeShrug lol &#8220;@ShainaRakia: Thots be like &#128073; RT @SMCo71: @ShainaRakia only great thing these bitches can offer &#128514;&#128514;&#128514;&#8221;
+#Lingo so A1 niccas be Tryn talk like me
+#MentionADislike hoes thinkin they bad even if they are I will tell her bitch calm down u average
+#MessageToMyFutureSpouse u better cook and clean for me bitch. Ill give u all my money but I ain't cleanin no dishes and makin my own plate.
+#Minnesota is full of white trash
+#MyUnpopularOpinion Spanish bitches suck dick by 11 and have babies by 15 because they're already fine and dressing slutty.
+#NL Q.U.E.E.N. And reminded: I still don't get why Janelle Monae is so perplexed that people think she's queer...
+#NP Centuries ~FOB
+#NationalCatDay ...sure. Celebrate over 1 BILLION bird deaths and blame it on #climatechange you fuckin' #commies.
+#Natitude? Okay. I'm only going to say it once. COMB yer BEARDS. #lol #wiggers
+#NowPlaying : BT feat. Tori Amos - Blue Skies (radio edit) on #1069TheArrow - http://t.co/R5wuXA9jB6
+#NowPlaying : Great White - Once Bitten Twice Shy on #1069TheArrow - http://t.co/R5wuXA9jB6
+#NowPlaying : Ian Hunter - Once Bitten Twice Shy on #1069TheArrow - http://t.co/R5wuXA9jB6
+#NowPlaying : The Doors - The WASP (Texas Radio and the Big Beat) on #1069TheArrow - http://t.co/R5wuXA9jB6
+#OOMEF had that YEAH!!... i kno she pussy whipped that other nigga into putting a ring on it.... &#128564;&#128564;
+#OnlyInAMichaelMyersMovie bitch is running a hundred meter dash on this niqqa WHOS ACTUALLY TAKING HIS TIME WALKING &amp; u still get killed
+#PDPLive is on November 10th. Get your early bird tickets from http://t.co/7xcL4Kyiuv @LifeOfShan http://t.co/ZcnP1ljoOW
+#PacerNation 4/4 on the road! Perfect way to continue after #iubb have finished #NBA #Pacers #indiana #hoosiers
+#PeopleToAvoid Valerie Jarrett, so I control my reflex to bitch slap her.
+#PeopleWhoMadeMy2013 my little brother and i hate to admit it but @DirkAlisic and he knows why. but he's still a lil bitch though. fuck you!
+#QTNA RT @Major_K8: How y'all bitches gon breast feed wit nipple rings? &#128563;&#128534;
+#QuestionIAskMySelf why should I be slapping this hoe tuh solve something, ima leave it alone..............I never usually listen to myself
+#RadioFreeNorthwest 218 Covington reads responses &amp; mocks FBI, Andy on Real Politics, Liv on her awakening, Gretchen http://t.co/t9JyhAncPR
+#RayRice is a bitch. #JustSaying
+#RayRice is still a bitch. @NFL got this one wrong. Women fans should be livid! #NoExcuses
+#ReasonsWeCantBeTogether if u was talkin to my nig or smashed da homies
+#ReasonsWhyWeDontGetAlong You're a hoe. Stop focusing on sucking dick, focus on getting rich
+#RebelScience ......ITS ABOUT SHARING #whaddup&gt; #clouds. It not about hogging the #windturbines like a fuckin' gasbag son of a bitch.....
+#RebelScience ......is using an ACTUAL WOMAN as a genetic engineering lab for all natural clones..... or something...... #faggot #rome
+#RedSox, focus on the #Orioles that knocked you out last year, and not your hatred of the #Yankees for um-teen years! LOL!
+#Remake with #granny DCYOUNGFLY Dirtymoney24 #TeamIgnat #HoodComedy damn that bitch a BAB!!!! that's a Big ... https://t.co/mgr10pz8iJ
+#Royals 2-1!! Fantastic. Ready for tomorrow's sweep of the disposed O's. #Yankees 4ever except this month.
+#Royals Milwaukee let Yost go.Now they wished they hadn't cause they suck.How about now.He's the guy win or lose. Yankees fire Girardi &#128073;Yost
+#RuinAComedian @midnight Charlie Lapdance
+#RuinADessert @midnight Fairy Queen. nomg&gt; I fucked #Obama panties again...............
+#Shoutout to everybody that follow a nicca!!
+#Shoutout to my #Exit47 niccas! #Salute
+#Shoutout to my #MackTown niccas!
+#Shoutout to my exit 47 niccas! #RealNiccaSalute
+#SignsOfCockBlockin ----&gt;RT @tribexyunglion: Niggahs telling hoes I'm down talking them just so I can't get on &#128514; #FuckNiggahs
+#Skating is for trash.
+#SlightlyAdjusted RT @CapoToHeaven Alls niggers wanna do is fuck, tweet, and drink pineapple soda all day
+#SomethingIGetAlot Are you... asian? black? Hawaiian? gay? retarded? drunk?
+#SouthCarolina is full of white trash
+#SplashGang on you pussy n%a'z ay @Benny_Balboa i tried to tell n%a'z!!!
+#StopWhitePeople RT @ABC7: 9 cases of West Nile virus infections reported in Orange County this year; 105 dead birds found carrying virus
+#TBT love you forever ling ling &#128115;&#128114;&#128152; @brittneycordova http://t.co/KEcfNjyrwE
+#THEBOONDOCKS at 10:30 my nicca!
+#TRUTH RT @notashley: David is the Charlie Brown of #Scandal
+#That son of a bitch moment when you finally get in bed and your bladder decides its time to piss
+#That son of a bitch moment when you turn the radio on and your favorite song is on but its the end of the song
+#That son of a bitch moment when your walking through your house in the dark and stub your little toe on the wall
+#ThatFuckMeMoment when you leave your car windows down and it rains in your car and looks like hurricane katrina ran through that bitch
+#TheMostAnnoyingThingsInLife people who are NEVER happy and bitch-n-moan 100% of the time.
+#ThingsIWillTeachMyChild how to play deez niggas n bitches dat be snakes
+#ThingsNotToDoOnAFirstDate give her all da dick U gotta half stroke da pussy bc if u dump dick on dat bitch she gon become extremely anoyin
+#TjohnGang&#128520; lil bitch follow me ! http://t.co/sd8UhT4DNY
+#ToMyFutureSon You can fuck dem hoes but you better not love dem hoes.
+#TrayvonMartin referred to Zimmerman as a creepy ass cracker. Racist thug.
+#TweetLikePontiacHolmes&#160; I do the Pontiac sprinkler...  Nigga nigga nigga nigga spic spic spic spic nigga nigga nigga nigga
+#TweetLikeYourBestfriend I made out with 3 bitches! @lilkrebs
+#UMightNotGetIn &#128514;&#128514;&#128514; fucc nicca #BeerandTacOS #WeTheLastOnesLeft http://t.co/45FV79CV0z
+#VinitaHegwood can get a job at the naacp. Or as The AG. I hear they like diversity and tolerance. As long as you ain't a cracker #tcot
+#Virginia is full of white trash.
+#WeAreRepublicNotRegime #POTUS BO violated USA sovereignty w/open border/Jihadis/criminal/diseased/Haitians/S.Americans #ImpeachObama
+#WestVirginia is full of white trash.
+#WhatImCraving Peanut Butter Oreos &lt;3
+#WhatWouldYouChangeAboutYourPast the hoes I wasted time with
+#WhyIHateInstagram it can make a bitch cheat up to four points on the scale of 1 to 10
+#WorldSeriesGame3 Hunter Pence is so annoying he should be a Red Sox player. Shave fool and take your Vyvanse&#9918;&#65039;&#9918;&#65039;&#128074;&#128074;#Yankees 2015!!
+#Yankees
+#Yankees #FireCashman I don't want Arod back.
+#Yankees #Jeter Let him play the entire inning. That's fitting.
+#Yankees #SEC Robertson in. Guy is fantastic. SEC pitcher!!
+#Yankees 3, #Astros 0: McCarthy outduels Keuchel in series finale http://t.co/hIJJAUKtJN
+#Yankees 6-0. Nine straight hits. Price... Not your night.
+#Yankees Damn you DirectTv blackout the Yankee game. With a freaking WALK OFF! You're killing me satellite douche.
+#Yankees Damn. Well Joe that move to the bullpen really helped.
+#Yankees I ain't complaining about the Royals win or lose game7. They showed heart. AL ride or die! No flex zone. They earned it!
+#Yankees I went to Golds with Cruz in 2010 when he was a Sound. No upper /lower body strength.. Hmm now 40 HR hitter. Won't say the S word.
+#Yankees If Royals have a fire sale. I want the whole team!! Leave Gardner and Tanaka. The rest can please go. Along with Joe and Cash.
+#Yankees Nice bounce back @Michael Kay. Gotta keep this going!
+#Yankees Pineda needed that 6'7. Great play!
+#Yankees Primo! Just got home and the Tanks are on MLB. Finally! And they are winning! Even better. Time to get serious, Sept call up time
+#Yankees got beaten by a thug
+#Yankees take all three games in MoTown, I'm callin' it!!! #MLB
+#Yankees wasted Nu&#241;ez's season #rays #mlb
+#YesWeDid .......start building #windturbines SO FUCKIN BIG they can kill a whole flock of birds in one go&gt;
+#YesWeDid .....tattoo our bitches to corrupt as many men as possible to #Egypt and being a #cattle #prod #vote&gt;
+#YouWillNotBeTakenSeriouslyIf you're proud to be white trash #KedollarSignHa
+#agreed &#58399;&#58399; RT @oliviaMrose: There are a few badd ones but idk..mixxed bitches is really where its at tho
+#anywere &#8220;@TheCooleyShow: LA = palm trees and great weather  Any were else = horrible weather and no bitches&#8221;
+#bad #ass #local #bitches
+#boom bitches
+#bslfe in this bitch #PullUp 40st and Washington space A-80 http://t.co/H2HV64h9wh
+#creamteam leaving hoes w #cockbreath
+#drunk #trash #trashed #wasted @ The Draught Horse http://t.co/UvWkhpEswh
+#faggots KILLED #jesuschrist&gt; HELLO!!!!!!!!!!!!!!!!!!!!!!!!! But whatever. Go ahead. #gaymarriage yourself into #Pharaoh's pockets&gt;
+#faggots are MERELY a #scientific indicator that SOMETHING IS WRONG&gt; Do not celebrate as unique indiviuals for they are #cancer&gt;
+#firefighter is a job for white trash
+#foxnews cuts away when a Democrat talks and claim to be fair and balanced. LMAO network full of #teabaggers and liars.
+#gouache #inktober #oldpainting #mt #tiki #wahine #surf #monkey #bright #happysunday #peace wishing&#8230; http://t.co/l73hiK0IZ8
+#honestyhour we don't love these hoes
+#honeybadger bitch
+#hoosier fans, is cody zeller nominating for this years #NBA draft? #iubb
+#illNeverUnderstandWhy anyone from Jersey Shore is famous. I should go be a guido shitbag if it means money for my family.
+#inktober #twentysix #gouache #mt snappy pappy and his bitch 3.5x2.5 good thing sable paintbrushes&#8230; http://t.co/4gYBEI5Mkl
+#inners Still hanging in. #Yankees we need this win. NFL. It's not SUNDAY!!
+#iubb #1 suiting up again tonight! #Indiana #IU #ncaa #hoosierdaddy #HoosierNation #hoosiers
+#klokus this bitch has his nose pierced &#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514; https://t.co/1Ia8Nx6zrS
+#longhair don't care got my #gayboyproblems everywhere, I'm a #bitch I'm a #champ, I'm totally full of&#8230; http://t.co/Qia88qGmWh
+#metal only, honkies!
+#milesthompson #goauche #wetback #ca http://t.co/g3Ze8bqLPG
+#morningjoe prove him wrong righties! Liberals use facts cons use emotions to make decisions. Facts be damned should be the teabagger motto
+#mt #commission #gouache #tiki #wahine #monkey #tubed #surfing #wavesliding #waterwalker #notkook http://t.co/vii3SmGRm3
+#mt #goauche #monkey #oldpainting #vinyl #jazz #lounge http://t.co/hueH4HCxx7
+#mt browngal #gouache #monkey #tiki http://t.co/kFhj8lWhbs
+#nationaldoughnutday bitch GET AT ME &#127849; http://t.co/5FJForyY2e
+#nowplaying witcha bitch pussy pussy inda hood ona sofa.wit plastic on it
+#np Shy Glizzy - Awwsome (Remix) (Feat. 2 Chainz &amp; A$AP Rocky) via @Spinrilla. http://t.co/OWxtdRKWbC
+#oomf can get it but I'm chilling till da bitch hit me up
+#pause but niggas is bitches tho RT @CornerBoyP: Boy niggaz b so bitch made u cud kiss em n da mouth!!
+#philhughes @Yankees #nyy better then UR whole team
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Anal | Anal gaping tranny play panty nylon part http://t.co/35oTesnwmx
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Anal | BBC Anal creampie bitch http://t.co/3XNeG5mnRk
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Anal | Blonde tranny ass fucked http://t.co/80aRX0QJxz
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Anal | Hardcore british queer anal pounding http://t.co/lRuEixMy21
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #BBW | Brazilian BBW Babe Drilled in pussy and ass http://t.co/Z7ksrFpmz9
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Babe | ebony babe pussy http://t.co/3MxBXeZqxR
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Beach | Caught a girl rubbing her pussy in nude beach http://t.co/h8lGiTFYie
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #BigTits | Cute preggie slut big tits plays with swollen pussy http://t.co/iTCpEBCem4
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Close Up | Another pussy close up http://t.co/hBjDGvENXa
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #CloseUp | Squirting pussy and fingered asshole http://t.co/bKYeoUwWv2
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #CloseUp | amateur pussy player milf close up http://t.co/2uHL7dhHu1
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #CloseUp | cumshot on beauty pussy closeup http://t.co/UonsdrAuV0
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #CloseUp | pussy fuck close up http://t.co/0dvaZWLq2q
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #CreamPie | Young Japanese girl&#8217;s hairy cunt cre http://t.co/l46q7MoGGr
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Desi | Spicy Oriental Paki Brunette sucks an un http://t.co/OrP642PomF
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Desi | paki http://t.co/XxcdQvzI9t
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Desi | paki http://t.co/cOfGRtW9br
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Ebony | ebony texas bbw with big deep pussy http://t.co/dBbxsoW8M2
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Erotic | Erotic and wild tits and pussy fucking http://t.co/8HkC56j7c9
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Facial | Blonde tranny whore gets rammed and facialized http://t.co/Kd9nU3tmWz
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Fisting | Dude fists his wife&#8217;s big pussy http://t.co/snFAf5Uxxb
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Fisting | More lovely sounds of fisting a loose pussy http://t.co/1PMAGSPkud
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Fisting | Whipped Cream Fisting http://t.co/b4JCMCtEwq
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Hairy | 21 year old hairy pussy cumming on fingers http://t.co/KvgoxkN9vG
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Hairy | Hairy Florence shoves a dildo in her hairy red pussy http://t.co/4DM8Fpcb2d
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Hairy | Hairy pussy http://t.co/9DOIbSkT17
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Hairy | hairy pussy http://t.co/Ntg2b0qDmx
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #HandJob | Hand job and cum on rubber pussy http://t.co/zGcnmR2kLA
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #HiddenCams | Amateur boy fucking bitch hiddencam http://t.co/Bt8C6qQCTd
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #HiddenCams | Candid pussy shots from a hidden c http://t.co/IKpJ0etz71
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #HomeMade | Home made. My wife rubbing her pussy http://t.co/ldb9aFwVdM
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #HomeMade | Using my submissive bitch outdoor. Home made amateur http://t.co/Fu6AggzHQd
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Italian | my baby pussy http://t.co/1O7AJdBjLc
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Japanese | Pretty young Japanese girl&#8217;s hot cunt fucked &amp; c | http://t.co/wt5SSOF9rW
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Japanese | Young Japanese girl&#8217;s hairy cunt creampied http://t.co/rg3PObaKKD
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Korean | korean girlfriend pussy http://t.co/Od1MQUudnN
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Latina | Latina chick gets her pussy pumped http://t.co/4dhwuI5ARd
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Latina | Latina mature Big pussy http://t.co/D4ICvCz1Bk
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Latina | Latina with tight pussy http://t.co/rDaOnqVr1H
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Lesbian | Lesbian girl eating pussy http://t.co/Ht9szL3b24
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Lingerie | Bitch in lingerie getting her wet cunt pounded http://t.co/Jp4r2vPyCb
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Masturbation | A very hot black tranny is mastu http://t.co/OfGGMLXQAj
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #OldYoung | Old bitch pleases hot-looking young stud http://t.co/aIDKdmztLn
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #OldYoung | german milf getting young and old cock in her pussy http://t.co/kXhzjwG4Ii
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #SmallTits | Small tits ghetto whore fucking with not her stepdad http://t.co/Ay6gRNTOUw
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #Teen | Cutie lesbian teens toy slits http://t.co/ZS05enjjwm
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #XXX | Hairy Alicia Silver &amp; Tinslee Reagan hairy pussy &#65533; | http://t.co/ToljqdXEE3
+#porn,#android,#iphone,#ipad,#sex,#xxx, | #XXX | homemade pussy eating &#8211; http://t.co/2yuIdrLN3k http://t.co/Z8GAiWlLye
+#portlandia #putabirdonit RT @mightymouse105: The Xbox One would be so much cooler if they put a bird on it
+#real RT @ImTooMuch: RT @d_lac: RT @WeavusChrist: RT @Tone314: Don't tell me if my gf was a hoe before me, if I'm happy.
+#realtalk if you a hoe an try to get serious with someone don't expect to be anything more then a piece of meat to them
+#redneck tow truck. #johndeere #4455 #america https://t.co/iFInqwVRad
+#rejectedpeanutsspecials Its The Grape Crackhead, Charlie Brown!
+#southcarolina has a highschool graduation rate near 50% and that's why they have so many uninformed #teabaggers #morningjoe
+#stateoftheunion would last 15mins if they let the President talk all that standing up clapping is for the birds
+#tbt me being a bad bitch http://t.co/Jc4bKbe8Vt
+#tbt my precious gook baby &#128525;&#128525;&#128525;&#128525;&#128525;&#128525; @outtapocketjuju http://t.co/2QJLJj6tK5
+#tbt to when i used to be good at rapping...now ima bitch &#128542;&#128299; http://t.co/6RV4jiJpRD
+#tbt when i took my likkle monkey jimmys http://t.co/LIK3xpZ6eZ
+#teabagger state like mississippi opposed to minimum wage, child labor laws, unions, is pro-scab, sweatshop work - pretty much #SLAVERY.
+#throwback to being bitches &amp; drinking Mikes bc we sucked @AutumnMaye http://t.co/jfCthdEDcz
+#tikiti - rough mock for the base of what will eventually be an ashtray @ Tiki Ti http://t.co/8zE8aqY0
+#truefriendtuesday my bitch @drrrruuuu http://t.co/7dSZ3vCySz
+#tweetlikelexi Nah we not gonna sit down we gonna walk it out bitch.
+#ultimatepickupline bitch get naked. Works 10 times out of 10 if she's drunk :)
+#uppers loving the show this morning. Chris is directing the conversation beautifully. Make the teabaggers talk!
+#vegas #bitch http://t.co/wbAqQ5vFpd
+#wallofthewasatch bitch!
+#wcw all the bad bitches &#128069;&#128166;
+#wcw bitch &#128536;&#128514; @AutumnMaye http://t.co/7n5X9FyvIP
+#wrongfilmquotes ..everytime I come in the kitchen you in the kitchen, in the goddamn refrigerator. Eatin up all the pussy
+#xfactorau sick of guys who sing like pussies. Where are the rock type men?
+#youaremoreattractive if u a real bitch!
+$100 bid to go on a date with Zack Morris oh that dreamy son of a bitch
+$3 bud Lites and $4 well shots at the bar tn, plus I'm giving away a trip to Las Vegas. So if you're not a cunt come visit me at Bourbon St
+$60 torch down the drain cause either I was to high and lost it or one of my niggas finessed that hoe fuckkkkk ittt
+&#127813;&#127813;&#127813; RT @GottliebShow: Killer line? @SBNationNBA: Josh Smith dropped a killer trash talk line on Kenneth http://t.co/C8d3sJoUpj&#8221;
+&#127829;&#128049; RT @TAN1AAA: RT @PeachDulce: A piece of pussy http://t.co/BcWiT2nuz5
+&#127850; RT @Ms_SadaClay: I love salad RT&#8220;@viaNAWF: Anyway fuck you hoes, eat a salad.&#8221;
+&#127867;&#127867;&#127867;&#127804;&#128153;&#127913; plus Sheryl crow http://t.co/49KYwZnotU
+&#127942; RT @UBoyRock17: Every bitch n my passenger seat I dun fucked at least one time
+&#128027;=&#128176;&#128184; &#8220;@GOALSminded: its true that the early bird.. gets the worm first!&#8221;
+&#128034; dirty whore. I love you. but you a hoe. but I love you. Jesus is watching.
+&#128064; RT @Freegeezy17: This hoe got a school shirt on sucking dick &#128553;&#128553;&#128553;&#128553;&#128553;&#128553;
+&#128064; RT @Mr_QuenchYaGirl: A lotta fck niggas on this here Twitter. Really be talking like bitches.
+&#128064; RT @PrettyDamAmazin: These bitches started shooting at my party. Fuck New Orleans
+&#128064; bitches giving back rubs ?
+&#128072;never been a coon grew up with bokoo coons tho but never was 1 I did some coon shit tho
+&#128073; RT @OeauxMar: Nigga was smashing his hoe, had his hoe paying for a condo and he still with her &#128514;&#128514;&#128514;&#128514; Yep Fucboy
+&#128073; RT @OfficiallyIce: #GuiltyPleasure watching niggers fight on YouTube/Vine/IG
+&#128073; RT @Pr3ttyN33: Don't like me ??? Have a &#128186;with the rest of the bitches waiting for me to give a fuck &#128540;&#128129;
+&#128073; RT @_WSBG: I'd rather be called nigger than a uncle tom or a mark
+&#128073;RT @Str8_no_Chazer: Bet y'all bitches was deaf to MC Lyte's words about being treated like a queen huh
+&#128075; hi-ho http://t.co/FiC4FnRutZ
+&#128077;RT @kwagiheath: One'a y'all b!tches gon end up dead over a screen shot thinkn that sh!t funny...ain't too many niccas gon laugh at that b!
+&#128079; congrats you've turned a hoe into a housewife, don't get shitty when your guys start singing they hit it first. #ButThatsNoneOfMyBusiness
+&#128095;&#128095;&#128095;&#128095; got ur bitch tip toeing on my marble floors.......
+&#128114;&#128069;&#128166;&#128149; - &#128514;&#128557; omg just thinccin of you makes me laugh, we use to STAY talking shit in 3rd period, you cute, &amp; you my bitch &#9994;&#128514;&#128557;
+&#128119;&#128119; you needa stop sucking dick hoe &#128514;&#128514;
+&#128128; RT @OGBEARD: OMG LIL B FOLLOWED ME YASSSS   bitch he follow everybody shut yo ass up
+&#128128;&#128128; RT @monique504Q: &#128557;&#128128; &#8220;@ByeKandace: hop off hoe. RT @KekePalmer: Come on @KSTiLLS!!! &#128079;&#128079;&#128079;&#128079;&#128079;&#128079;&#128079;&#8221;
+&#128129;&#128513;&#128586;- lmao my nigga . Let's go half on a weed brownie &#128553; we will be laughing hard as hell in senior seminar
+&#128131;&#128131; &amp; if you ain't a ho get up out my trap hooouseee.
+&#128139;&#128175; - ugh bitch I love you &amp; that A S S &#128553; your just simply FLAWLESS &#128149; I remember when you cute a peice of your hair hella short &#128514;
+&#128149;&#128149;&#128149; pussy ride dick like she a Jamaican / \ / &#128167;\  . */. &#127796; |. &#165;~ ! &#127796;. | &gt; \  &#128043; $. / &#127806;\ ; &#128043; ) &amp;&#128043;*
+&#128165;&#128162; on the pussy http://t.co/mWXQnjm4So
+&#128175; RT @DammitHamm_: Loyal pussy .
+&#128175; my bitch &#128079;&#128523;
+&#128347; is the most important thing. All this temporary bullshit and lies is fa the birds. Kill that !
+&#128514; &#8220;@BossmobbE: Racist all month .. Fuck u honkey&#8221;
+&#128514; Gucci b having me on my rude shit&#8220;@AmazinNaNa: Lol that's not nice @SMCo71:  that bitch aint worth a quarter &#8221;
+&#128514; RT @LaShana_Sinead: Mimi too old to be covering her titties during sex&#128514;&#128514;&#128514; bitch you childish
+&#128514; RT @TheOnlyReed: LMFAO RT @Tone314: If you watching porn &amp; beating off &amp; yo homie text u &amp; it show his name in the banner you're a faggot
+&#128514; bruh these hoes gotta be stupid.
+&#128514;&#128514; &#8220;@Juggs201: SOMEBODY GONNA DIE &#128557;&#128557;&#128557; RT @SMCo71: @Juggs201 &#128514; theres a bitch on NJT setting up a lean as we tweet&#8221;
+&#128514;&#128514; &#8220;@JusDahl &#8220;@JustKorey &#8220;@JusDahl: Y'all have boring sex.&#8221; Nope.. I lick the side of my bitch face when I'm hittin it from the back&#8221;&#8221;
+&#128514;&#128514; &#8220;@mcdonavins: Of course cooder's nudes are trash. She lives in the DMV what did you expect? &#128514;&#128514;&#128514;.&#8221;
+&#128514;&#128514; My stomach in pain like a mufucka RT @OwIPharaoh This the nigga that's rating bitches 3/10? http://t.co/yFlFuBJ2Po
+&#128514;&#128514; bitches get stuff done. http://t.co/GvFpk65ah5
+&#128514;&#128514; fucc nicca yu pose to be pullin up
+&#128514;&#128514; maaaaannnn i hope so! RT @ABrown252: @VonshayeB did we get rid of John Legend looking Charlie Batch?
+&#128514;&#128514; mike calls me t-bird @mikemastroccco
+&#128514;&#128514; niggas sending screenshots of me to they bitches like  stop texting cuh  &#128557;
+&#128514;&#128514; this white bitch think she miley cyrus &#128557;&#128557; http://t.co/lFfy5HvcNa
+&#128514;&#128514;&#128514; &#8220;@snapbackBLAC: i seen a thot ass bitch in some high top whites&#8221;
+&#128514;&#128514;&#128514; Nicca gotta team full of worsum hoes
+&#128514;&#128514;&#128514; RT &#8220;@TuneLuciano: this hoe just DM'd me sayin never give up in your dreams...fuckin fortune cookie ass hoe, fuck out my DM's&#8221;
+&#128514;&#128514;&#128514; RT @A2daO: When a dyke get pregnant by mistake &gt;&gt;&gt;&gt;&gt;
+&#128514;&#128514;&#128514; RT@gxdlyvisuals: bitch i know you got games on your phone http://t.co/I2HyINFIdW
+&#128514;&#128514;&#128514; bitch my lrt
+&#128514;&#128514;&#128514; burnt pussy lips
+&#128514;&#128514;&#128514; i just said that RT @BoyThats_ARYAH: My TL gotta chill with this pretty face challenge foolishness, y'all hoes agg
+&#128514;&#128514;&#128514; nah if you round me you do Molly &#8220;@CallNeeshCakey: Only bitches with no nigga do Mollies...&#8221;
+&#128514;&#128514;&#128514; played that nigga smh &#8220;@sexualgifss: bitches are so shady... oh my god &#128514;&#128514; http://t.co/1VhC9LqsKg&#8221;
+&#128514;&#128514;&#128514;&#128514; &#128128;&#128128; &#8220;@LisforLex: No bitch go away &#9995;@subnorbot1: @Tats_NSnapbacks @LisforLex @LisforLex tu puta madre @carlosnoodles&#8221;
+&#128514;&#128514;&#128514;&#128514; @shoota1017 bitch was mad af https://t.co/9C4i4W7Q7D
+&#128514;&#128514;&#128514;&#128514; I hate you! RT @YumiYoko: Cyrus ho is a rookie slut. getting the cash after the date? nope nope nope.
+&#128514;&#128514;&#128514;&#128514; RT @MREEUH: when you're trying to relax but your pussy is shooting out light beams http://t.co/5eHbmr8TKo
+&#128514;&#128514;&#128514;&#128514; RT @SMASHaVelli: Murda out here sucking bitches &#128514;&#128514;&#128514;&#128514; #howDhow?
+&#128514;&#128514;&#128514;&#128514; bitch if you're the hobbit you need to let me know right now &#128514;&#128514;&#128514;&#128514;&#128079;&#128079;&#128079;
+&#128514;&#128514;&#128514;&#128514; these folks so bad. I'm just here to talk trash.
+&#128514;&#128514;&#128514;&#128514;&#128514; brittany bitch u my dog man &#128514;&#128514;&#128514;&#9996;&#65039;&#9996;&#65039;&#128553;&#128553;&#128553;&#128553;&#128553;&#128553;&#128569;&#128569;&#128584;&#128584;&#128584;&#128584;
+&#128514;&#128514;&#128514;&#128514;&#128514;&#128514; RT @KarltonHinez: @ItsNotHarold smh bitch sellin her ass
+&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;@betysweetcocker: That pussy is just....&#128561; imma assume she just had a baby like..the day before
+&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;@AlisaRenee: you a faggot if you eat pork chops.
+&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514; RT @PushupSensei: McNair had brisket sizzlin on the grill when his side hoe laid the Uzi game down
+&#128514;&#128514;&#128514;&#128514;&#128557;&#128557;&#128557;&#128557;RT @KfromtheG: Mexican bitches shaped like silly puddy!
+&#128514;&#128514;&#128514;&#128514;RT @KfromtheG: You a hoe if ya grandma got a tattoo.
+&#128514;&#128514;&#128514;RT @LiViBADD88: cheap hair.. cheap dresses.. cheap shoes.. tacky ass little bitches
+&#128514;&#128514;&#128514;RT @kwagiheath: Them 1st 48 Charlotte goon niccas gon Fkkk around and burn Bank Of America stadium down&#128293;
+&#128514;&#128514;&#8220;@BrandonBeSlydin: My fucking god bruh, the birds from southridge are in front of my house.&#8221;
+&#128514;&#128557; I have to explore the pussy out there @Austin__321 http://t.co/GER0IPaBPA
+&#128514;&#128557; RT @kiaaXO_: RT @sweetbre_xo: Lmfao @BeingMsDaisy: WTF kinda pussy my mom think I got, buying this shit. &#128530;&#9995; http://t.co/uZvnXQFMFn
+&#128514;&#128557;&#128128; RT @iDO_me2: Hood hoes love Harrell football team&#128528;
+&#128514;&#9995;&#8220;@iSell_Pussy4EBT &#8220;@Sco_ForIt bucket RT &#8220;@iSell_Pussy4EBT: Trash &#8220;@_manlookaKeedY: All you bitches is my SONS &#128520; http://t.co/LrMBWFPMaE
+&#128514;RT @1BaD_dOc: I hate when people get on my bad side cause I honestly don't like to act like a bitch
+&#128518;@QbF150: On a leash &#128555;RT @80sbaby4life: Just pussy &#128553;
+&#128520;&#127383; we snap chatted for one night lol. But you're cute. Snapchat me back nig
+&#128520;&#128525;&#128176; - your my BFFL. I love you ya funcy bitch &#128514; I went Finna be faded &amp; shaded on ya C Day &#128153; #WEDEMGIRLZ &#128520;&#128526;&#128176;&#128526;
+&#128521;&#128077; #yep #donttryme #bitch #bitchmode #testme #Truth #trust http://t.co/ky9Fi39zUx
+&#128525;&#128525;&#128525;  &#8220;@whatskillfeed: i guess ill just trash this drawing because of roster changes...&#128532; http://t.co/2r8wqgE8cR&#8221;
+&#128527; haahaa ,dumb bitch
+&#128530; RT @coldhearted9_: &#8220;@11wdNICK: Still can't see what niggers see in them white hoes....&#8221;&#128563; don't do this everrrrrr
+&#128530; my nerves are being worked cos of my monkey &#128529;&#128545;
+&#128530;RT @LiViBADD88: so many pretty bitches coming to my birthday dinner &#128556;
+&#128530;RT @SedSince81: niggers RT @VonshayeB Before any moves are made... my black ass must take a nap!
+&#128532; RT @MichyDoe: Every week them hoes partying ! I see them hoes in every city partying for an event
+&#128532;RT @FunnyJulius: #ACTRIST RT @sheEBONYblack: &#8220;@HotKommodity05: &#128553;&#128553;&#128553;&#128553; &#8220;@A2daO: U bitches tripping smh http://t.co/Ywz59nbnR7
+&#128539;&#128120; you've been a good as friend to me , glad I got your honkie ass. Let's fuck shit up this year
+&#128540;&#128583;&#128582; I hate ya bitch ass
+&#128543; &#8220;@DubPeeWorld: So the new wave is bitches wearing mini shovels on their hand&#8221;
+&#128553; cunt
+&#128553; monkey mad
+&#128553;&#128514; RT @willieBEAMINN: @_VinChi3 bitches they get bat or sumn *ak voice*
+&#128553;&#128553;&#128514; damn roaches got dicks n pussy to be doing this lol??? http://t.co/OiIxcfos3m
+&#128553;&#128553;&#128514;&#128557;&#128557; RT @Eb_Reloaded: @11wdNICK @KingHov1313 swear to God bitch I'm bouta delete my twitter account http://t.co/YPi52s4dtC
+&#128553;&#128557; RT @Freegeezy17: My Co worker talking about what's my twitter name Oh no hoe you could never screen shot me to the boss
+&#128553;&#128557; RT @KingHov1313: Fox8 got dem bitches huh!&#128588;&#128588;&#128588;&#128588;&#128588;&#128588;
+&#128555;&#128555;&#128555;&#128555;&#128555;&#128532;&#128532;&#128532;&#128532;&#128532;&#128532; this fucking bitch Rachel needs to die please
+&#128555;ugly bitches get no love
+&#128557; RT @KingHov1313: I be thinkin Errbody wanna give me some pussy!&#128553;
+&#128557; RT @That_Mclovin: &#8220;Yass bitch Yass &#128128;&#128128; @VikkiNoSecrets: Too soon? &#128514;&#8221;
+&#128557; RT @TrashAssTweets: When you wake up to bae being a hoe on the TL http://t.co/rbxh33ounM
+&#128557; RT @red_daddy17: But wait if he got a ole lady and still quenching yo girl is he a unfaithful water fountain for hoes?!?!
+&#128557;&#128557; &#8220;@_____AL: Y'all be tweakin wit that WCE shit. Ain't no way in hell u like that bitch every single day.&#8221;
+&#128557;&#128557; RT @KingHorseDick: Welp RT @ThePlasticPope The prettier bitch usually loses lol this Is science
+&#128557;&#128557; RT @KingHov1313: Niggaz get free pussy off of bounce beats alone!&#128584;&#128557;&#128557;&#128557;&#128557;
+&#128557;&#128557;&#128557; Foh RT @MizzCreme: #IDGT RT @eTheHustla: Good pussy don't neva get tired!!!
+&#128557;&#128557;&#128557; RT @EsckmoTrent: I swear Niggas use to step one foot off the bus and bitches would be like NEXTTTT &#128553;&#128514;&#128514; http://t.co/XjKUdt4BUB
+&#128557;&#128557;&#128557; RT @VineForTheByrd: Bae: go text your hoes  Me: https://t.co/5PAfEceL1i
+&#128557;&#128557;&#128557; RT @tryna_be_famous: Brees been trash since this.... http://t.co/EvYSf5JFkt
+&#128557;&#128557;&#128557;&#128530; RT @KingHov1313: At work imma real Uncle Tom!&#128584;
+&#128557;&#128557;&#128557;&#128557;&#128557;&#128557;&#128557; RT @RealityyBites: Nope Thts not wht it says here.. RT @PeachDulce: I'm not a hoe. I'm a people person http://t.co/RJ1vIx7VCz
+&#128561;that bitch is from Moreno Valley........ &#128530;
+&#128563; RT @KingHov1313: They recruited buku fags in here!&#128563;...a warehouse is no place for them!&#128530;
+&#128563; RT @Pr3ttyN33: &#8220;@11wdNICK: I think all dem hoes on LAHHH regular....&#8221;my co worker was messing with Omarion bm &#128553;
+&#128563; RT @UBoyRock17: &#128557;&#128557;&#128557; these hoes selfish
+&#128563; RT @ariluvsall: Niccas y'all need lives, money, pussy, hobbies, or sum guidance ... Bunch of Petty miserable dick n a booty ass Boys ...
+&#128563;&#128563;&#128563; RT @winterlove___: &#8220;@thisisyoungdj: Every girl got a #wcw and fake gay til it's time to eat sum pussy. But I'm &#128564;&#8221; not me &#128523; lol
+&#128563;Oh this bitch Midy must be crazy http://t.co/75LWvtD4oJ
+&#128563;well damn.. RT @JackTheJokster: When ya side hoe claims you as her boyfriend https://t.co/jTJ2jJTfto
+&#128583;&#128583;&#128583;&#128583; can y'all females let this sink in for min? Moment of silence to get y'all bitches thinking right? http://t.co/cDN0dEYCkO
+&#128588; RT @iDO_me2: this vodka be having all the hoes bent over&#128553;&#128131;
+&#128588;&#128588;&#128588; RT @MidCityAce: Y'all excited about that strip mall being built in Louisiana and Claiborne?? That bitch gone be in fiya!!!! &#128514;&#128514;
+&#128588;&#128588;&#128588;@Datruthh_: Don't do em with my girl lol RT @thelaurenway: So when yall in threesomes does your girl eat the pussy too?
+&#128588;&#128591; RT &#8220;@PlanetPOB: Real Men eat pussy.&#8221;
+&#128588;RT @Ke2yourheart I don't want my man txtn, tlkn, lookin, yet alone speakin to you hoes. I'm not insecure at ALL. y'all hoes CANT BE Trusted
+&#128588;RT @Nay_btw It amazes me how niggas can fuck w/ EVERY bitch but when a nigga try to talk to his bitch he wanna cry about it&#128533; I need answers
+&#128700;&#128700;- you a little genius man i need you for a class so u can help a nig out but you cool af man
+&#191;Como se llama el ni&#241;o m&#225;s delgado de Jap&#243;n? Yocomo Poko  &#164;&#176;&#164;&#176; gino &#176;&#164;&#176;&#164;
+&#193;lbum de fotos: csitaly: [TS3]Fairy Tail - Satan Soul Mirajane Strauss made with The Sims 3. Happy... http://t.co/b4i8EiMux2
+&#193;lbum de fotos: gaywrites: In the Making, a project by and for queer students at Harvard, highlights the... http://t.co/XZQ9XmaQTf
+&#8216;Chillin&#8217; With My Homie Or What&#8217;s Left Of Him&#8217;: British Rapper Turned ISIS Jihadi Poses With Severed Head http://t.co/L9vMdNOXPg #tcot
+&#8220;@0ddtoddler: When people refer to their girlfriend as their bitch &#128528; ....&#8221; I know how it sounds but it's how we mean it lol
+&#8220;@1_anddone: Fuck east st john and all they fans, familys , &amp; friends&#8221;  Shut yo bitch ass up
+&#8220;@1muneyy: Had to unfollow that bitch .. thot bitch got me fired from Sonic&#8221;she must've tweeted
+&#8220;@21Cvasquez: My brother is a bitch, pussy, faggot, etc.&#8221; you just like getting beat up don't you?
+&#8220;@239rell: If you got paid 2million dollars to eat a nugget of shit would u eat it?&#8221; Smash that bitch
+&#8220;@2Blunts1Jorge: Lol bitch funny, i was over you from the min i tossed your ass to the curb&#128567;&#8221; &#128588;&#128557;
+&#8220;@2hood2bgud: @uce_INA &#128064;&#128066; a bitch is all ears...&#8221; My mama told me not to talk to bitches so...&#128564;&#128514;jk
+&#8220;@305MAYOR: Bad breath ain't cute not even if you a so called bad bitch and it's usually cause by a shitty attitude&#8221; unk ain't ever lied
+&#8220;@44BINKO: Denzy tryna hoe broski Izzy &#128553;&#8221;&#128514;
+&#8220;@4REALROY: @Vomitdatruth no more chunky nugs for you &#127795;&#8221; he doesn't even hook it up like that.
+&#8220;@50TysonRap: Aye nigga, who tryna freestyle?&#8221; You trash though lol
+&#8220;@50TysonRap: Saw a homeless man sleeping in a box surrounded by bubble wrap. Must be his new alarm system.&#8221; You aren't even FUNNY bitch
+&#8220;@954Nole: This bitch is looking dumber and dumber by the minute.... &gt;&gt;&gt;&gt;&gt;&gt;&gt; @MattHomeTeam&#8221;
+&#8220;@9acino_: Even though Trunks was one of the main characters, Dragon Ball GT was lowkey weak weak&#8221;  Nothing lowkey about it.. Shit was trash
+&#8220;@ABadBitchCost_: omg yall should see this bag of weed dog this bitch like a .3 fasho lmfaooooo&#8221; &#128553;&#128514;
+&#8220;@AC_Hussle: 98% of women were sluts freshman year of college.&#8221; Let these hoes be great
+&#8220;@ALaQuannD: Woaaaahh that coat though lol&#8221;nigga too warm in that hoe
+&#8220;@ATrue_Cowboy: Truth about any distance for all you love birds out there! http://t.co/1Kqnw4LJ&#8221;
+&#8220;@A_Brown_30: Frogger, best game ever&#8221; only cuz You suck at flappy bird
+&#8220;@A_Brown_30: Lmao Dylan just got called a pussy by Mr O himself @wagggggie&#8221; takes skill &#128527;&#128170;
+&#8220;@AbstractLife: @Nigel So you still rather have trash ass Geno Smith than Alex?!? You sick man&#8221; U still cant tell Alex sucks? You blind man
+&#8220;@AbstractLife: @NigelDixon1 @SeanTHarrington Orton is trash idc&#8221; he ain't been playing. Trashlex Smith only sat out Kaep took his spot.
+&#8220;@AdamRotter: Watch: Prust tries to hit Hank during break play http://t.co/fZ6lxcS3ok&#8221; @BrandonPrust8 pussy attempt by a pussy #mtlhockey
+&#8220;@AdderallHadMe: Adderall had me killing two birds with one stone http://t.co/wMiNpN64m2&#8221;&#128128;
+&#8220;@Adrianmayer99: Fucking pussy&#8221; @JosephNoonan2
+&#8220;@Al_Teez: Fuck the cowboys. My birthday in two days hoe!&#8221;&#128530;
+&#8220;@AlanaaaXP: Some of yall hoes nasty yall find out yall sharing or shared dick with a dirty ass female and still fuck the nigga &#128567;&#8221;
+&#8220;@AlexaDelsanter: This is awkward u fag @corleyhuff @vitchhhh http://t.co/HUDOhA6YQe&#8221; wonder who's awesome tank that is &#128522;
+&#8220;@AllEyesOnKIE: Been watching madea plays every night &#128514;&#8221;singing ass bitches
+&#8220;@AlmightyCBoogie: @BenBornReadySMU @vivalakristia ion wanna hear it, then hoes faker than Momma Dee's teeth&#8221;&#128128;&#128128;
+&#8220;@Alondra_Lu: Ain't that a bitch&#8221;
+&#8220;@AmandaBynes: I Want You To Be Pussy Whipped&#8221; I'm yours
+&#8220;@Amburger_6: Wtf is flappy bird&#8221; are you kidding me
+&#8220;@Amillinati_: Bro like I really enjoy like eating pussy from the back... It makes it more nasty, I like nasty haha &#128520;&#8221;you like eating ass 2
+&#8220;@Analyyxo: Say Something is the one Drake song I have to listen to when I'm in my feelings&#8221;fag
+&#8220;@AndyyDotCom: Every female owns a thong &#8220;@Ben_Dough: If she wear thongs she a hoe lol&#8221;&#8221; both facts
+&#8220;@Ann_E_Lizabeth: I can't stop being a lil bitch&#8221;
+&#8220;@AnthonyCumia: RT @ispfemme: Another Jersey fail - what a cunt http://t.co/1tZpbHgMhP  -No pics needed. Animal.&#8221;   Dem coloreds be wack
+&#8220;@AntiGlib: RT @nateyfu123: #Yankees Michael Pineda in his next start.. http://t.co/Zb1zWN0jet&#8221; @954Nole
+&#8220;@ArianaGrande: is this flappy bird shit a joke or........... http://t.co/L3xDYJypjI&#8221; on the real tho
+&#8220;@AriaunaDaVon: Did I just start crying? &#128553;&#128557;&#128514;&#8221; bitch &#128514;&#128514;&#128514;
+&#8220;@Asaprelli_: I hate girls who get drunk &amp; don't turn into hoes fvckin waste of alcohol&#8221; &#128514;&#128557;
+&#8220;@Ashley_J12: Shout out to my momma cuz she didn't raise no hoe! &#128076;&#128079;&#128588;&#8221;
+&#8220;@AshlynWynns: I'm a mud shark because I have black friends. Makes perfect sense. &#128514;&#128557;&#128514;&#128557; #idiotic&#8221; @
+&#8220;@Ashton5SOS: An itsy bitsy teeny weeny yellow pock-a-dot bikini&#8221; Polk Ashton. Polk
+&#8220;@Attractive_Bad: Yes Iam single I don't mess or talk to anyone . &#128524; no hoes just me &#128076;&#8221;
+&#8220;@AustinMahone: just got a new fish it's albino and I named him shaquita #yee&#8221; bahaha
+&#8220;@AyoO_Fettii: My Anaconda Don't  My Anaconda Don't My Anaconda Don't Want None Unless You Got GOALS Hun &#58143;&#58113;&#128213;&#128218;&#128176;&#127969;&#128107;&#128141;&#8221; Smh . White Ass niggah .
+&#8220;@AyyyeThatsChubb: I wish i had my dad in my life but the bitch ass nigga still think im not his child!&#8221; LMFAOOOO but damn that's sad cuh !
+&#8220;@BEARly_sober Hoes really do b birds man &#128557;&#8221;this new to you?
+&#8220;@BIGHOMIEMARKIE: &#8220;@1017_Sqquad: &#8220;@TODDIE_soPLAYER: @_Raygine bitch get out dem feelings and get some new dick&#128514;&#128514;&#128514; &#128064;&#128550;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128514;&#128128;&#8221;&#128514;&#128514;&#8221;&#128128;&#128128;&#128128;&#128514;
+&#8220;@BINDLE13: My momma aint raise no hoe&#8221;
+&#8220;@BSBHForum: #BeatTheHabs #NYR http://t.co/okvhWHy3Vh&#8221; @CanadiensMTL #pussy
+&#8220;@B_Davis0529: SMDH Eagles fans. You a bitch! RT @MikeMiss975: Hey Giants fans: Victor Cruz is over. Dance to that.&#8221; Hey watch it
+&#8220;@BaabyD_: cause i look great bitch, fuck you mean? &#128557;&#128514;&#128514;&#8221;
+&#8220;@Badazz_jspates: I'm suppose to eat yo booty bitch wym&#8221; &#128557;&#128557;&#128557;
+&#8220;@Banqq_Jayy: @1Jayee: &#8220;@ItsKeeJay: I can't remember all the girls I've smashed &#128563;&#128584;&#8221; On God.&#128588;hoe shit&#8221; Not technically, it takes &#9996;&#65039;.
+&#8220;@BarryClerjuste: I cried like a bitch after my first breakup. Never loved again lol&#8221;
+&#8220;@BasebaIIVines: Michael Pineda hides pine tar...on his neck http://t.co/PJRKJeaY6h&#8221; fact that the Yankees cheat &#128077;&#128077;&#128077; Go Red Sox!! #Boston
+&#8220;@BasedChasen: Chad Jordan in this bitch&#8221; I'm crying
+&#8220;@BasedChasen: Grandmas always b asking you Do you have a girlfriend??? No....I got hoes tf you mean&#8221; real shit.
+&#8220;@BasedDevJay: bruh i'm telling you if she got  zebra print bed sheets 9/10 she a hoe&#8221; @rachel_dority &#128514;&#128514;&#128514;
+&#8220;@BeardedGemini: &#8220;@GinaSanabria_: I have no hoes because yah nigga ain't shit&#8221;&#8221;
+&#8220;@BeautiifulVixen: Bitches love throwing that irrelevant shade &#9995;&#128553; go sit lil bitch .&#8221;&#128175;&#128175;&#128175;
+&#8220;@BeautyOfASinner: So they really deleted flappy bird from the App Store cus someone killed themselves over it &#128514;&#8221; foreal foreal ?? &#128561;&#128557;
+&#8220;@BeenSlimm: Too many lil niggas on my TL. http://t.co/vqGezMMwWs&#8221; boosie got hoes
+&#8220;@Benkasso: I'll beat the pussy up, that's a hook right thur&#8221; &#128064;
+&#8220;@BestOfAds: Rape? Cannibalism? You Won't Recognize The Original Versions Of These Fairy Tales http://t.co/PrnJ8EFAoi&#8221; man wtf
+&#8220;@BetterAreTulips: Jose ur mean :/&#8221; I said ily stfu hoe
+&#8220;@BetterAreTulips: girls are fucking retarded my back started cramping up man&#8221; it's the double d's
+&#8220;@BigMamaaTee: There's a difference between being actually crazy &amp; aspiring crazy&#8221; real shit . I can't stand fake crazy bitches
+&#8220;@BillieBoyMitch: @VSamone man I was bouta text all the bitches that ever told me that &#128514;&#8221;lmao you should
+&#8220;@BixxhMakeMeRich: If u ask me, every bitch gay&#8221;or bi
+&#8220;@Black_Angelo25: First time with 3. Lol http://t.co/mITmFPvVLw&#8221; yuhhhh we hit that hoe!!
+&#8220;@BlizzyLC: @Vice504fly u need to be in someone's church negro!&#8221;ur absolutely right, but I work Sunday's but still no excuse.
+&#8220;@BlizzyLC: Police just tried to Rodney King a nigga...&#8221;happen to my nig out here
+&#8220;@BlueEyeBeaner: Vienna sausage clit http://t.co/YY1Gj6oeds&#8221;   I suck dat bitch. Don&#8217;t y&#8217;all eva believe a colored man don&#8217;t eat no pussay
+&#8220;@BlueEyeBeaner: lesbian pussy taste like rainbow trout!&#8221;  #lezzzbehonest
+&#8220;@BobbyBudnic Oxtails and yellow rice is blasphemy&#8221; boneless
+&#8220;@Boobah_: What's the symptoms for Ebola? My stomach been hurting b. I'm nervous&#8221;bitch you better not be we was drinking out same bottle
+&#8220;@BookerTweet_: There's starving children in Africa but this bitch using bananas to plug her butt hole smh http://t.co/DjPgA7QAy5&#8221; wtf?&#128514;&#128514;
+&#8220;@Bossman_Carl: I just wanna do something for somebody&#8221;boy sound desperate than hoe how you bout you start off and flat that nose of yours
+&#8220;@BrauC_O_DramA: Hate an overly hood girl... Aye hoe... We not listening to Keef all night &#128514;&#128514;&#8221; &#128514;&#128514;&#128514; I feel you
+&#8220;@Bre_ah_na: @what_evaittakes it's too early, don't annoy me&#8221;&#128563; don't come back from ya fun filled weekend and give me attitude hoe
+&#8220;@BreadTruckkBri: These hoes gon come &amp;&amp; go, i feel it.&#8221;
+&#8220;@BroCulture: When life knocks you down, stand the fuck up and say You hit like a little bitch.&#8221;
+&#8220;@BurgerKing: Tweet how you #WatchLikeaKing. http://t.co/jrgG9Eq4Xv&#8221;  I #WatchLikeaKing fo da colored folk dying from dis shit food
+&#8220;@BurgerKing: What&#8217;s going to be your pick for #SelectionSunday? #2for5 #WatchLikeaKing http://t.co/aBam30gSk4&#8221;  Dis make colored folk happy
+&#8220;@CALL_ME_KiTTiE: @what_evaittakes haha imma catch Ebola Trynna keep myself warm lol&#8221;&#128514;&#128514;&#128514; ewww bitch well stay far away from me
+&#8220;@CMRE24 &#8220;Sum wrong with the pussy&#8221;- Sweets&#8221;smh
+&#8220;@CMRE24 wasn&#8217;t that great to me either RT @Ahki117: Equalizer was trash Denzel officially washed bruh&#8221;neither was flight
+&#8220;@CRISTIAN__Dior: &#8220;@JoshRaggs: @WeDont_SmokeREG @CRISTIAN__Dior you tweaking rich homie is trash&#8221; you damn near still listen to lil b&#8221; wow &#128553;
+&#8220;@CRYaboutitNIGGA: I get paid too chill.&#8221; Share the wealth Lil nicca
+&#8220;@Caiivs: On some real shit if I catch this bitch it's game on.&#8221;
+&#8220;@CakeMamaa: Y'all hoes messy on god !&#8221;nbs&#128064;
+&#8220;@CallMeGb__: @BrittNaomi_: LMAO RT @ElEpicoRu: Tempted to send this http://t.co/ouc9KE3SCN fuckin hoe lmao&#8221;&#128557;&#128557;
+&#8220;@CallNeeshCakey: I wanna go to this lil shit tonight...but the way how bitches faces be set up ...I be wantin to slap em when I see them&#8221;&#128553;&#128557;
+&#8220;@CallNeeshCakey: Kannie &amp; Vonnie some Tiny ass bitches&#128557;&#128557;&#128557;&#8221;&#128557;&#128079;&#128079; I HATED when you and crissi started calling us little body bitches in Hawaii
+&#8220;@CaptainYankee2: Two of the best Yankees Derek Jeter and Joe Torre #JoeTorreDay http://t.co/XMyxfDBKOX&#8221; @jordan_luree
+&#8220;@CauseWereGuys: One wrong move and consider your bitch mine http://t.co/01VJZqnaHh&#8221; @its_gabbyElla @Lyssa_Rae16
+&#8220;@CayMarieee: &#8220;@WhereYoHussleAt: @CayMarieee bitch&#8221; what u gone say bitch for. We're on the phone bitch.&#8221; Cuz to the let these Mfs know &#128514;
+&#8220;@CayMarieee: I really hate this bitch, but she knows me best &#128149;&#128153;&#8221;
+&#8220;@CelebovickOTF: I hate a bitch that like to argue n shyt....:-)&#8221;
+&#8220;@ChanelleLeee: you boney little hoe @wizkhalifa: Smile for the day. http://t.co/DcXdFtjSjt&#8221;&#8221;  This is funny? :/
+&#8220;@CharlieDayQuote: Viet-goddamn-nam, that's what happened! Go get me a beer, bitch!&#8221; @John_Colman
+&#8220;@Cheddar85: Got the carburetor foyer my #chevy c10 being rebuilt by my #redneck friend ... everybodys got one!!&#8221; I need 1 they can build
+&#8220;@CheyaGurr: @A_Mitchellll13 ur seriously a fag&#8221;don't hate
+&#8220;@Chhicoo: @VSamone stupid bitch!&#8221; http://t.co/K7MyvFlWFg
+&#8220;@Chris_cooper907: @AK_Mueller @B_Reason18 its Brandon motherfucking reason.&#8221; He's a bitch nigga
+&#8220;@Chrissy_Cindy: WAKA TAMMY JUST GOT HER ASS BEAT... http://t.co/9in5IysnpI&#8221; Ctfu how Niggas be they don't ever have they bitch back &#128514;&#128514;
+&#8220;@Chrissy_Cindy: If a bitch tweet I lose interest fast slide in her DMs cause she a Thot&#8221; good looks
+&#8220;@ChrizzyFive: Trying to run game on me u dumb bitch !!&#8221; @ her tho
+&#8220;@Chykalet I know I must make a lot of ya'll hoes sick &amp; all I can tell you hoes, get used to it bitch!&#8221;
+&#8220;@CiddyP_60: I wouldn't trust a male cheerleader @ All cuz .&#8221; Cimarron got one &#128514; &amp; he got ALLLL the bitches
+&#8220;@Cinnnthia_: I'm just a bitch for no reason. I think I'm funny sometimes&#8221;
+&#8220;@CiscoAllDay: @1Bcarter if by marrying her to avoid paying child support is a win then yeah lol&#8221;we don't see the hoes the same &amp; that's ok
+&#8220;@CiscoAllDay: @1Bcarter one of your side chicks came up 5k&#8221; them bitches know where I live I be hiding from my cuz @MaiaPapayyya_
+&#8220;@CiscoAllDay: @1Bcarter you're right I'll take girl on the right over Kim any day http://t.co/nbKHCG0bZq&#8221;can u support that hoe?
+&#8220;@CiscoAllDay: Fuck all the Heat bandwagon riders... We know who you are&#8221; u sound like the hoes mad they man cheated with a fat booty bitch
+&#8220;@CiscoAllDay: If Miley really got knocked up by Juicy J that shit is wild.... &#128563;&#8221; didn't he say u say no to ratchet pussy Juicy J can't
+&#8220;@CiscoAllDay: If you have a different dude every other week you might be a hoe... #js&#8221;no your not don't listen to him ladies #DoU
+&#8220;@ClassicPict: http://t.co/ZStrqBpwpw&#8221; shit like this is retarded.
+&#8220;@CoIlegefessions: Finally got a hot bitch to dance on me, came in my pants while she was grinding on me. Lost that chanceUW-Madison&#8221;lmao
+&#8220;@CodeeJames: That one ex you can't seem to get over&lt;&lt;&lt;&#8221; an is a cunt!!
+&#8220;@CodeineQueeeen: I'm tired of her corny vines, ugly faces, and stupid voices my nigga http://t.co/mstruehtDj&#8221;niggah she's sexy &#128561;
+&#8220;@Coley_Cee: @lil_aerii @__yhanaaaa @DTHANG_ lmfaoooo, bitch don't start.&#8221; Okay bitch
+&#8220;@Coley_Cee: @lil_aerii helloooo bitch?!&#8221; Bitch no ones available
+&#8220;@Coley_Cee: @lil_aerii upload our pictures&#8221;. Wat pictures bitch
+&#8220;@ComedianSpank: Where the hoes at&#8221; shit u got em
+&#8220;@CommonBlackGirI: bitch that's ham on her face http://t.co/vSRAyShD5Y&#8221; @rachel_dority
+&#8220;@CommonBlackGirI: here&#8217;s to all the kids who have never found their name on anything in a souvenir store&#8221; thanks mom for the ghetto name.
+&#8220;@CommonManKFAN: And that's why mock drafts are a joke my friends.....&#8221;Anyone???
+&#8220;@Condeezy3: What to do after the game....home alone and nothing to do...someone come chill?:) maybe go swimm&#8221; ima do ya bitch
+&#8220;@Crowdifornia: We agree... do you? http://t.co/4diz5NKYMN&#8221; FUCK YES, I DO! Send those illegal, wetbacks home!!!
+&#8220;@CuffablePisces: TONY ROMO in my #Top10QBs bitches&#8221; http://t.co/17sA90xG2H
+&#8220;@DAMNfuckNEE I just wana eat some food. Drink some liq. Go to this party. And have a bad bitch waitin on a nigga when I return.&#8221;&#8221;
+&#8220;@DIYcookery: Oreo cookies&#128523; http://t.co/8zcjWW56Zz&#8221;bruh &#128525;&#128539;&#128553;
+&#8220;@DJZeeti: RT @DJZeeti: Black bitches turn 60 buy a hat and act like Jesus forgot they was fucking niggas in the park&#8221; LOOOOOL
+&#8220;@DJ_D_RAC: Fuck driving stick, it's gay as fuck&#8221; shit pussies say
+&#8220;@DShmee: Tom Brady slowly becoming washed?&#128064;&#8221;  Nah.. His weapons just trash
+&#8220;@DStacks__23: If you aint got shit goin for ya self, what bitch gone want you&#8221;&#10071;&#65039;&#10071;&#65039;&#10071;&#65039;
+&#8220;@Da_LoveBelow @bdvg_lat @DrTruth247 yall bare hoes yall dnt care bout ??&#8221; I spent my childhood in a wild hood
+&#8220;@Damino96: &#8220;I&#8217;m afraid of commitment&#8221;  -A hoe&#8221;
+&#8220;@DammitSlimm: ppl who think webbie betta then boosie jus retarded&#8221;
+&#8220;@Damn_ImTall: Anybody that gets traded straight up for Brandon knight is trash @BrandonJennings&#8221;@BushALMIGHTY
+&#8220;@Dat_Bitch_Jay: Omarion ol girl w/ this negative ass vibe ! I hate mamas like her &#128530; hoe need to be &#128165;&#128074;&#128165;&#8221;
+&#8220;@DavetheBrave1: I like how @Virgilio_LLA thinks I'm talking to hoes..HELL NAH! Lol&#8221; my bad I forgot you ain't got hoes like vdawg do
+&#8220;@DavetheBrave1: I wish you were here...&#8221; Stop crying bitch I'm omw back already haha
+&#8220;@DavetheBrave1: Watching #AttackofTitan on @adultswim&#8221; bro you a HAN for stealing my tweet, bitch ass nigga
+&#8220;@Dedicated_03: Wassup twitter &#128518; http://t.co/rNeTkFXm7f&#8221; wassup bitch !!
+&#8220;@DeePaul19: I ain't got no type, white bitches is the only thing that I like!&#8221; #dead &#128514;&#128557;
+&#8220;@Deeiiggee: My dog like scratches at the floor before he lays down.. He's weird&#8221; buddy's normal your weird bitch
+&#8220;@Deuce1990: What will the Lakers be after kobe&#8221; trash
+&#8220;@DevJayAintShit: these hoes ain't loyal &#128557;  https://t.co/hiMKk7fYxB&#8221;&#128557;
+&#8220;@DickFurari: HELL YA THEY SHOULD MAKE MORE MALT LIQUOR ADS LIKE THIS. http://t.co/H0JGORtnF8&#8221;  - Dis be heaven fo a colored man
+&#8220;@DipEx_YRichN: Why that hoe crying In her mugshot&#8221;&#128514;&#128514;&#128514;&#128514; bruh
+&#8220;@Ditto_Guwop: All these hoes been passed around to a Cleveland niggah&#8221;
+&#8220;@DrMalvo: @woods_lamar   http://t.co/ChNxcPLZWR&#8221;  Hidey hidey hoe! White folk be all noyvous round coloreds
+&#8220;@DrakeTakeCare12: You don&#8217;t listen when I talk, maybe you&#8217;ll listen when I walk.&#8221; That bitch still won't listen
+&#8220;@DramaDough: &#8220;@naraBprettyass: Crip bitches b dusty asf&#8221;&#128514;&#128514;&#128514;&#128553;&#8221;&#128514;
+&#8220;@DreStiles &#8220;@DrTruth247: Buddy drug the whole train lmao good ... extra ass hoes&#8221; hate them NY hoes&#8221;me too
+&#8220;@DreamGirlsOnly: &#128525; http://t.co/w43KPs9Zp0&#8221; now this hoe bad
+&#8220;@DrummerKid0328: Reggie gives me headaches my niggah &#128545;&#128567;&#8221;&#128175;&#128175;
+&#8220;@DualWieldKatana: After you get done running train on a bitch thats on her period http://t.co/DWgHtGA936&#8221; &#128514;&#128514;&#9995; no that's nasty
+&#8220;@DueceDaGod: @JefDaBest I'm on my Y.U shit using LinkedIn at work b&#8221; lmfaoo bagging them linkiden hoes lol
+&#8220;@DuhItsAdrii: How bitch how ?&#8221;&#128514; FRESH?
+&#8220;@DukeAlexMoore: Malibus on a come-up but in other news she mean denna hoe and not even light skinedddd http://t.co/SGGOkjTScH&#8221; HAHAHA!!
+&#8220;@DuncanHines_: @KB_Three fck you nigger&#8221; lol jk bra
+&#8220;@EBR_Chiefington: Dej loaf ever bitch wc today, all it takes is a lil juice and these bitches want you&#8221;
+&#8220;@EdgarGuillenjr: Lol good now I got them nasty rednecks off my back I can take care of business&#8221; @BlakeAnderson21 @Dalton_ryann he serious
+&#8220;@El_Grillo1: Islamic State suspects in Indonesia are Chinese Uighurs http://t.co/58IDicaHzT&#8221; Uighur Jihadis: they're not just a PRC tool.
+&#8220;@Emoney25_: @West305 @_ImJustDede Ima whoop this boy!&#8221; It's nothing you bean head ass bitch
+&#8220;@Erikaj00: &#8220;@Hazel_Dot_Com: Hell naw. RT @Dexluger: I wanna see this! http://t.co/u1dqv3EEV3&#8221; yes! Lol&#8221;trash as hell
+&#8220;@Erikaj00: I saw a girl scratch her private today.. What that mean?&#8221; Don't fuck her right in the pussy
+&#8220;@Erikaj00: Killin in tekken 6 &#128526;&#8221; lies you trash
+&#8220;@FRATernize: I want to be obsessed with someone and I want someone to be obsessed with me&#8221;then u might have to kill the bitch&#128563;
+&#8220;@FREDOSANTANA300: Up making plays&#8221; can I have my slut bitch girlfriend u always rap about back yet?
+&#8220;@FabianMleal: I'm fucking tired. Ending the night with some rips&#127809;&#128293;&#8221; so much for hitting me up bitch
+&#8220;@FliirtNextDoor: If yo pussy stank ; u wasn't raised correctly&#8221;lmao
+&#8220;@FliirtNextDoor: Phat pussy &#128525;&#128553;&#128166;&#128166;&#128166;&#128520;: http://t.co/Cbel8h29e1&#8221;that looks like a scrotum
