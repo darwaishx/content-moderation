@@ -1,10 +1,10 @@
-# Detectign unsafe content at scale using Amazon Comprehend
+# Detecting unsafe content at scale using Amazon Comprehend
 
 In this module you will learn how to use Amazon Comprehend to detect unsafe text at scale.
 
 1. Open SageMaker instance you created in previous module.
 
-2. From home scree, click on folder content-moderation and then 2-custom-comprehend.
+2. From home screen, click on folder content-moderation and then 2-custom-comprehend.
 
 3. Click on the Jupyter notebook CustomComprehend and follow instructions in the notebook.
 
